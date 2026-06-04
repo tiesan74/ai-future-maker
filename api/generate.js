@@ -63,33 +63,39 @@ export default async function handler(req, res) {
     const rank = rankFromAvg(avg);
 
 const prompt = `
-TikTokで友達に送りたくなる診断結果を作ってください。
+あなたはSNSで拡散される未来診断AIです。
 
-入力:
 名前:${name}
 年齢:${age}
 願望:${worry}
-ジャンル:${genre}
 
-スコア:
 金運:${scores.money}%
 恋愛運:${scores.love}%
 バズ運:${scores.viral}%
 怪異遭遇率:${scores.ghost}%
-未来ランク:${rank}
 
-必ずこの形式だけで出力。前置き禁止。全体180字以内:
+以下と全く同じ形式で出力してください。
 
-【${genre}】
-結論を1文。
+【未来予想】
+
+2027年春。
+あなたは○○になる。
+
+しかし△△が起きる。
 
 特徴:
-・短い特徴1
-・短い特徴2
-・短い特徴3
+・○○
+・○○
+・○○
 
 危険度:${Math.max(scores.ghost, scores.love)}%
-一言: 短く刺さる一言。
+
+一言:
+○○
+
+上記の形式を必ず埋めること。
+省略禁止。
+120〜220文字。
 `;
 
 const model = "gemini-2.5-flash";
