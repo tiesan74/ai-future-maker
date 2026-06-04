@@ -49,49 +49,64 @@ export default async function handler(req, res) {
     const worry = clean(body.worry, 400) || "人生を変えたい";
     const genreKey = clean(body.genre, 30) || "future";
     const genre = genreMap[genreKey] || "未来予想";
-    const tone = clean(body.tone, 40) || "普通";
-    const intensity = clean(body.intensity, 40) || "普通";
 
     const seed = `${name}|${age}|${worry}|${genreKey}|${new Date().toISOString().slice(0,10)}`;
-   const scores = {
-  money: 20 + (hashScore(seed + "money", 1) % 81),
-  love: 20 + (hashScore(seed + "love", 7) % 81),
-  viral: 20 + (hashScore(seed + "viral", 13) % 81),
-  ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
-};
+    const scores = {
+      money: 20 + (hashScore(seed + "money", 1) % 81),
+      love: 20 + (hashScore(seed + "love", 7) % 81),
+      viral: 20 + (hashScore(seed + "viral", 13) % 81),
+      ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
+    };
+
     const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
     const rank = rankFromAvg(avg);
 
-const goodList = [
-  "SNSで注目を集める",
-  "思わぬ収入のチャンスを掴む",
-  "今まで縁がなかった人から好意を向けられる",
-  "小さな投稿や作品が想像以上に伸びる"
-];
+    const templates = {
+      future: {
+        good: ["SNSで注目を集める", "思わぬ収入のチャンスを掴む", "新しい人脈から転機が来る"],
+        bad: ["信頼していた人と距離ができる", "大事な場面で判断を焦る", "嫉妬や誤解を受ける"]
+      },
+      forbidden: {
+        good: ["大きな成功を掴む", "隠れていた才能が表に出る", "予想外の評価を受ける"],
+        bad: ["秘密が表に出る", "信頼していた人を失う", "大切な関係が壊れかける"]
+      },
+      shadow: {
+        good: ["人を惹きつける力が強まる", "本音を出せる相手が現れる"],
+        bad: ["承認欲求が暴走する", "嫉妬で判断を誤る", "優しいふりに疲れる"]
+      },
+      ghost: {
+        good: ["直感が鋭くなる", "危険を避ける勘が働く"],
+        bad: ["深夜に名前を呼ばれる", "誰もいない場所で視線を感じる", "同じ夢を何度も見る"]
+      },
+      money: {
+        good: ["収入につながるチャンスを掴む", "副収入の種を見つける", "金運が一時的に跳ねる"],
+        bad: ["勢いでお金を使いすぎる", "甘い話に乗りかける", "人間関係で金銭トラブルが起きる"]
+      },
+      love: {
+        good: ["今まで縁がなかった人から好意を向けられる", "忘れられない出会いが来る"],
+        bad: ["執着で判断を誤る", "すれ違いで大切な縁を逃す", "曖昧な関係に振り回される"]
+      },
+      viral: {
+        good: ["小さな投稿や作品が想像以上に伸びる", "SNSで注目を集める"],
+        bad: ["嫉妬や誤解を受ける", "炎上ギリギリの注目を浴びる", "発言を切り取られる"]
+      }
+    };
 
-const badList = [
-  "信頼していた人と距離ができる",
-  "勢いでお金を使いすぎる",
-  "嫉妬や誤解を受ける",
-  "大事な場面で判断を焦る"
-];
+    const picked = templates[genreKey] || templates.future;
+    const good = picked.good[hashScore(seed, 11) % picked.good.length];
+    const bad = picked.bad[hashScore(seed, 22) % picked.bad.length];
+    const year = 2026 + (hashScore(seed, 33) % 4);
+    const danger = Math.max(scores.ghost, scores.love, 40);
+    const avoid = Math.max(8, 100 - danger);
 
-const good = goodList[hashScore(seed, 11) % goodList.length];
-const bad = badList[hashScore(seed, 22) % badList.length];
-const year = 2026 + (hashScore(seed, 33) % 4);
-const danger = Math.max(scores.ghost, scores.love, 40);
-const avoid = Math.max(8, 100 - danger);
-
-const prompt = `
+    const prompt = `
 あなたはSNSで拡散される診断AIです。
-
 次の診断結果に続く「AI解説」を120〜180文字で書いてください。
 
 条件:
 - 日本語のみ
 - 少し不穏
-- でも最後は行動すれば変えられる感じ
-- 友達に送りたくなる文
+- 最後は行動すれば変えられる感じ
 - 前置き禁止
 - 途中で終わらせない
 
@@ -107,37 +122,37 @@ const prompt = `
 回避率:${avoid}%
 `;
 
-const model = "gemini-2.5-flash";
-const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    const model = "gemini-2.5-flash";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-const response = await fetch(url, {
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({
-    contents: [{role: "user", parts: [{text: prompt}]}],
-    generationConfig: {temperature: 0.75, maxOutputTokens: 350}
-  })
-});
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        contents: [{role: "user", parts: [{text: prompt}]}],
+        generationConfig: {temperature: 0.75, maxOutputTokens: 350}
+      })
+    });
 
-const raw = await response.text();
-let data;
-try {
-  data = JSON.parse(raw);
-} catch {
-  return res.status(500).json({ error: raw.slice(0, 500) });
-}
+    const raw = await response.text();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      return res.status(500).json({ error: raw.slice(0, 500) });
+    }
 
-if (!response.ok) {
-  return res.status(response.status).json({
-    error: data?.error?.message || "Gemini APIでエラーが発生しました。"
-  });
-}
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data?.error?.message || "Gemini APIでエラーが発生しました。"
+      });
+    }
 
-const aiText =
-  data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
-  || "この未来はまだ確定していません。今の選択次第で、大きく変わる可能性があります。";
+    const aiText =
+      data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
+      || "この未来はまだ確定していません。今の選択次第で、大きく変わる可能性があります。";
 
-const text = `【${genre}】
+    const text = `【${genre}】
 
 ${year}年、あなたは${good}。
 
@@ -151,29 +166,6 @@ ${aiText}
 
 一言:
 成功より先に、誰を信じるかを間違えるな。`;
-
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        contents: [{role: "user", parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.85,maxOutputTokens: 500}
-      })
-    });
-const raw = await response.text();
-let data;
-try {
-  data = JSON.parse(raw);
-} catch {
-  return res.status(500).json({ error: raw.slice(0, 500) });
-}
-    if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || "Gemini APIでエラーが発生しました。" });
-
-    const text = data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
-      || "生成に失敗しました。もう一度試してください。";
 
     return res.status(200).json({ text, genre, scores, rank });
   } catch (e) {
