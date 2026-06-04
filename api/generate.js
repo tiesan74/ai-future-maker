@@ -62,64 +62,95 @@ export default async function handler(req, res) {
     const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
     const rank = rankFromAvg(avg);
 
-const prompt = `
-あなたはTikTokやXでシェアされる未来診断AIです。
+const goodList = [
+  "SNSで注目を集める",
+  "思わぬ収入のチャンスを掴む",
+  "今まで縁がなかった人から好意を向けられる",
+  "小さな投稿や作品が想像以上に伸びる"
+];
 
-ユーザー情報:
+const badList = [
+  "信頼していた人と距離ができる",
+  "勢いでお金を使いすぎる",
+  "嫉妬や誤解を受ける",
+  "大事な場面で判断を焦る"
+];
+
+const good = goodList[hashScore(seed, 11) % goodList.length];
+const bad = badList[hashScore(seed, 22) % badList.length];
+const year = 2026 + (hashScore(seed, 33) % 4);
+const danger = Math.max(scores.ghost, scores.love, 40);
+const avoid = Math.max(8, 100 - danger);
+
+const prompt = `
+あなたはSNSで拡散される診断AIです。
+
+次の診断結果に続く「AI解説」を120〜180文字で書いてください。
+
+条件:
+- 日本語のみ
+- 少し不穏
+- でも最後は行動すれば変えられる感じ
+- 友達に送りたくなる文
+- 前置き禁止
+- 途中で終わらせない
+
+診断:
 名前:${name}
 年齢:${age}
 願望:${worry}
-
-診断データ:
-金運:${scores.money}%
-恋愛運:${scores.love}%
-バズ運:${scores.viral}%
-怪異遭遇率:${scores.ghost}%
+ジャンル:${genre}
 未来ランク:${rank}
-
-以下のルールを厳守してください。
-
-【目的】
-読んだ人が
-「これ友達に送りたい」
-と思う診断結果を作る。
-
-【出力形式】
-
-【${genre}】
-
-最初の1行で衝撃的な結論を書く。
-
-その後、
-120〜220文字程度で未来の出来事を書く。
-
-内容には必ず
-
-・良い出来事
-・悪い出来事
-・具体的な時期
-・感情が動く要素
-
-を入れる。
-
-最後に
-
-回避率: ○%
-
-一言: ○○
-
-で締める。
-
-【禁止事項】
-・箇条書き禁止
-・前置き禁止
-・AIとして説明しない
-・途中で終わらない
-・抽象的すぎる表現禁止
-
-【重要】
-ホラー、恋愛、お金、SNS、承認欲求のうち最低1つを必ず含める。
+良い未来:${good}
+悪い未来:${bad}
+危険度:${danger}%
+回避率:${avoid}%
 `;
+
+const model = "gemini-2.5-flash";
+const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+const response = await fetch(url, {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    contents: [{role: "user", parts: [{text: prompt}]}],
+    generationConfig: {temperature: 0.75, maxOutputTokens: 350}
+  })
+});
+
+const raw = await response.text();
+let data;
+try {
+  data = JSON.parse(raw);
+} catch {
+  return res.status(500).json({ error: raw.slice(0, 500) });
+}
+
+if (!response.ok) {
+  return res.status(response.status).json({
+    error: data?.error?.message || "Gemini APIでエラーが発生しました。"
+  });
+}
+
+const aiText =
+  data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
+  || "この未来はまだ確定していません。今の選択次第で、大きく変わる可能性があります。";
+
+const text = `【${genre}】
+
+${year}年、あなたは${good}。
+
+しかしその裏で、${bad}未来も見えています。
+
+危険度:${danger}%
+回避率:${avoid}%
+
+AI解説:
+${aiText}
+
+一言:
+成功より先に、誰を信じるかを間違えるな。`;
 
 
 const model = "gemini-2.5-flash";
