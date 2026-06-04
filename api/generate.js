@@ -90,7 +90,7 @@ const model = "gemini-2.5-flash";
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.9, maxOutputTokens: 900}
+        generationConfig: {temperature: 0.9, maxOutputTokens: 1400}
       })
     });
 
