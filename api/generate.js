@@ -61,18 +61,7 @@ export default async function handler(req, res) {
     };
 
 const avg = Math.round((scores.money + scores.love + scores.viral) / 3);
-  function rankFromAvg(avg) {
-  if (avg >= 95) return "EX";
-  if (avg >= 88) return "SS";
-  if (avg >= 78) return "S";
-  if (avg >= 68) return "A";
-  if (avg >= 55) return "B";
-  if (avg >= 40) return "C";
-  if (avg >= 25) return "D";
-  return "Z";
-}
-    const rank = rankFromAvg(avg);
-
+const rank = rankFromAvg(avg);
 
     const danger = Math.max(scores.ghost, scores.love, 40);
     const avoid = Math.max(5, 100 - danger);
