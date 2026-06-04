@@ -28,12 +28,14 @@ function hashScore(seed, offset = 0) {
   return Math.abs(h % 101);
 }
 function rankFromAvg(avg) {
-  if (avg >= 92) return "S+";
-  if (avg >= 84) return "S";
-  if (avg >= 74) return "A";
-  if (avg >= 62) return "B";
-  if (avg >= 50) return "C";
-  return "D";
+  if (avg >= 95) return "EX";
+  if (avg >= 88) return "SS";
+  if (avg >= 78) return "S";
+  if (avg >= 68) return "A";
+  if (avg >= 55) return "B";
+  if (avg >= 40) return "C";
+  if (avg >= 25) return "D";
+  return "Z";
 }
 
 export default async function handler(req, res) {
@@ -58,7 +60,19 @@ export default async function handler(req, res) {
       ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
     };
 
-    const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
+    const avg = Math.round(
+(scores.money + scores.love + scores.viral) / 3
+);
+  function rankFromAvg(avg) {
+  if (avg >= 95) return "EX";
+  if (avg >= 88) return "SS";
+  if (avg >= 78) return "S";
+  if (avg >= 68) return "A";
+  if (avg >= 55) return "B";
+  if (avg >= 40) return "C";
+  if (avg >= 25) return "D";
+  return "Z";
+}
     const rank = rankFromAvg(avg);
 
 
@@ -85,26 +99,82 @@ const prompt = `
 全項目を必ず埋めてください。
 文字数は300〜450字。
 
+未来ランクがZの場合:
+
+- 非常に厳しい未来を書く
+- ただし回避方法は必ず書く
+- ネタではなく少し怖い内容にする
+- 人間関係、お金、後悔のどれかを含める
+
+未来ランクがEXの場合:
+
+- 人生が大きく好転する未来を書く
+- ただし代償を1つ付ける
+- 読んだ人が羨ましくなる内容にする
+
+重要:
+
+- 当たり障りのない内容は禁止
+- 「え、それ気になる」と思う内容を入れる
+- 良い未来には代償を付ける
+- 悪い未来には回避方法を付ける
+- 人間関係を必ず1つ含める
+- 恋愛、お金、SNSのうち最低1つを入れる
+- 保存したくなる内容にする
+- 必ず具体的な月や季節を書く
+- 必ず人物を1人登場させる
+- 良い未来には必ず代償を付ける
+- 悪い未来には必ず回避方法を付ける
+- 抽象的な占いは禁止
+- 「ありそう」で終わらせない
+- 読んだ人が保存したくなる内容にする
+
+未来ランク別ルール:
+
+EX:
+人生逆転レベルの未来を書く。ただし代償を1つ付ける。
+
+SS:
+非常に良い未来を書く。ただし油断すると失うものも書く。
+
+S:
+良い未来を書く。人間関係の変化も入れる。
+
+A:
+平均以上の未来を書く。小さな成功と注意点を書く。
+
+B:
+普通だが、選択次第で大きく変わる未来を書く。
+
+C:
+少し注意が必要な未来を書く。回避方法も書く。
+
+D:
+かなり注意が必要な未来を書く。お金、人間関係、後悔のどれかを入れる。
+
+Z:
+最悪クラスの未来を書く。ただし必ず回避方法を書く。ネタではなく少し怖くする。
+
+
+出力形式:
+
+【未来ランク】
+${rank}
+
 【結論】
-2〜3文で書く。少し意外性を入れる。
 
 【3年以内に起こること】
-・具体的な出来事を1つ
-・具体的な出来事を1つ
-・具体的な出来事を1つ
+・
+・
+・
 
 【最大のチャンス】
-1〜2文で書く。
 
 【最大のリスク】
-1〜2文で書く。
 
-危険度:${danger}%
-
-回避率:${avoid}%
+【未来を変える鍵】
 
 一言:
-短く刺さる一言。
 `;
 
     const model = "gemini-2.5-flash";
