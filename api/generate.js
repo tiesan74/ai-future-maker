@@ -92,34 +92,47 @@ export default async function handler(req, res) {
       }
     };
 
-    const picked = templates[genreKey] || templates.future;
-    const good = picked.good[hashScore(seed, 11) % picked.good.length];
-    const bad = picked.bad[hashScore(seed, 22) % picked.bad.length];
-    const year = 2026 + (hashScore(seed, 33) % 4);
     const danger = Math.max(scores.ghost, scores.love, 40);
-    const avoid = Math.max(8, 100 - danger);
+    const avoid = Math.max(5, 100 - danger);
 
     const prompt = `
-あなたはSNSで拡散される診断AIです。
-次の診断結果に続く「AI解説」を120〜180文字で書いてください。
+あなたはTikTokやXで拡散される日本語の診断AIです。
 
-条件:
-- 日本語のみ
-- 少し不穏
-- 最後は行動すれば変えられる感じ
-- 前置き禁止
-- 途中で終わらせない
+以下の情報から、スクショして友達に送りたくなる診断結果を作ってください。
 
-診断:
 名前:${name}
 年齢:${age}
 願望:${worry}
 ジャンル:${genre}
+
+金運:${scores.money}%
+恋愛運:${scores.love}%
+バズ運:${scores.viral}%
+怪異遭遇率:${scores.ghost}%
 未来ランク:${rank}
-良い未来:${good}
-悪い未来:${bad}
+
+出力条件:
+- 日本語のみ
+- 250〜450字
+- 最初に強い結論を書く
+- 良い未来と悪い未来を両方入れる
+- 具体的な時期を1つ入れる
+- 怖さ、恋愛、お金、承認欲求のどれかを入れる
+- 途中で終わらせない
+- 最後は必ず「一言:」で締める
+
+出力形式:
+
+【${genre}】
+
+本文
+
 危険度:${danger}%
+
 回避率:${avoid}%
+
+一言:
+短く刺さる一言
 `;
 
     const model = "gemini-2.5-flash";
@@ -129,18 +142,26 @@ export default async function handler(req, res) {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        contents: [{role: "user", parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.75, maxOutputTokens: 350}
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 900
+        }
       })
     });
 
     const raw = await response.text();
+
     let data;
     try {
       data = JSON.parse(raw);
     } catch {
-      return res.status(500).json({ error: raw.slice(0, 500) });
+      return res.status(500).json({
+        error: "GeminiからJSONではない応答: " + raw.slice(0, 500)
+      });
     }
+
+    console.log("GEMINI_RAW:", JSON.stringify(data, null, 2));
 
     if (!response.ok) {
       return res.status(response.status).json({
@@ -148,24 +169,15 @@ export default async function handler(req, res) {
       });
     }
 
-    const aiText =
-      data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
-      || "この未来はまだ確定していません。今の選択次第で、大きく変わる可能性があります。";
+    const text =
+      data?.candidates?.[0]?.content?.parts
+        ?.map(p => p.text || "")
+        .join("\n")
+        .trim()
+      || "生成に失敗しました。もう一度試してください。";
 
-    const text = `【${genre}】
-
-${year}年、あなたは${good}。
-
-しかしその裏で、${bad}未来も見えています。
-
-危険度:${danger}%
-回避率:${avoid}%
-
-AI解説:
-${aiText}
-
-一言:
-成功より先に、誰を信じるかを間違えるな。`;
+    console.log("TEXT_LENGTH:", text.length);
+    console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
 
     return res.status(200).json({ text, genre, scores, rank });
   } catch (e) {
