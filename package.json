@@ -1,6 +1,6 @@
 {
-  "name": "ai-future-portal-viral-v2",
-  "version": "2.0.0",
+  "name": "ai-future-portal-gemini-v3",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {
