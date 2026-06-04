@@ -122,7 +122,7 @@ const prompt = `
 `;
 
 
-const model = "gemini-2.0-flash-lite";
+const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
@@ -133,8 +133,13 @@ const model = "gemini-2.0-flash-lite";
         generationConfig: {temperature: 0.85,maxOutputTokens: 500}
       })
     });
-
-    const data = await response.json();
+const raw = await response.text();
+let data;
+try {
+  data = JSON.parse(raw);
+} catch {
+  return res.status(500).json({ error: raw.slice(0, 500) });
+}
     if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || "Gemini APIでエラーが発生しました。" });
 
     const text = data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim()
