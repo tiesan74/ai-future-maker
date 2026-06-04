@@ -114,7 +114,7 @@ export default async function handler(req, res) {
 出力条件:
 
 - 日本語のみ
-- 250〜450字
+- 180〜280字
 - 最初に結論
 - 良い未来1つ
 - 悪い未来1つ
