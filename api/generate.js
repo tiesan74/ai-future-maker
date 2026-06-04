@@ -1,8 +1,21 @@
 
 const genreMap = {
-  daily: "今日の未来", future: "未来予想", money: "金運未来", love: "恋愛未来",
-  shadow: "裏人格診断", ghost: "怪異未来", viral: "バズる未来",
-  millionaire: "億万長者未来", forbidden: "禁断の未来"
+  daily: "今日の未来",
+  future: "未来予想",
+  money: "金運未来",
+  love: "恋愛未来",
+  shadow: "裏人格診断",
+  ghost: "怪異未来",
+  viral: "バズ未来",
+  millionaire: "億万長者未来",
+  forbidden: "禁断の未来",
+
+  darkfuture: "見たくない未来",
+  pastlife: "前世診断",
+  enemy: "あなたを裏切る人",
+  talent: "隠された才能",
+  fate: "運命の相手",
+  deathflag: "人生最大の危機"
 };
 
 function clean(value, max = 400) {
@@ -49,54 +62,71 @@ export default async function handler(req, res) {
     const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
     const rank = rankFromAvg(avg);
 
-    const prompt = `
-あなたは日本語SNS向けの診断コンテンツ作家です。
-「AI未来予想メーカー」というWebサービスの診断結果を作ってください。
+const prompt = `
+ジャンルごとのルール:
 
-ジャンル: ${genre}
-名前: ${name}
-年齢: ${age}
-悩み・願望: ${worry}
-文章トーン: ${tone}
-濃さ: ${intensity}
+禁断の未来:
+ユーザーが少し怖くなる結果を書く
 
-スコア:
-金運: ${scores.money}%
-恋愛運: ${scores.love}%
-バズ運: ${scores.viral}%
-怪異遭遇率: ${scores.ghost}%
-未来ランク: ${rank}
+怪異未来:
+ホラー体験風に書く
 
-出力条件:
-- 日本語
-- 180〜320字
-- TikTok/Xでスクショ共有したくなる文章
-- 良い未来と悪い未来を両方書く
-- 最初の1文で結論を書く
-- 具体的な時期を入れる
-- 驚きがある内容にする
-- ありきたりな褒め言葉は禁止
-- 読者を少し不安にさせる要素を入れる
-- 最後に成功のヒントを1つ書く
+裏人格診断:
+本人が気付いていない性格を書く
+
+バズ未来:
+SNS成功や炎上の未来を書く
+
+あなたを裏切る人:
+信頼している人物とのトラブルを書く
+
+見たくない未来:
+最悪の未来と回避方法を書く
+
+運命の相手:
+出会う時期や特徴を書く
+
+人生最大の危機:
+危険な出来事と回避方法を書く
+
+あなたはTikTokで拡散される診断AIです。
+以下の情報から、短くてスクショしたくなる未来診断を作ってください。
+
+名前:${name}
+年齢:${age}
+願望:${worry}
+ジャンル:${genre}
+
+金運:${scores.money}%
+恋愛運:${scores.love}%
+バズ運:${scores.viral}%
+怪異遭遇率:${scores.ghost}%
+未来ランク:${rank}
+
+ルール:
+- 日本語のみ
+- 160〜240字
+- 最初に結論を書く
+- 良い未来と悪い未来を両方入れる
+- 具体的な時期を1つ入れる
+- 箇条書きは最大3つ
+- 途中で終わらせない
+- 最後は「成功のヒント: ◯◯」で終える
+`;
 
 出力形式:
 
-【未来の結論】
+【診断結果】
+（20〜50文字）
+
+【危険度】
 （1文）
 
-【3年以内に起こること】
-・
-・
-・
+【回避率】
+（0〜100%）
 
-【最大のチャンス】
-（1つ）
-
-【最大のリスク】
-（1つ）
-
-【成功のヒント】
-（1つ）
+【一言】
+（1文）
 `;
 
 const model = "gemini-2.5-flash";
