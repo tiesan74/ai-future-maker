@@ -114,7 +114,7 @@ export default async function handler(req, res) {
 出力条件:
 
 - 日本語のみ
-- 180〜250字
+- 250〜450字
 - 最初に結論
 - 良い未来1つ
 - 悪い未来1つ
@@ -144,7 +144,7 @@ export default async function handler(req, res) {
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.8,
-          maxOutputTokens: 900
+         maxOutputTokens: 2000
         }
       })
     });
@@ -175,8 +175,9 @@ export default async function handler(req, res) {
         .trim()
       || "生成に失敗しました。もう一度試してください。";
 
-    console.log("TEXT_LENGTH:", text.length);
-    console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
+   console.log("TEXT_LENGTH:", text.length);
+console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
+console.log("TEXT:", text);
 
     return res.status(200).json({ text, genre, scores, rank });
   } catch (e) {
