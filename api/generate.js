@@ -78,7 +78,7 @@ TikTokで友達に送りたくなる診断結果を作ってください。
 怪異遭遇率:${scores.ghost}%
 未来ランク:${rank}
 
-必ずこの形式で、全体180字以内:
+必ずこの形式だけで出力。前置き禁止。全体180字以内:
 
 【${genre}】
 結論を1文。
@@ -100,7 +100,7 @@ const model = "gemini-2.5-flash";
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.9, maxOutputTokens: 1400}
+        generationConfig: {temperature: 0.7, maxOutputTokens: 300}
       })
     });
 
