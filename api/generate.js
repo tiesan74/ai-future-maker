@@ -61,36 +61,6 @@ export default async function handler(req, res) {
     const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
     const rank = rankFromAvg(avg);
 
-    const templates = {
-      future: {
-        good: ["SNSで注目を集める", "思わぬ収入のチャンスを掴む", "新しい人脈から転機が来る"],
-        bad: ["信頼していた人と距離ができる", "大事な場面で判断を焦る", "嫉妬や誤解を受ける"]
-      },
-      forbidden: {
-        good: ["大きな成功を掴む", "隠れていた才能が表に出る", "予想外の評価を受ける"],
-        bad: ["秘密が表に出る", "信頼していた人を失う", "大切な関係が壊れかける"]
-      },
-      shadow: {
-        good: ["人を惹きつける力が強まる", "本音を出せる相手が現れる"],
-        bad: ["承認欲求が暴走する", "嫉妬で判断を誤る", "優しいふりに疲れる"]
-      },
-      ghost: {
-        good: ["直感が鋭くなる", "危険を避ける勘が働く"],
-        bad: ["深夜に名前を呼ばれる", "誰もいない場所で視線を感じる", "同じ夢を何度も見る"]
-      },
-      money: {
-        good: ["収入につながるチャンスを掴む", "副収入の種を見つける", "金運が一時的に跳ねる"],
-        bad: ["勢いでお金を使いすぎる", "甘い話に乗りかける", "人間関係で金銭トラブルが起きる"]
-      },
-      love: {
-        good: ["今まで縁がなかった人から好意を向けられる", "忘れられない出会いが来る"],
-        bad: ["執着で判断を誤る", "すれ違いで大切な縁を逃す", "曖昧な関係に振り回される"]
-      },
-      viral: {
-        good: ["小さな投稿や作品が想像以上に伸びる", "SNSで注目を集める"],
-        bad: ["嫉妬や誤解を受ける", "炎上ギリギリの注目を浴びる", "発言を切り取られる"]
-      }
-    };
 
     const danger = Math.max(scores.ghost, scores.love, 40);
     const avoid = Math.max(5, 100 - danger);
@@ -114,7 +84,7 @@ export default async function handler(req, res) {
 出力条件:
 
 - 日本語のみ
-- 180〜280字
+- 350〜500字
 - 最初に結論
 - 良い未来1つ
 - 悪い未来1つ
