@@ -83,7 +83,19 @@ function renderResult(data){
   const rankBox = document.querySelector(".rankBox");
   rankBox.className = "rankBox " + rankInfo[2];
 
-  document.getElementById("rankType").textContent = `${rankInfo[0]} ${rankInfo[1]} / 未来ランク ${rank}`;
+ const rankDesc = {
+  EX:"人生逆転レベル。強運と代償を持つタイプ",
+  SS:"選ばれた運命。成功の裏に試練があるタイプ",
+  S:"大きなチャンスを掴む逆転タイプ",
+  A:"才能が開き始める成長タイプ",
+  B:"努力次第で未来が変わる安定タイプ",
+  C:"油断すると後悔しやすい注意タイプ",
+  D:"成功か破滅か、波が激しい波乱タイプ",
+  Z:"今すぐ未来を変える必要がある危険タイプ"
+};
+
+document.getElementById("rankType").innerHTML =
+  `${rankInfo[0]} ${rankInfo[1]} / 未来ランク ${rank}<br><span style="font-size:13px;font-weight:700;opacity:.85">${rankDesc[rank] || ""}</span>`;
 
   setScore("money",data.scores?.money??0);
   setScore("love",data.scores?.love??0);
