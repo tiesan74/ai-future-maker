@@ -66,14 +66,14 @@ function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%
 function renderResult(data){
   const rank = data.rank || "?";
   const rankInfo = {
-    EX:["👑","覇王型","rank-ex"],
-    SS:["🔥","運命改変型","rank-ss"],
-    S:["🐉","逆転王型","rank-s"],
-    A:["🦊","才能開花型","rank-a"],
-    B:["⭐","成長型","rank-b"],
-    C:["⚠️","注意人物型","rank-c"],
-    D:["🌪","波乱型","rank-d"],
-    Z:["☠️","破滅回避型","rank-z"]
+   EX:["👑","覇王型","rank-ex"],
+SS:["🔥","運命改変型","rank-ss"],
+S:["🐉","逆転王型","rank-s"],
+A:["🦊","才能開花型","rank-a"],
+B:["⭐","成長型","rank-b"],
+C:["⚠️","分岐点型","rank-c"],
+D:["🌪","波乱型","rank-d"],
+Z:["☠️","破滅回避型","rank-z"]
   }[rank] || ["🔮","未知型",""];
 
   document.getElementById("cardGenre").textContent = data.label || labels[genre];
@@ -89,7 +89,7 @@ function renderResult(data){
   S:"大きなチャンスを掴む逆転タイプ",
   A:"才能が開き始める成長タイプ",
   B:"努力次第で未来が変わる安定タイプ",
-  C:"油断すると後悔しやすい注意タイプ",
+C:"これからの選択で未来が大きく変わるタイプ"
   D:"成功か破滅か、波が激しい波乱タイプ",
   Z:"今すぐ未来を変える必要がある危険タイプ"
 };
