@@ -64,45 +64,15 @@ function renderHistory(){const box=document.getElementById("history");box.innerH
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";div.textContent=labels[g];div.onclick=()=>{setGenre(g);document.querySelector(".card").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
-  const rank = data.rank || "?";
-  const rankInfo = {
-   EX:["👑","覇王型","rank-ex"],
-SS:["🔥","運命改変型","rank-ss"],
-S:["🐉","逆転王型","rank-s"],
-A:["🦊","才能開花型","rank-a"],
-B:["⭐","成長型","rank-b"],
-C:["⚠️","分岐点型","rank-c"],
-D:["🌪","波乱型","rank-d"],
-Z:["☠️","破滅回避型","rank-z"]
-  }[rank] || ["🔮","未知型",""];
-
-  document.getElementById("cardGenre").textContent = data.label || labels[genre];
-  document.getElementById("rankText").textContent = rank;
-  document.getElementById("cardTitle").textContent = `${data.name||"あなた"}さんの${data.label||labels[genre]}`;
-
-  const rankBox = document.querySelector(".rankBox");
-  rankBox.className = "rankBox " + rankInfo[2];
-
- const rankDesc = {
-  EX:"人生逆転レベル。強運と代償を持つタイプ",
-  SS:"選ばれた運命。成功の裏に試練があるタイプ",
-  S:"大きなチャンスを掴む逆転タイプ",
-  A:"才能が開き始める成長タイプ",
-  B:"努力次第で未来が変わる安定タイプ",
-C:"これからの選択で未来が大きく変わるタイプ"
-  D:"成功か破滅か、波が激しい波乱タイプ",
-  Z:"今すぐ未来を変える必要がある危険タイプ"
-};
-
-document.getElementById("rankType").innerHTML =
-  `${rankInfo[0]} ${rankInfo[1]} / 未来ランク ${rank}<br><span style="font-size:13px;font-weight:700;opacity:.85">${rankDesc[rank] || ""}</span>`;
-
+  document.getElementById("cardGenre").textContent=data.label||labels[genre];
+  document.getElementById("rankText").textContent=data.rank||"?";
+  document.getElementById("cardTitle").textContent=`${data.name||"あなた"}さんの${data.label||labels[genre]}`;
   setScore("money",data.scores?.money??0);
   setScore("love",data.scores?.love??0);
   setScore("viral",data.scores?.viral??0);
   setScore("ghost",data.scores?.ghost??0);
-
-  document.getElementById("resultText").innerText = data.text || "";
+  document.getElementById("resultText").innerText=data.text||"";
+}
 }
 async function generate(){const btn=document.getElementById("generateBtn"),overlay=document.getElementById("loadingOverlay");btn.disabled=true;btn.textContent="生成中...";overlay.classList.add("show");const payload={genre,name:document.getElementById("name").value,age:document.getElementById("age").value,worry:document.getElementById("worry").value,tone:document.getElementById("tone").value,intensity:document.getElementById("intensity").value};try{const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await res.json();console.log("API_DATA", data);if(!res.ok)throw new Error(data.error||"生成に失敗しました");const saved={name:payload.name||"あなた",label:labels[genre],text:data.text,scores:data.scores,rank:data.rank,createdAt:new Date().toISOString()};renderResult(saved);history.unshift(saved);history=history.slice(0,10);localStorage.setItem("futurePortalV3History",JSON.stringify(history));renderHistory();renderRecommends();document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});}catch(e){document.getElementById("resultText").innerText="エラー："+e.message;}finally{overlay.classList.remove("show");btn.disabled=false;btn.textContent="AIで診断する";}}
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
