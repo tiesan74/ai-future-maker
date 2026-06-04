@@ -112,28 +112,17 @@ export default async function handler(req, res) {
 出力形式:
 
 【結論】
-(2〜4文)
 
 【3年以内に起こること】
-・具体的な出来事
-・具体的な出来事
-・具体的な出来事
+・
+・
+・
 
 【最大のチャンス】
-(1文)
-
-【絶対に近づくな】
-(1文)
 
 【最大のリスク】
-(1文)
 
-危険度:○%
-
-回避率:○%
-
-一言:
-(1文)
+一言
 `;
 
     const model = "gemini-2.5-flash";
@@ -179,6 +168,10 @@ export default async function handler(req, res) {
 
    console.log("TEXT_LENGTH:", text.length);
 console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
+    console.log(
+  "SAFETY:",
+  JSON.stringify(data?.candidates?.[0]?.safetyRatings)
+);
 console.log("TEXT:", text);
 
     return res.status(200).json({ text, genre, scores, rank });
