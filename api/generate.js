@@ -63,40 +63,64 @@ export default async function handler(req, res) {
     const rank = rankFromAvg(avg);
 
 const prompt = `
-あなたはSNSで拡散される未来診断AIです。
+あなたはTikTokやXでシェアされる未来診断AIです。
 
+ユーザー情報:
 名前:${name}
 年齢:${age}
 願望:${worry}
 
+診断データ:
 金運:${scores.money}%
 恋愛運:${scores.love}%
 バズ運:${scores.viral}%
 怪異遭遇率:${scores.ghost}%
+未来ランク:${rank}
 
-以下と全く同じ形式で出力してください。
+以下のルールを厳守してください。
 
-【未来予想】
+【目的】
+読んだ人が
+「これ友達に送りたい」
+と思う診断結果を作る。
 
-2027年春。
-あなたは○○になる。
+【出力形式】
 
-しかし△△が起きる。
+【${genre}】
 
-特徴:
-・○○
-・○○
-・○○
+最初の1行で衝撃的な結論を書く。
 
-危険度:${Math.max(scores.ghost, scores.love)}%
+その後、
+120〜220文字程度で未来の出来事を書く。
 
-一言:
-○○
+内容には必ず
 
-上記の形式を必ず埋めること。
-省略禁止。
-120〜220文字。
+・良い出来事
+・悪い出来事
+・具体的な時期
+・感情が動く要素
+
+を入れる。
+
+最後に
+
+回避率: ○%
+
+一言: ○○
+
+で締める。
+
+【禁止事項】
+・箇条書き禁止
+・前置き禁止
+・AIとして説明しない
+・途中で終わらない
+・抽象的すぎる表現禁止
+
+【重要】
+ホラー、恋愛、お金、SNS、承認欲求のうち最低1つを必ず含める。
 `;
+
 
 const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -106,7 +130,7 @@ const model = "gemini-2.5-flash";
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.7, maxOutputTokens: 300}
+        generationConfig: {temperature: 0.85,maxOutputTokens: 500}
       })
     });
 
