@@ -40,12 +40,12 @@ export default async function handler(req, res) {
     const intensity = clean(body.intensity, 40) || "普通";
 
     const seed = `${name}|${age}|${worry}|${genreKey}|${new Date().toISOString().slice(0,10)}`;
-    const scores = {
-      money: hashScore(seed, 1),
-      love: hashScore(seed, 2),
-      viral: hashScore(seed, 3),
-      ghost: hashScore(seed, 4)
-    };
+   const scores = {
+  money: 20 + (hashScore(seed + "money", 1) % 81),
+  love: 20 + (hashScore(seed + "love", 7) % 81),
+  viral: 20 + (hashScore(seed + "viral", 13) % 81),
+  ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
+};
     const avg = Math.round((scores.money + scores.love + scores.viral + scores.ghost) / 4);
     const rank = rankFromAvg(avg);
 
@@ -69,17 +69,34 @@ export default async function handler(req, res) {
 
 出力条件:
 - 日本語
-- 380〜580字
-- TikTok/Xでシェアしたくなる文章
-- 占い風だが、断定しすぎない
-- 怖さ、面白さ、前向きさを混ぜる
-- 医療・法律・投資の具体的断定助言はしない
-- 最初に12〜24文字の強いキャッチコピーを1行
-- 「あなたの分岐点」という見出しを入れる
-- 最後に必ず以下を入れる
-  未来ランク: ${rank}
-  今日の一手:
-  #AI未来予想メーカー
+- 180〜320字
+- TikTok/Xでスクショ共有したくなる文章
+- 良い未来と悪い未来を両方書く
+- 最初の1文で結論を書く
+- 具体的な時期を入れる
+- 驚きがある内容にする
+- ありきたりな褒め言葉は禁止
+- 読者を少し不安にさせる要素を入れる
+- 最後に成功のヒントを1つ書く
+
+出力形式:
+
+【未来の結論】
+（1文）
+
+【3年以内に起こること】
+・
+・
+・
+
+【最大のチャンス】
+（1つ）
+
+【最大のリスク】
+（1つ）
+
+【成功のヒント】
+（1つ）
 `;
 
 const model = "gemini-2.5-flash";
