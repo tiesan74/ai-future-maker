@@ -82,7 +82,7 @@ export default async function handler(req, res) {
   #AI未来予想メーカー
 `;
 
-    const model = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
