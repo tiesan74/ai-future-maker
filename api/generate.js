@@ -118,7 +118,6 @@ const prompt = `
 一言:
 短く刺さる言葉
 `;
-`;
 
     const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
