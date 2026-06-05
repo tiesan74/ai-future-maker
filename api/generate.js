@@ -75,7 +75,7 @@ const rank = rankFromAvg(avg);
     const avoid = Math.max(5, 100 - danger);
 
 const genreInstruction = {
-  daily: "今日24時間以内に起こる未来を書く。短く、200〜350字。見出しは【結論】【今日の未来】【未来を変える鍵】【一言】だけにする。",
+daily: "今日24時間以内に起こる未来を書く。全体200〜350字。見出しは【結論】【今日の未来】【未来を変える鍵】一言: のみ。",
   future: "3年後の未来を書く。500〜750字。見出しは全て使う。",
   money: "お金や収入を中心に未来を書く。400〜650字。",
   love: "恋愛や出会いを中心に未来を書く。400〜650字。",
@@ -162,7 +162,6 @@ ${genreInstruction[genreKey] || "未来を書く"}
 - 現在の時間帯:${timeHint} を参考にする
 - 「今日の夜」だけは禁止
 - 「今夜21時頃（${todayText}）」のように
-  日付と時間を両方書く
 * 200〜350字
 * 登場人物は最大1人
 * 超成功や大金持ちの話は禁止
@@ -170,6 +169,14 @@ ${genreInstruction[genreKey] || "未来を書く"}
 * 結果は占い風ではなく、未来のワンシーンとして書くこと。
 * SNSやバズを無理に入れてはいけない
 
+ジャンルが「今日の未来」の場合:
+【この未来を壊す人物】
+【最大のチャンス】
+【最大のリスク】
+は出力しない。
+
+  日付と時間を両方書く
+  
 良い例:
 
 「6月5日の21時頃、あなたは何気なく開いたメッセージに少し気になる内容を見つける。」
@@ -291,11 +298,19 @@ ${genreInstruction[genreKey] || "未来を書く"}
     console.log("GEMINI_RAW:", JSON.stringify(data, null, 2));
 
     if (!response.ok) {
-      return res.status(response.status).json({
-        error: data?.error?.message || "Gemini APIでエラーが発生しました。"
-      });
-    }
 
+  const msg = data?.error?.message || "";
+
+  if (msg.includes("high demand")) {
+    return res.status(503).json({
+      error: "AIが混み合っています。30秒ほど待ってもう一度お試しください。"
+    });
+  }
+
+  return res.status(response.status).json({
+    error: msg || "Gemini APIでエラーが発生しました。"
+  });
+}
     const text =
       data?.candidates?.[0]?.content?.parts
         ?.map(p => p.text || "")
@@ -312,7 +327,8 @@ console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
 console.log("TEXT:", text);
 
     return res.status(200).json({ text, genre, scores, rank });
-  } catch (e) {
-    return res.status(500).json({ error: String(e?.message || e) });
-  }
+ }catch(e){
+  document.getElementById("resultText").innerText =
+    "エラー：" + e.message + "\n\nもう一度「AIで診断する」を押してみてください。";
+}
 }
