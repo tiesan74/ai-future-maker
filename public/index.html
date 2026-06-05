@@ -94,6 +94,8 @@ function renderResult(data){
     ghost:["👁","違和感感知型","人より先に危険や違和感を察知するタイプ"]
   };
 
+  const type = typeMap[topScore] || ["🔮","未来変化型","これからの選択で未来が変わるタイプ"];
+
   document.getElementById("cardGenre").textContent = data.label || labels[genre];
   document.getElementById("rankText").textContent = rank;
   document.getElementById("cardTitle").textContent = `${data.name||"あなた"}さんの${data.label||labels[genre]}`;
