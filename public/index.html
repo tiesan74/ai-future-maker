@@ -77,14 +77,50 @@ function renderHistory(){const box=document.getElementById("history");box.innerH
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";div.textContent=labels[g];div.onclick=()=>{setGenre(g);document.querySelector(".card").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
-  document.getElementById("cardGenre").textContent=data.label||labels[genre];
-  document.getElementById("rankText").textContent=data.rank||"?";
-  document.getElementById("cardTitle").textContent=`${data.name||"あなた"}さんの${data.label||labels[genre]}`;
-  setScore("money",data.scores?.money??0);
-  setScore("love",data.scores?.love??0);
-  setScore("viral",data.scores?.viral??0);
-  setScore("ghost",data.scores?.ghost??0);
-  document.getElementById("resultText").innerText=data.text||"";
+  const rank = data.rank || "?";
+  const scores = data.scores || {};
+
+  const topScore = [
+    ["money", scores.money ?? 0],
+    ["love", scores.love ?? 0],
+    ["viral", scores.viral ?? 0],
+    ["ghost", scores.ghost ?? 0]
+  ].sort((a,b)=>b[1]-a[1])[0][0];
+
+  const typeMap = {
+    money:["💰","一発逆転型","お金の選択で未来が大きく変わるタイプ"],
+    love:["💘","恋愛支配型","恋愛運が人生を大きく動かすタイプ"],
+    viral:["📈","拡散覚醒型","SNSや発信で一気に流れが変わるタイプ"],
+    ghost:["👁","違和感感知型","人より先に危険や違和感を察知するタイプ"]
+  };
+
+  document.getElementById("cardGenre").textContent = data.label || labels[genre];
+  document.getElementById("rankText").textContent = rank;
+  document.getElementById("cardTitle").textContent = `${data.name||"あなた"}さんの${data.label||labels[genre]}`;
+
+  const rankBox = document.querySelector(".rankBox");
+  rankBox.className = "rankBox rank-" + String(rank).toLowerCase();
+
+document.getElementById("rankType").innerHTML = `
+<div style="font-size:34px;font-weight:1000">
+  ${type[0]} ${type[1]}
+</div>
+
+<div style="font-size:15px;opacity:.85;margin-top:8px">
+  ${type[2]}
+</div>
+
+<div style="margin-top:12px;font-size:20px;font-weight:900">
+  未来ランク ${rank}
+</div>
+`;
+
+  setScore("money",scores.money??0);
+  setScore("love",scores.love??0);
+  setScore("viral",scores.viral??0);
+  setScore("ghost",scores.ghost??0);
+
+  document.getElementById("resultText").innerText = data.text || "";
 }
   
 async function generate(){const btn=document.getElementById("generateBtn"),overlay=document.getElementById("loadingOverlay");btn.disabled=true;btn.textContent="生成中...";overlay.classList.add("show");const payload={genre,name:document.getElementById("name").value,age:document.getElementById("age").value,worry:document.getElementById("worry").value,tone:document.getElementById("tone").value,intensity:document.getElementById("intensity").value};try{const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await res.json();console.log("API_DATA", data);if(!res.ok)throw new Error(data.error||"生成に失敗しました");const saved={name:payload.name||"あなた",label:labels[genre],text:data.text,scores:data.scores,rank:data.rank,createdAt:new Date().toISOString()};renderResult(saved);history.unshift(saved);history=history.slice(0,10);localStorage.setItem("futurePortalV3History",JSON.stringify(history));renderHistory();renderRecommends();document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});}catch(e){document.getElementById("resultText").innerText="エラー："+e.message;}finally{overlay.classList.remove("show");btn.disabled=false;btn.textContent="AIで診断する";}}
