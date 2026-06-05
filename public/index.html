@@ -87,6 +87,70 @@ padding-right:8px;
   scroll-margin-top:80px;
 }
 
+  .extraGenre{
+  display:none;
+}
+
+.genreGrid.showAll .extraGenre{
+  display:block;
+}
+
+#moreGenreBtn{
+  grid-column:1 / -1;
+}
+
+  .todayHero{
+  margin:18px 0 24px;
+  padding:24px;
+  border-radius:28px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(255,218,82,.28),
+    rgba(255,153,51,.18)
+  );
+
+  border:2px solid rgba(255,220,120,.4);
+
+  text-align:center;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.todayHero:hover{
+  transform:translateY(-3px);
+}
+
+.todayBadge{
+  display:inline-block;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.15);
+
+  font-size:12px;
+  font-weight:900;
+}
+
+.todayHero h2{
+  margin-top:12px;
+  font-size:30px;
+}
+
+.todayHero p{
+  opacity:.9;
+  margin-top:10px;
+}
+
+.todayBtn{
+  margin-top:16px;
+}
+
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
 .rankBox.rank-s{background:linear-gradient(135deg,#00d4ff,#b8f7ff);color:#003d4a;}
@@ -252,7 +316,24 @@ padding-right:8px;
     <span>未来ランク Z</span>
   </div>
   <div class="demoMini">この未来、見る？見ない？</div>
-</div><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section>
+</div><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section><div class="todayHero" onclick="setGenre('daily')">
+
+  <div class="todayBadge">
+    ☀️ 毎日更新
+  </div>
+
+  <h2>今日の未来</h2>
+
+  <p>
+    今日〜明日に起こる出来事を診断。
+    24時間ごとに内容が変わります。
+  </p>
+
+  <button class="todayBtn">
+    今日の未来を見る
+  </button>
+
+</div>
 <section class="genreGrid">
 
 <div class="genre forbidden heroGenre" data-genre="forbidden">
@@ -270,37 +351,37 @@ padding-right:8px;
   <span>コメント率No.1。身近な危険人物。</span>
 </div>
 
-<div class="genre forbidden" data-genre="deathflag">
+<div class="genre extraGenre" data-genre="deathflag">
   <b>⚠️ 人生最大の危機</b>
   <span>保存率No.1。回避すべき未来。</span>
 </div>
 
-<div class="genre" data-genre="shadow">
+<div class="genre extraGenre" data-genre="shadow">
   <b>👤 裏人格診断</b>
   <span>隠れた欲望と本性。</span>
 </div>
 
-<div class="genre active" data-genre="future">
+<div class="genre extraGenre" data-genre="future">
   <b>🔮 未来予想</b>
   <span>一番広い入口。万人向け。</span>
 </div>
 
-<div class="genre" data-genre="love">
+<div class="genre extraGenre" data-genre="love">
   <b>❤️ 恋愛未来</b>
   <span>運命・未練・執着。</span>
 </div>
 
-<div class="genre" data-genre="money">
+<div class="genre extraGenre" data-genre="money">
   <b>💰 金運未来</b>
   <span>副収入・お金・挑戦。</span>
 </div>
 
-<div class="genre" data-genre="daily">
+<div class="genre extraGenre" data-genre="daily">
   <b>☀️ 今日の未来</b>
   <span>毎日1回の軽い予言。</span>
 </div>
 
-<div class="genre" data-genre="ghost">
+<div class="genre extraGenre" data-genre="ghost">
   <b>👻 怪異未来</b>
   <span>都市伝説風の怖い診断。</span>
 </div>
@@ -310,6 +391,9 @@ padding-right:8px;
   <span>SNS・創作・拡散。</span>
 </div>
 
+  <button class="secondary" id="moreGenreBtn" onclick="toggleGenres()">
+もっと見る ▼
+</button>
 </section>
 <section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
   <label>診断する写真</label>
@@ -366,6 +450,17 @@ setTimeout(()=>{
 },1500);
 
   renderRecommends();
+
+  function toggleGenres(){
+  const grid = document.querySelector(".genreGrid");
+  const btn = document.getElementById("moreGenreBtn");
+
+  grid.classList.toggle("showAll");
+
+  btn.textContent = grid.classList.contains("showAll")
+    ? "閉じる ▲"
+    : "もっと見る ▼";
+}
 
   const photoArea =
  document.getElementById("photoArea");
