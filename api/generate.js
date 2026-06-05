@@ -74,9 +74,30 @@ const rank = rankFromAvg(avg);
     const danger = Math.max(scores.ghost, scores.love, 40);
     const avoid = Math.max(5, 100 - danger);
 
+    const genreInstruction = {
+  daily: "今日24時間以内に起こる未来を書く",
+  future: "3年後の未来を書く",
+  money: "お金や収入を中心に未来を書く",
+  love: "恋愛や出会いを中心に未来を書く",
+  ghost: "不穏な出来事や違和感を中心に未来を書く",
+  viral: "SNSや動画投稿を中心に未来を書く",
+  millionaire: "大金や成功を中心に未来を書く",
+  forbidden: "人には言えない未来を書く"
+};
+
+    const futureTitle =
+  genreKey === "daily"
+    ? "今日の未来"
+    : "3年後の未来";
+
 const prompt = `
 あなたはTikTokで拡散される日本語のAI未来診断ライターです。
-抽象的な占いではなく、スクショしたくなる「3年後の未来」を書いてください。
+
+抽象的な占いではなく、
+スクショしたくなる未来を書いてください。
+
+ジャンル指示:
+${genreInstruction[genreKey] || "未来を書く"}
 
 名前:${name}
 年齢:${age}
@@ -92,7 +113,7 @@ const prompt = `
 ルール:
 - 日本語のみ
 - 各項目は2〜3文以内。
-- 全体は500〜750字。
+- 全体は350〜600字。
 - 最後の「一言:」まで必ず出力。
 - 具体的な年月を入れる
 - 必ず人物を1人登場させる
@@ -167,7 +188,7 @@ const prompt = `
 
 【結論】
 
-【3年後の未来】
+【${futureTitle}】
 
 【この未来を壊す人物】
 
