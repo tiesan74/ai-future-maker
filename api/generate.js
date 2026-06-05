@@ -60,7 +60,13 @@ export default async function handler(req, res) {
       ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
     };
 
-const avg = Math.round((scores.money + scores.love + scores.viral) / 3);
+const maxScore = Math.max(
+  scores.money,
+  scores.love,
+  scores.viral
+);
+
+const rank = rankFromAvg(maxScore);
 const rank = rankFromAvg(avg);
 
     const danger = Math.max(scores.ghost, scores.love, 40);
@@ -95,6 +101,9 @@ const prompt = `
 - 「世界を動かす」「席巻する」など大げさすぎる表現は禁止
 - TikTok、SNS、動画などは自然な文脈で使う
 - ユーザーの願望をそのまま不自然に持ち上げない
+- 願望を最優先で反映すること。
+- ユーザーの願望に関連する内容を最低2回以上登場させること。
+- 怪異遭遇率が70%以上なら必ず違和感や不穏な出来事を1つ入れること。
 
 禁止:
 
