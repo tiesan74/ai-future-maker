@@ -52,6 +52,15 @@ padding-right:8px;
   text-shadow:0 0 18px rgba(255,255,255,.45);
 }
 
+  .rankBox{
+  animation:rankFloat 2s ease-in-out infinite;
+}
+
+@keyframes rankFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+
   text-align:center;
   font-weight:1000;
   font-size:20px;
@@ -94,7 +103,7 @@ function renderResult(data){
   const typeMap = {
     money:["💰","一発逆転型","お金の選択で未来が大きく変わるタイプ"],
     love:["💘","恋愛支配型","恋愛運が人生を大きく動かすタイプ"],
-    viral:["📈","拡散覚醒型","SNSや発信で一気に流れが変わるタイプ"],
+   viral:["📈","バズ暴走型","SNSや発信で一気に流れが変わるタイプ"],
     ghost:["👁","違和感感知型","人より先に危険や違和感を察知するタイプ"]
   };
 
