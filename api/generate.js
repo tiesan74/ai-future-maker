@@ -103,8 +103,6 @@ if (currentHour < 12) {
   timeHint = "今夜〜明日の朝";
 }
 
-const now = new Date();
-
 const todayText =
   `${now.getMonth() + 1}月${now.getDate()}日`;
 
@@ -114,7 +112,6 @@ tomorrow.setDate(now.getDate() + 1);
 const tomorrowText =
   `${tomorrow.getMonth() + 1}月${tomorrow.getDate()}日`;
 
-const currentHour = now.getHours();
     
 const prompt = `
 あなたはTikTokで拡散される日本語のAI未来診断ライターです。
