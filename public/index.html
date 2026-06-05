@@ -164,7 +164,19 @@ document.getElementById("rankType").innerHTML = `
   document.getElementById("resultText").innerText = data.text || "";
 }
   
-async function generate(){const btn=document.getElementById("generateBtn"),overlay=document.getElementById("loadingOverlay");btn.disabled=true;btn.textContent="生成中...";overlay.classList.add("show");const payload={genre,name:document.getElementById("name").value,age:document.getElementById("age").value,worry:document.getElementById("worry").value,tone:document.getElementById("tone").value,intensity:document.getElementById("intensity").value};try{const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await res.json();console.log("API_DATA", data);if(!res.ok)throw new Error(data.error||"生成に失敗しました");const saved={name:payload.name||"あなた",label:labels[genre],text:data.text,scores:data.scores,rank:data.rank,createdAt:new Date().toISOString()};renderResult(saved);history.unshift(saved);history=history.slice(0,10);localStorage.setItem("futurePortalV3History",JSON.stringify(history));renderHistory();renderRecommends();document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});}catch(e){document.getElementById("resultText").innerText="エラー："+e.message;}finally{overlay.classList.remove("show");btn.disabled=false;btn.textContent="AIで診断する";}}
+async function generate(){const btn=document.getElementById("generateBtn"),overlay=document.getElementById("loadingOverlay");btn.disabled=true;btn.textContent="生成中...";overlay.classList.add("show");const payload={genre,name:document.getElementById("name").value,age:document.getElementById("age").value,worry:document.getElementById("worry").value,tone:document.getElementById("tone").value,intensity:document.getElementById("intensity").value};try{const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await res.json();console.log("API_DATA", data);if(!res.ok){
+  let msg = data.error || "生成に失敗しました";
+
+  if(msg.includes("high demand")){
+    msg = "AIが混み合っています。少し待ってからもう一度診断してください。";
+  } else if(msg.includes("quota")){
+    msg = "AIの利用上限に達しています。少し時間を置いてから再度お試しください。";
+  } else if(msg.includes("not valid JSON")){
+    msg = "一時的な通信エラーです。もう一度診断してください。";
+  }
+
+  throw new Error(msg);
+}const saved={name:payload.name||"あなた",label:labels[genre],text:data.text,scores:data.scores,rank:data.rank,createdAt:new Date().toISOString()};renderResult(saved);history.unshift(saved);history=history.slice(0,10);localStorage.setItem("futurePortalV3History",JSON.stringify(history));renderHistory();renderRecommends();document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});}catch(e){document.getElementById("resultText").innerText="エラー："+e.message;}finally{overlay.classList.remove("show");btn.disabled=false;btn.textContent="AIで診断する";}}
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
 function copyShare(){const text=document.getElementById("resultText").innerText+"\\n\\nあなたも診断してみる？\\n#AI未来予想メーカー";navigator.clipboard.writeText(text).then(()=>alert("投稿用テキストをコピーしました"));}
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
