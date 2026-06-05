@@ -67,7 +67,6 @@ const maxScore = Math.max(
 );
 
 const rank = rankFromAvg(maxScore);
-const rank = rankFromAvg(avg);
 
     const danger = Math.max(scores.ghost, scores.love, 40);
     const avoid = Math.max(5, 100 - danger);
