@@ -311,8 +311,10 @@ padding-right:8px;
 </div>
 
 </section>
-<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><label>写真診断用の画像</label>
-<input id="photoInput" type="file" accept="image/*">
+<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
+  <label>診断する写真</label>
+  <input id="photoInput" type="file" accept="image/*">
+</div>
 <div style="font-size:12px;color:#cfc0ed;margin-top:6px">
   ※写真怪異診断を選んだ時に使います
 </div><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
@@ -364,6 +366,15 @@ setTimeout(()=>{
 },1500);
 
   renderRecommends();
+
+  const photoArea =
+ document.getElementById("photoArea");
+
+if(g === "photoGhost"){
+  photoArea.style.display = "block";
+}else{
+  photoArea.style.display = "none";
+}
 
   document.getElementById("inputCard").scrollIntoView({
   behavior:"smooth",
