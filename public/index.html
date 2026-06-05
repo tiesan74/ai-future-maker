@@ -112,7 +112,11 @@ document.getElementById("rankType").innerHTML = `
   ${type[2]}
 </div>
 
-<div style="margin-top:12px;font-size:20px;font-weight:900">
+<div style="margin-top:10px;font-size:16px;font-weight:900;color:#ffeaa8">
+  最高値：${topScore === "money" ? "金運" : topScore === "love" ? "恋愛運" : topScore === "viral" ? "バズ運" : "怪異遭遇率"} ${scores[topScore]}%
+</div>
+
+<div style="margin-top:10px;font-size:20px;font-weight:900">
   未来ランク ${rank}
 </div>
 `;
