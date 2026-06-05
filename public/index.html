@@ -151,6 +151,71 @@ padding-right:8px;
   margin-top:16px;
 }
 
+  #oracleGirl{
+
+  position:fixed;
+
+  right:14px;
+  bottom:14px;
+
+  z-index:999;
+
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+
+  animation:floatGirl 3s ease-in-out infinite;
+}
+
+@keyframes floatGirl{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+  100%{transform:translateY(0)}
+}
+
+.oracleBubble{
+
+  background:#fff;
+
+  color:#111;
+
+  padding:10px 12px;
+
+  border-radius:16px;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.oracleFace{
+
+  width:64px;
+  height:64px;
+
+  border-radius:50%;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ff5fa2,
+    #8f5cff
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:28px;
+
+  box-shadow:
+  0 0 25px rgba(255,95,162,.6);
+
+  cursor:pointer;
+}
+
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
 .rankBox.rank-s{background:linear-gradient(135deg,#00d4ff,#b8f7ff);color:#003d4a;}
@@ -449,6 +514,34 @@ setTimeout(()=>{
     "選択中：" + labels[g];
 },1500);
 
+  const bubble =
+document.querySelector(".oracleBubble");
+
+if(g==="forbidden"){
+  bubble.innerHTML =
+  "本当に<br>見るの？";
+}
+
+else if(g==="enemy"){
+  bubble.innerHTML =
+  "その人、<br>信用してる？";
+}
+
+else if(g==="daily"){
+  bubble.innerHTML =
+  "今日の未来を<br>覗く？";
+}
+
+else if(g==="photoGhost"){
+  bubble.innerHTML =
+  "その写真…<br>気になるね";
+}
+
+else{
+  bubble.innerHTML =
+  "その未来、<br>見ちゃう？";
+}
+  
   renderRecommends();
 
   function toggleGenres(){
@@ -687,4 +780,15 @@ function copyShare(){const text=document.getElementById("resultText").innerText+
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 renderHistory();renderRecommends();
-</script></body></html>
+</script><div id="oracleGirl">
+
+  <div class="oracleBubble">
+    その未来、<br>
+    見ちゃう？
+  </div>
+
+  <div class="oracleFace">
+    🔮
+  </div>
+
+</div></body></html>
