@@ -426,4 +426,3 @@ console.log("TEXT:", text);
     });
   }
 }
-}
