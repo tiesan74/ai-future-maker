@@ -224,6 +224,10 @@ document.getElementById("rankType").innerHTML = `
 
  document.getElementById("resultText").innerText =
   (data.text || "") +
+  "\n\n━━━━━━━━━━\n" +
+  "この結果、信じる？信じない？\n" +
+  "友達にも診断させてみて。\n" +
+  "#AI未来予想メーカー";+
   "\n\n━━━━━━━━━━\nこの結果、信じる？信じない？\n友達にも診断させてみて。\n#AI未来予想メーカー";
 }async function generate(){
   const btn = document.getElementById("generateBtn");
