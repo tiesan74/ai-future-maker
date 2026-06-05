@@ -291,15 +291,12 @@ document.getElementById("rankType").innerHTML = `
   setScore("ghost",scores.ghost??0);
 
 document.getElementById("resultText").innerText =
-(data.text || "") +
-
-"\n\n━━━━━━━━━━" +
-"\n📸 スクショ保存推奨" +
-"\n後から見返せるように保存しておこう。" +
-"\n#AI未来予想メーカー";\n" +
-  "友達にも診断させてみて。\n" +
-  "#AI未来予想メーカー";
-  "\n\n━━━━━━━━━━\nこの結果、信じる？信じない？\n友達にも診断させてみて。\n#AI未来予想メーカー";
+  (data.text || "") +
+  "\n\n━━━━━━━━━━" +
+  "\n📸 スクショ保存推奨" +
+  "\n後から見返せるように保存しておこう。" +
+  "\n友達にも診断させてみて。" +
+  "\n#AI未来予想メーカー";
 }async function generate(){
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
