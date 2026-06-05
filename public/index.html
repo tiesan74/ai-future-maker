@@ -150,37 +150,119 @@ padding-right:8px;
   animation: exGlow 1.5s infinite alternate;
 }
 
-  .demoCard{
-  max-width:520px;
-  margin:14px auto 18px;
-  padding:18px;
-  border-radius:22px;
-  background:linear-gradient(135deg,rgba(255,71,126,.24),rgba(255,228,122,.14));
-  border:1px solid rgba(255,255,255,.22);
-  box-shadow:0 0 28px rgba(255,71,126,.25);
+ .demoCard{
+  max-width:560px;
+  margin:12px auto 20px;
+  padding:22px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(255,0,80,.45),transparent 32%),
+    radial-gradient(circle at 90% 15%,rgba(255,228,122,.25),transparent 30%),
+    linear-gradient(135deg,rgba(20,0,20,.92),rgba(93,20,82,.88));
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:
+    0 0 30px rgba(255,71,126,.35),
+    inset 0 0 30px rgba(255,255,255,.06);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.demoCard::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.16),transparent);
+  transform:translateX(-100%);
+  animation:shine 3s infinite;
+}
+
+@keyframes shine{
+  0%{transform:translateX(-100%)}
+  55%{transform:translateX(100%)}
+  100%{transform:translateX(100%)}
+}
+
+.demoBadge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(255,71,126,.22);
+  border:1px solid rgba(255,71,126,.45);
+  color:#ffd6e1;
+  font-size:12px;
+  font-weight:1000;
+}
+
+.demoTitle{
+  margin-top:14px;
+  font-size:26px;
+  font-weight:1000;
   color:#fff;
-  white-space:pre-line;
+  text-shadow:0 0 18px rgba(255,255,255,.35);
+}
+
+.demoDate{
+  margin-top:10px;
+  color:#ffe47a;
   font-weight:900;
-  line-height:1.65;
+}
+
+.demoText{
+  margin-top:16px;
+  font-size:18px;
+  line-height:1.7;
+  font-weight:900;
+}
+
+.demoStats{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.demoStats span{
+  padding:8px 12px;
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.18);
+  font-weight:1000;
+}
+
+.demoMini{
+  margin-top:14px;
+  color:#ffd6e1;
+  font-size:13px;
+  font-weight:900;
 }
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
 <main class="wrap"><section class="hero"><div class="demoCard">
-⚠️ 人生最大の危機
-
-2027年6月13日
-
-あなたは知らない番号から
-一本の電話を受ける。
-
-危険度 93%
-未来ランク Z
+  <div class="demoBadge">閲覧注意・サンプル結果</div>
+  <div class="demoTitle">⚠️ 人生最大の危機</div>
+  <div class="demoDate">2027年6月13日 23:41</div>
+  <div class="demoText">
+    あなたは知らない番号から<br>
+    一本の電話を受ける。
+  </div>
+  <div class="demoStats">
+    <span>危険度 93%</span>
+    <span>未来ランク Z</span>
+  </div>
+  <div class="demoMini">この未来、見る？見ない？</div>
 </div><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section>
 <section class="genreGrid">
 
 <div class="genre forbidden heroGenre" data-genre="forbidden">
   <b>🚫 禁断の未来</b>
   <span>🔥 人気No.1。見てはいけない未来。</span>
+</div>
+
+  <div class="genre forbidden" data-genre="photoGhost">
+  <b>📸 この写真、何か写ってる？</b>
+  <span>写真から怪異度を診断。</span>
 </div>
 
 <div class="genre forbidden" data-genre="enemy">
@@ -229,7 +311,11 @@ padding-right:8px;
 </div>
 
 </section>
-<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
+<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><label>写真診断用の画像</label>
+<input id="photoInput" type="file" accept="image/*">
+<div style="font-size:12px;color:#cfc0ed;margin-top:6px">
+  ※写真怪異診断を選んだ時に使います
+</div><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
 <div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div><div id="resultText" class="resultText">診断ジャンルを選んで入力すると、ここにAI生成結果が表示されます。</div></div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button>
 <button class="secondary" onclick="shareCard()">📸 診断カードを共有
@@ -245,7 +331,8 @@ const labels={
   viral:"バズる未来",
   forbidden:"禁断の未来",
   enemy:"あなたを裏切る人",
-  deathflag:"人生最大の危機"
+  deathflag:"人生最大の危機",
+  photoGhost:"写真怪異診断"
 };
 const recommends={
   daily:["forbidden","enemy","love"],
@@ -257,6 +344,7 @@ const recommends={
   viral:["money","enemy","forbidden"],
   forbidden:["enemy","deathflag","ghost"],
   enemy:["forbidden","deathflag","love"],
+  photoGhost:["forbidden","ghost","deathflag"],
   deathflag:["enemy","forbidden","future"]
 };
 let genre="future";let history=JSON.parse(localStorage.getItem("futurePortalV3History")||"[]");
@@ -400,6 +488,7 @@ const loadingTimer = setInterval(()=>{
     age: document.getElementById("age").value,
     worry: document.getElementById("worry").value,
     tone: document.getElementById("tone").value,
+    hasPhoto: document.getElementById("photoInput")?.files?.length > 0,
     intensity: document.getElementById("intensity").value
   };
 
