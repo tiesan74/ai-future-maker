@@ -191,18 +191,16 @@ padding-right:8px;
 }
 
 .oracleFace{
-
-  width:64px;
-  height:64px;
-
+  width:86px;
+  height:86px;
   border-radius:50%;
-
-  background:
-  linear-gradient(
-    135deg,
-    #ff5fa2,
-    #8f5cff
-  );
+  object-fit:cover;
+  object-position:center top;
+  background:rgba(255,255,255,.08);
+  border:2px solid rgba(255,255,255,.35);
+  box-shadow:0 0 25px rgba(255,95,162,.65);
+  cursor:pointer;
+}
 
   display:flex;
   align-items:center;
@@ -214,6 +212,18 @@ padding-right:8px;
   0 0 25px rgba(255,95,162,.6);
 
   cursor:pointer;
+}
+
+  .heroMirai{
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.28);
+  box-shadow:0 0 35px rgba(255,116,212,.55);
+  margin:10px auto 8px;
+  display:block;
 }
 
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
@@ -381,7 +391,7 @@ padding-right:8px;
     <span>未来ランク Z</span>
   </div>
   <div class="demoMini">この未来、見る？見ない？</div>
-</div><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section><div class="todayHero" onclick="setGenre('daily')">
+</div><div class="logo">🔮 Gemini版・無料検証向け V3</div><img class="heroMirai" src="/mirai.png" alt="ミライ"><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section><div class="todayHero" onclick="setGenre('daily')">
 
   <div class="todayBadge">
     ☀️ 毎日更新
@@ -787,8 +797,6 @@ renderHistory();renderRecommends();
     見ちゃう？
   </div>
 
-  <div class="oracleFace">
-    🔮
-  </div>
+  <img class="oracleFace" src="/mirai.png" alt="ミライ">
 
 </div></body></html>
