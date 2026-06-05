@@ -60,13 +60,16 @@ export default async function handler(req, res) {
       ghost: 5 + (hashScore(seed + "ghost", 29) % 96),
     };
 
-const maxScore = Math.max(
-  scores.money,
-  scores.love,
-  scores.viral
+const avg = Math.round(
+  (
+    scores.money +
+    scores.love +
+    scores.viral +
+    (100 - scores.ghost)
+  ) / 4
 );
 
-const rank = rankFromAvg(maxScore);
+const rank = rankFromAvg(avg);
 
     const danger = Math.max(scores.ghost, scores.love, 40);
     const avoid = Math.max(5, 100 - danger);
@@ -163,7 +166,7 @@ const prompt = `
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.8,
-         maxOutputTokens: 2000
+         maxOutputTokens: 4096
         }
       })
     });
