@@ -5,7 +5,7 @@
 
 <style>
 :root{--line:rgba(255,255,255,.16);--gold:#ffe47a;--pink:#ff74d4;--blue:#7ad7ff}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans JP",sans-serif;background:radial-gradient(circle at 10% 0%,rgba(255,116,212,.28),transparent 30%),radial-gradient(circle at 90% 8%,rgba(122,215,255,.20),transparent 28%),linear-gradient(180deg,#28104b,#07020f 62%);color:#fff;min-height:100vh}.wrap{max-width:1120px;margin:0 auto;padding:22px 14px 52px}.hero{text-align:center;padding:18px 6px 16px}.logo{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--gold);background:rgba(255,255,255,.08);font-size:13px;font-weight:900}h1{font-size:clamp(34px,8vw,66px);line-height:1.02;margin:14px 0 10px}.sub{color:#d8c8ff;line-height:1.75;max-width:780px;margin:0 auto;font-size:15px}.notice{display:inline-flex;margin-top:12px;padding:8px 12px;border-radius:999px;background:rgba(255,71,126,.14);border:1px solid rgba(255,71,126,.35);color:#ffd6e1;font-size:13px}.genreGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}@media(min-width:760px){.genreGrid{grid-template-columns:repeat(4,1fr)}}.genre{border:1px solid var(--line);border-radius:18px;padding:14px 10px;background:rgba(255,255,255,.08);cursor:pointer;min-height:92px;transition:.15s;position:relative}.genre:hover,.genre.active{transform:translateY(-2px);background:linear-gradient(135deg,rgba(255,228,122,.22),rgba(255,116,212,.22));border-color:rgba(255,228,122,.45)}.genre.forbidden{border-color:rgba(255,71,126,.55);background:linear-gradient(135deg,rgba(255,71,126,.22),rgba(255,228,122,.08))}.genre.forbidden:after{content:"人気狙い";position:absolute;right:8px;top:8px;font-size:10px;background:rgba(255,71,126,.8);padding:3px 7px;border-radius:999px}.genre b{display:block;font-size:15px;margin-bottom:7px}.genre span{display:block;color:#d9cdf6;font-size:12px;line-height:1.45}.grid{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:930px){.grid{grid-template-columns:.88fr 1.12fr}}.card{background:rgba(255,255,255,.09);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.35);backdrop-filter:blur(12px)}label{display:block;margin:13px 0 6px;font-weight:900;font-size:13px;color:#f4eaff}input,select,textarea{width:100%;border-radius:15px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.36);color:#fff;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:95px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}button{width:100%;margin-top:18px;border:0;border-radius:17px;padding:15px;font-size:17px;font-weight:1000;color:#17051f;background:linear-gradient(90deg,var(--gold),var(--pink));cursor:pointer}button:disabled{opacity:.55}.secondary{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line);margin-top:10px}.smallBtn{width:auto;margin:0;padding:9px 12px;border-radius:12px;font-size:13px}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.13);color:var(--gold);font-size:12px;font-weight:900}.resultTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.resultCard{min-height:600px;border-radius:28px;padding:20px;background:radial-gradient(circle at top left,rgba(255,228,122,.18),transparent 35%),radial-gradient(circle at bottom right,rgba(255,116,212,.22),transparent 36%),rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.18)}.cardHeader{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}.rankBox{width:92px;height:92px;border-radius:24px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,rgba(255,228,122,.95),rgba(255,116,212,.92));color:#19051f}.rankBox strong{font-size:36px;line-height:1}.rankBox span{font-size:11px;font-weight:900}.resultTitle{font-size:18px;font-weight:1000;color:#ffeaa8;margin:4px 0}.scoreGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.score{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:17px;padding:11px}.scoreTop{display:flex;justify-content:space-between;font-size:13px;font-weight:900}.bar{height:8px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .8s ease}..resultText{
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans JP",sans-serif;background:radial-gradient(circle at 10% 0%,rgba(255,116,212,.28),transparent 30%),radial-gradient(circle at 90% 8%,rgba(122,215,255,.20),transparent 28%),linear-gradient(180deg,#28104b,#07020f 62%);color:#fff;min-height:100vh}.wrap{max-width:1120px;margin:0 auto;padding:22px 14px 52px}.hero{text-align:center;padding:18px 6px 16px}.logo{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 12px;color:var(--gold);background:rgba(255,255,255,.08);font-size:13px;font-weight:900}h1{font-size:clamp(34px,8vw,66px);line-height:1.02;margin:14px 0 10px}.sub{color:#d8c8ff;line-height:1.75;max-width:780px;margin:0 auto;font-size:15px}.notice{display:inline-flex;margin-top:12px;padding:8px 12px;border-radius:999px;background:rgba(255,71,126,.14);border:1px solid rgba(255,71,126,.35);color:#ffd6e1;font-size:13px}.genreGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}@media(min-width:760px){.genreGrid{grid-template-columns:repeat(4,1fr)}}.genre{border:1px solid var(--line);border-radius:18px;padding:14px 10px;background:rgba(255,255,255,.08);cursor:pointer;min-height:92px;transition:.15s;position:relative}.genre:hover,.genre.active{transform:translateY(-2px);background:linear-gradient(135deg,rgba(255,228,122,.22),rgba(255,116,212,.22));border-color:rgba(255,228,122,.45)}.genre.forbidden{border-color:rgba(255,71,126,.55);background:linear-gradient(135deg,rgba(255,71,126,.22),rgba(255,228,122,.08))}.genre.forbidden:after{content:"人気狙い";position:absolute;right:8px;top:8px;font-size:10px;background:rgba(255,71,126,.8);padding:3px 7px;border-radius:999px}.genre b{display:block;font-size:15px;margin-bottom:7px}.genre span{display:block;color:#d9cdf6;font-size:12px;line-height:1.45}.grid{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:930px){.grid{grid-template-columns:.88fr 1.12fr}}.card{background:rgba(255,255,255,.09);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.35);backdrop-filter:blur(12px)}label{display:block;margin:13px 0 6px;font-weight:900;font-size:13px;color:#f4eaff}input,select,textarea{width:100%;border-radius:15px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.36);color:#fff;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:95px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}button{width:100%;margin-top:18px;border:0;border-radius:17px;padding:15px;font-size:17px;font-weight:1000;color:#17051f;background:linear-gradient(90deg,var(--gold),var(--pink));cursor:pointer}button:disabled{opacity:.55}.secondary{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line);margin-top:10px}.smallBtn{width:auto;margin:0;padding:9px 12px;border-radius:12px;font-size:13px}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.13);color:var(--gold);font-size:12px;font-weight:900}.resultTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.resultCard{min-height:600px;border-radius:28px;padding:20px;background:radial-gradient(circle at top left,rgba(255,228,122,.18),transparent 35%),radial-gradient(circle at bottom right,rgba(255,116,212,.22),transparent 36%),rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.18)}.cardHeader{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}.rankBox{width:92px;height:92px;border-radius:24px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,rgba(255,228,122,.95),rgba(255,116,212,.92));color:#19051f}.rankBox strong{font-size:36px;line-height:1}.rankBox span{font-size:11px;font-weight:900}.resultTitle{font-size:18px;font-weight:1000;color:#ffeaa8;margin:4px 0}.scoreGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.score{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:17px;padding:11px}.scoreTop{display:flex;justify-content:space-between;font-size:13px;font-weight:900}.bar{height:8px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .8s ease}.resultText{
   white-space:pre-wrap;
   line-height:1.9;
   color:#fff;
@@ -123,13 +123,6 @@ padding-right:8px;
   50%{transform:translateY(-4px)}
 }
 
-  text-align:center;
-  font-weight:1000;
-  font-size:20px;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.18);
-}
-
 @keyframes rankFloat{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-4px)}
@@ -156,9 +149,33 @@ padding-right:8px;
 
   animation: exGlow 1.5s infinite alternate;
 }
-</style></head><body>
+
+  .demoCard{
+  max-width:520px;
+  margin:14px auto 18px;
+  padding:18px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,71,126,.24),rgba(255,228,122,.14));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 0 28px rgba(255,71,126,.25);
+  color:#fff;
+  white-space:pre-line;
+  font-weight:900;
+  line-height:1.65;
+}
+</style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
-<main class="wrap"><section class="hero"><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section>
+<main class="wrap"><section class="hero"><div class="demoCard">
+⚠️ 人生最大の危機
+
+2027年6月13日
+
+あなたは知らない番号から
+一本の電話を受ける。
+
+危険度 93%
+未来ランク Z
+</div><div class="logo">🔮 Gemini版・無料検証向け V3</div><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section>
 <section class="genreGrid">
 
 <div class="genre forbidden heroGenre" data-genre="forbidden">
@@ -212,8 +229,11 @@ padding-right:8px;
 </div>
 
 </section>
-<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button><button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
-<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div><div id="resultText" class="resultText">診断ジャンルを選んで入力すると、ここにAI生成結果が表示されます。</div></div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button><div style="margin-top:14px"><b>次におすすめの診断</b><div class="recommendGrid" id="recommendGrid"></div></div></div></section><p class="footer">© AI未来予想メーカー V3 Gemini</p></main>
+<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
+<button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
+<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div><div id="resultText" class="resultText">診断ジャンルを選んで入力すると、ここにAI生成結果が表示されます。</div></div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button>
+<button class="secondary" onclick="shareCard()">📸 診断カードを共有
+</button><div style="margin-top:14px"><b>次におすすめの診断</b><div class="recommendGrid" id="recommendGrid"></div></div></div></section><p class="footer">© AI未来予想メーカー V3 Gemini</p></main>
 <script>
 const labels={
   daily:"今日の未来",
@@ -439,6 +459,37 @@ const loadingTimer = setInterval(()=>{
 }
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
 function copyShare(){const text=document.getElementById("resultText").innerText+"\\n\\nあなたも診断してみる？\\n#AI未来予想メーカー";navigator.clipboard.writeText(text).then(()=>alert("投稿用テキストをコピーしました"));}
+  async function shareCard(){
+  const card = document.getElementById("resultCard");
+
+  const canvas = await html2canvas(card, {
+    backgroundColor: null,
+    scale: 2
+  });
+
+  const blob = await new Promise(resolve =>
+    canvas.toBlob(resolve, "image/png")
+  );
+
+  const file = new File(
+    [blob],
+    "future-result.png",
+    { type: "image/png" }
+  );
+
+  if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+    await navigator.share({
+      title: "AI未来予想メーカー",
+      text: "診断結果が出ました",
+      files: [file]
+    });
+  } else {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "future-result.png";
+    a.click();
+  }
+}
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 renderHistory();renderRecommends();
 </script></body></html>
