@@ -1071,7 +1071,8 @@ if(g === "photoGhost"){
 
 
 document.querySelectorAll(".genre").forEach(el=>el.addEventListener("click",()=>setGenre(el.dataset.genre)));
-function renderHistory(){const box=document.getElementById("history");box.innerHTML="";history.slice(0,5).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent=`${h.name} / ${h.label} / ${new Date(h.createdAt).toLocaleString("ja-JP")}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
+function renderHistory(){const box=document.getElementById("history");box.innerHTML="";history.history.slice(0,3).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent =
+`${h.name} / ${h.label}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";const promo = {
  enemy:"💔 あなたを裏切る人",
  deathflag:"⚠️ 人生最大の危機",
