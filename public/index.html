@@ -289,6 +289,64 @@ height:104px;
   border:1px solid rgba(255,255,255,.18);
   box-shadow:0 0 18px rgba(255,116,212,.18);
 }
+
+  .ghostMeter{
+
+  margin-top:12px;
+
+  padding:12px;
+
+  border-radius:14px;
+
+  background:
+  rgba(255,255,255,.05);
+
+  border:
+  1px solid rgba(255,255,255,.12);
+
+}
+
+.ghostMeterTop{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  margin-bottom:8px;
+
+  font-weight:900;
+
+}
+
+.ghostMeterBar{
+
+  height:10px;
+
+  border-radius:999px;
+
+  overflow:hidden;
+
+  background:
+  rgba(255,255,255,.1);
+
+}
+
+.ghostMeterBar span{
+
+  display:block;
+
+  height:100%;
+
+  width:0;
+
+  background:
+  linear-gradient(
+    90deg,
+    #ff8bd6,
+    #ff5c7a
+  );
+
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -545,6 +603,21 @@ height:104px;
   <label>診断する写真</label>
   <input id="photoInput" type="file" accept="image/*">
   <img id="photoPreview" class="photoPreview" style="display:none">
+</div><div id="ghostMeter"
+     class="ghostMeter"
+     style="display:none">
+
+  <div class="ghostMeterTop">
+    👻 怪異反応
+    <span id="ghostMeterValue">
+      0%
+    </span>
+  </div>
+
+  <div class="ghostMeterBar">
+    <span id="ghostMeterFill"></span>
+  </div>
+
 </div>
 
   <label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
@@ -1097,13 +1170,51 @@ if(photoInput){
     preview.src = URL.createObjectURL(file);
     preview.style.display = "block";
 
+    const ghostMeter =
+  document.getElementById("ghostMeter");
+
+const ghostMeterFill =
+  document.getElementById("ghostMeterFill");
+
+const ghostMeterValue =
+  document.getElementById("ghostMeterValue");
+
+const ghostLevel =
+  Math.floor(
+    Math.random() * 100
+  );
+
+ghostMeter.style.display =
+  "block";
+
+ghostMeterFill.style.width =
+  ghostLevel + "%";
+
+ghostMeterValue.textContent =
+  ghostLevel + "%";
+
     document.getElementById("generateBtn")
   .textContent =
   "👁 写真を診断する";
 
     const bubble = document.querySelector(".oracleBubble");
     if(bubble){
-      bubble.innerHTML = "この写真…<br>見てみるね";
+     if(ghostLevel >= 80){
+
+  bubble.innerHTML =
+  "ちょっと待って…<br>何か変かも";
+
+}else if(ghostLevel >= 50){
+
+  bubble.innerHTML =
+  "少し気になるね";
+
+}else{
+
+  bubble.innerHTML =
+  "今のところは<br>大丈夫そう";
+
+}
     }
   });
 }
