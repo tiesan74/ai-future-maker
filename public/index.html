@@ -908,7 +908,11 @@ z-index:999;
 
   <div class="quickStart">
 
-<button onclick="setGenre('forbidden')">
+<button onclick="setGenre('daily')">
+☀️ 今日の未来
+</button>
+    
+    <button onclick="setGenre('forbidden')">
 🚫 人気No.1
 禁断の未来
 </button>
@@ -1207,6 +1211,15 @@ function setGenre(g){
  btn.textContent = grid.classList.contains("showAll")
   ? "閉じる ▲"
   : "🔮 他の診断も見る ▼";
+
+      setTimeout(()=>{
+  document
+    .querySelector(".genreGrid")
+    ?.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+},100);
 }
 
   function toggleAdvanced(){
@@ -1521,8 +1534,11 @@ const loadingTextEl = document.querySelector(".loadingText");
   document.getElementById("loadingSteps");
 
 const loadingTimer = setInterval(()=>{
-  const text =
-    loadingTexts[loadingIndex % loadingTexts.length];
+ const loadingTimer = setInterval(()=>{
+  const max = loadingTexts.length;
+  const index = Math.min(loadingIndex, max - 1);
+
+  const text = loadingTexts[index];
 
   if(loadingTextEl){
     loadingTextEl.textContent = text;
@@ -1530,10 +1546,7 @@ const loadingTimer = setInterval(()=>{
 
   if(loadingStepsEl){
     loadingStepsEl.textContent =
-      "STEP " +
-      ((loadingIndex % loadingTexts.length) + 1) +
-      " / " +
-      loadingTexts.length;
+      "STEP " + (index + 1) + " / " + max;
   }
 
   loadingIndex++;
