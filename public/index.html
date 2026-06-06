@@ -376,6 +376,18 @@ height:104px;
     1px solid rgba(255,255,255,.15);
 
 }
+
+  .shareGhostMeter{
+  margin-bottom:16px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,92,122,.22),rgba(255,116,212,.12));
+  border:1px solid rgba(255,255,255,.16);
+  font-weight:1000;
+  color:#ffd8ff;
+  display:flex;
+  justify-content:space-between;
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -658,7 +670,13 @@ height:104px;
 <div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
   id="sharePhoto"
   class="sharePhoto"
-  style="display:none"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
+  style="display:none"><div
+  id="shareGhostMeter"
+  class="shareGhostMeter"
+  style="display:none"
+>
+  👻 怪異反応 <span id="shareGhostValue">0%</span>
+</div><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
 <div id="resultText" class="resultText">
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
@@ -923,6 +941,28 @@ if(
     "none";
 
 }
+
+const shareGhostMeter =
+  document.getElementById("shareGhostMeter");
+
+const shareGhostValue =
+  document.getElementById("shareGhostValue");
+
+const ghostMeterValue =
+  document.getElementById("ghostMeterValue");
+
+if(
+  genre === "photoGhost" &&
+  shareGhostMeter &&
+  shareGhostValue &&
+  ghostMeterValue
+){
+  shareGhostMeter.style.display = "flex";
+  shareGhostValue.textContent = ghostMeterValue.textContent;
+}else if(shareGhostMeter){
+  shareGhostMeter.style.display = "none";
+}
+  
   const scores = data.scores || {};
 
   const topScore = [
