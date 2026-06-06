@@ -554,17 +554,6 @@ else{
   
   renderRecommends();
 
-  function toggleGenres(){
-  const grid = document.querySelector(".genreGrid");
-  const btn = document.getElementById("moreGenreBtn");
-
-  grid.classList.toggle("showAll");
-
-  btn.textContent = grid.classList.contains("showAll")
-    ? "閉じる ▲"
-    : "もっと見る ▼";
-}
-
   const photoArea =
  document.getElementById("photoArea");
 
@@ -579,6 +568,19 @@ if(g === "photoGhost"){
   block:"start"
 });
 }
+
+    function toggleGenres(){
+  const grid = document.querySelector(".genreGrid");
+  const btn = document.getElementById("moreGenreBtn");
+
+  grid.classList.toggle("showAll");
+
+  btn.textContent = grid.classList.contains("showAll")
+    ? "閉じる ▲"
+    : "もっと見る ▼";
+}
+
+
 document.querySelectorAll(".genre").forEach(el=>el.addEventListener("click",()=>setGenre(el.dataset.genre)));
 function renderHistory(){const box=document.getElementById("history");box.innerHTML="";history.slice(0,5).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent=`${h.name} / ${h.label} / ${new Date(h.createdAt).toLocaleString("ja-JP")}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";const promo = {
