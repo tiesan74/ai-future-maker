@@ -905,23 +905,6 @@ z-index:999;
   </button>
 
 </div>
-
-  <div class="quickStart">
-    
-    <button onclick="setGenre('forbidden')">
-🚫 人気No.1
-禁断の未来
-</button>
-
-<button onclick="setGenre('photoGhost')">
-📸 写真怪異診断
-</button>
-
-<button onclick="setGenre('enemy')">
-💔 裏切る人
-</button>
-
-</div>
   
   <div id="miraiDailyFortune" class="miraiDailyFortune">
   🔮 今日のミライ予言：読み込み中...
@@ -1202,14 +1185,6 @@ function setGenre(g){
   ? "閉じる ▲"
   : "🔮 他の診断も見る ▼";
 
-      setTimeout(()=>{
-  document
-    .querySelector(".genreGrid")
-    ?.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-},100);
 }
 
   function toggleAdvanced(){
@@ -1524,7 +1499,7 @@ const loadingTextEl = document.querySelector(".loadingText");
   document.getElementById("loadingSteps");
 
 const loadingTimer = setInterval(()=>{
- const loadingTimer = setInterval(()=>{
+
   const max = loadingTexts.length;
   const index = Math.min(loadingIndex, max - 1);
 
@@ -1540,6 +1515,7 @@ const loadingTimer = setInterval(()=>{
   }
 
   loadingIndex++;
+
 },900);
   overlay.classList.add("show");
 
