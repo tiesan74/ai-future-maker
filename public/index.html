@@ -495,6 +495,43 @@ const labels={
   deathflag:"人生最大の危機",
   photoGhost:"写真怪異診断"
 };
+  const miraiLines = [
+
+"その未来、見ない方がいいかも…",
+
+"今日は少し危険な結果が出そう。",
+
+"気になるなら見てみる？",
+
+"その人、本当に信用してる？",
+
+"禁断の未来は人気だよ。",
+
+"私ならその結果を保存するかも。",
+
+"今日は未来が少し曇ってる。",
+
+"珍しい未来が見えてる。",
+
+"その選択、本当に大丈夫？",
+
+"未来は変えられるよ。"
+
+];
+  function talkMirai(){
+
+  const bubble =
+    document.querySelector(".oracleBubble");
+
+  bubble.innerHTML =
+    miraiLines[
+      Math.floor(
+        Math.random() *
+        miraiLines.length
+      )
+    ];
+
+}
 const recommends={
   daily:["forbidden","enemy","love"],
   future:["forbidden","enemy","deathflag"],
@@ -792,7 +829,10 @@ function copyShare(){const text=document.getElementById("resultText").innerText+
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 renderHistory();renderRecommends();
-</script><div id="oracleGirl">
+</script><div
+  id="oracleGirl"
+  onclick="talkMirai()"
+>
 
   <div class="oracleBubble">
     その未来、<br>
