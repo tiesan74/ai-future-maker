@@ -450,6 +450,23 @@ overflow-x:hidden;
   border-radius:18px;
   font-weight:900;
 }
+
+  #miniLevel{
+
+  margin-top:4px;
+
+  text-align:center;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  color:#ffeaa8;
+
+  text-shadow:
+    0 0 8px rgba(255,234,168,.6);
+
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -717,10 +734,13 @@ overflow-x:hidden;
 
     <span class="badge" id="selectedBadge">選択中：未来予想</span>
 
-    <div id="miraiLevelBox" class="miraiLevelBox">
-  🔮 ミライとの信頼度 Lv.1
+  <!-- 一旦非表示 -->
+<div
+  id="miraiLevelBox"
+  class="miraiLevelBox"
+  style="display:none"
+>
 </div>
-
     <label>名前</label>
     <input id="name" placeholder="例：かいせい">
 
@@ -961,6 +981,17 @@ function updateMiraiLevel(){
   "🔮 ミライとの信頼度 Lv." +
   getMiraiLevel();
 }
+
+  const mini =
+  document.getElementById("miniLevel");
+
+if(mini){
+
+  mini.textContent =
+    "Lv." +
+    getMiraiLevel();
+
+}
   
 function setGenre(g){
   genre = g;
@@ -1004,6 +1035,7 @@ else{
   bubble.innerHTML =
   "その未来、<br>見ちゃう？";
 }
+
 
   document.getElementById("generateBtn")
   .textContent =
@@ -1666,6 +1698,10 @@ renderDailyGhostLevel();
     その未来、<br>
     見ちゃう？
   </div>
+
+  <div id="miniLevel">
+  Lv.1
+</div>
 
   <img class="oracleFace" src="/mirai.png" alt="ミライ">
 
