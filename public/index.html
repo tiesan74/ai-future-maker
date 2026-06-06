@@ -279,7 +279,17 @@ height:104px;
   width:86px;
   height:86px;
 }
-
+  
+.photoPreview{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:16px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 0 18px rgba(255,116,212,.18);
+}
+  
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
 .rankBox.rank-s{background:linear-gradient(135deg,#00d4ff,#b8f7ff);color:#003d4a;}
@@ -534,10 +544,10 @@ height:104px;
 </div><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
   <label>診断する写真</label>
   <input id="photoInput" type="file" accept="image/*">
+  <img id="photoPreview" class="photoPreview" style="display:none">
 </div>
-<div style="font-size:12px;color:#cfc0ed;margin-top:6px">
-  ※写真怪異診断を選んだ時に使います
-</div><label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
+
+  <label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
 <div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div><div id="resultText" class="resultText">
 <div id="resultText" class="resultText">
@@ -995,6 +1005,25 @@ localStorage.setItem("miraiExp", currentMiraiExp);
 
 if(typeof updateMiraiLevel === "function"){
   updateMiraiLevel();
+}
+
+    const photoInput = document.getElementById("photoInput");
+
+if(photoInput){
+  photoInput.addEventListener("change",()=>{
+    const file = photoInput.files[0];
+    const preview = document.getElementById("photoPreview");
+
+    if(!file || !preview) return;
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+
+    const bubble = document.querySelector(".oracleBubble");
+    if(bubble){
+      bubble.innerHTML = "この写真…<br>見てみるね";
+    }
+  });
 }
 
     renderHistory();
