@@ -743,6 +743,10 @@ else{
   bubble.innerHTML =
   "その未来、<br>見ちゃう？";
 }
+
+  document.getElementById("generateBtn")
+  .textContent =
+  "AIで診断する";
   
   renderRecommends();
 
@@ -1092,6 +1096,10 @@ if(photoInput){
 
     preview.src = URL.createObjectURL(file);
     preview.style.display = "block";
+
+    document.getElementById("generateBtn")
+  .textContent =
+  "👁 写真を診断する";
 
     const bubble = document.querySelector(".oracleBubble");
     if(bubble){
