@@ -556,6 +556,13 @@ const labels={
 ];
 function talkMirai(){
 
+  const level =
+  Math.floor(
+    Number(
+      localStorage.getItem("miraiExp") || 0
+    ) / 3
+  ) + 1;
+
   const bubble =
     document.querySelector(".oracleBubble");
 
@@ -565,6 +572,38 @@ function talkMirai(){
     "あなたは少しだけ特別。",
     "この結果、誰かに見られてるかも。"
   ];
+
+  if(level >= 50){
+
+  bubble.innerHTML =
+    "もう常連さんだね。";
+
+  return;
+}
+
+if(level >= 20){
+
+  bubble.innerHTML =
+    "少しだけ未来が見えやすくなったよ。";
+
+  return;
+}
+
+if(level >= 10){
+
+  bubble.innerHTML =
+    "最近よく会うね。";
+
+  return;
+}
+
+if(level >= 5){
+
+  bubble.innerHTML =
+    "また来てくれたね。";
+
+  return;
+}
 
   const isRare =
     Math.random() < 0.03;
