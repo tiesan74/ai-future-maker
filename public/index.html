@@ -437,6 +437,19 @@ overflow-x:hidden;
   display:block;
   margin:12px auto 8px;
 }
+
+  .quickStart{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin:18px 0;
+}
+
+.quickStart button{
+  padding:16px;
+  border-radius:18px;
+  font-weight:900;
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -610,6 +623,23 @@ overflow-x:hidden;
   <button class="todayBtn">
     今日の未来を見る
   </button>
+
+</div>
+
+  <div class="quickStart">
+
+<button onclick="setGenre('forbidden')">
+🚫 人気No.1
+禁断の未来
+</button>
+
+<button onclick="setGenre('photoGhost')">
+📸 写真怪異診断
+</button>
+
+<button onclick="setGenre('enemy')">
+💔 裏切る人
+</button>
 
 </div>
   
