@@ -998,6 +998,17 @@ if(g === "photoGhost"){
     : "もっと見る ▼";
 }
 
+  function toggleAdvanced(){
+  const box = document.getElementById("advancedSettings");
+
+  if(!box) return;
+
+  box.style.display =
+    box.style.display === "none" || box.style.display === ""
+      ? "block"
+      : "none";
+}
+
 
 document.querySelectorAll(".genre").forEach(el=>el.addEventListener("click",()=>setGenre(el.dataset.genre)));
 function renderHistory(){const box=document.getElementById("history");box.innerHTML="";history.slice(0,5).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent=`${h.name} / ${h.label} / ${new Date(h.createdAt).toLocaleString("ja-JP")}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
