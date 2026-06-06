@@ -607,7 +607,14 @@ function updateMiraiLevel(){
   const box = document.getElementById("miraiLevelBox");
   if(!box) return;
 
-  box.textContent = "ミライ親密度 Lv." + getMiraiLevel();
+  const currentMiraiExp =
+    Number(localStorage.getItem("miraiExp") || 0);
+
+  const level =
+    Math.floor(currentMiraiExp / 3) + 1;
+
+  box.textContent =
+    "ミライ親密度 Lv." + level;
 }
   
 function setGenre(g){
@@ -872,9 +879,16 @@ const loadingTimer = setInterval(()=>{
     history = history.slice(0,10);
     localStorage.setItem("futurePortalV3History", JSON.stringify(history));
     
-    miraiExp++;
-localStorage.setItem("miraiExp", miraiExp);
-updateMiraiLevel();
+   let currentMiraiExp =
+  Number(localStorage.getItem("miraiExp") || 0);
+
+currentMiraiExp++;
+
+localStorage.setItem("miraiExp", currentMiraiExp);
+
+if(typeof updateMiraiLevel === "function"){
+  updateMiraiLevel();
+}
 
     renderHistory();
     renderRecommends();
