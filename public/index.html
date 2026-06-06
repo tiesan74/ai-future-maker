@@ -970,7 +970,25 @@ const recommends={
   photoGhost:["forbidden","ghost","deathflag"],
   deathflag:["enemy","forbidden","future"]
 };
-let genre="future";let history=JSON.parse(localStorage.getItem("futurePortalV3History")||"[]");
+let genre = "future";
+
+let history = [];
+
+try{
+  const savedHistory =
+    JSON.parse(
+      localStorage.getItem("futurePortalV3History") || "[]"
+    );
+
+  history =
+    Array.isArray(savedHistory)
+      ? savedHistory
+      : [];
+
+}catch(e){
+  history = [];
+  localStorage.removeItem("futurePortalV3History");
+}
 
     let miraiExp = Number(localStorage.getItem("miraiExp") || 0);
 
@@ -1114,7 +1132,9 @@ if(g === "photoGhost"){
 
 
 document.querySelectorAll(".genre").forEach(el=>el.addEventListener("click",()=>setGenre(el.dataset.genre)));
-function renderHistory(){const box=document.getElementById("history");box.innerHTML="";history.history.slice(0,3).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent =
+function renderHistory(){if(!Array.isArray(history)){
+  history = [];
+}const box=document.getElementById("history");box.innerHTML="";history.history.slice(0,3).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent =
 `${h.name} / ${h.label}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";const promo = {
  enemy:"💔 あなたを裏切る人",
