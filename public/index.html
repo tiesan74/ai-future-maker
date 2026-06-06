@@ -1054,83 +1054,94 @@ function setGenre(g){
     x.classList.toggle("active", x.dataset.genre === g)
   );
 
- document.getElementById("selectedBadge").textContent =
-  "👇 次に内容を入力してください";
+  const selectedBadge =
+    document.getElementById("selectedBadge");
 
-setTimeout(()=>{
-  document.getElementById("selectedBadge").textContent =
-    "選択中：" + labels[g];
-},1500);
+  if(selectedBadge){
+    selectedBadge.textContent =
+      "選択中：" + labels[g];
+  }
+
+  const selectedHero =
+    document.getElementById("selectedGenreHero");
+
+  if(selectedHero){
+    selectedHero.textContent =
+      "🔮 " + labels[g] + "を診断中";
+  }
 
   const bubble =
-document.querySelector(".oracleBubble");
+    document.querySelector(".oracleBubble");
 
-if(g==="forbidden"){
-  bubble.innerHTML =
-  "本当に<br>見るの？";
-}
+  if(bubble){
+    if(g === "forbidden"){
+      bubble.innerHTML = "本当に<br>見るの？";
+    }else if(g === "enemy"){
+      bubble.innerHTML = "その人、<br>信用してる？";
+    }else if(g === "daily"){
+      bubble.innerHTML = "今日の未来を<br>覗く？";
+    }else if(g === "photoGhost"){
+      bubble.innerHTML = "その写真…<br>気になるね";
+    }else{
+      bubble.innerHTML = "その未来、<br>見ちゃう？";
+    }
+  }
 
-else if(g==="enemy"){
-  bubble.innerHTML =
-  "その人、<br>信用してる？";
-}
+  const generateBtn =
+    document.getElementById("generateBtn");
 
-else if(g==="daily"){
-  bubble.innerHTML =
-  "今日の未来を<br>覗く？";
-}
+  if(generateBtn){
+    const btnTextMap = {
+      future:"🔮 この未来を診断してもらう",
+      forbidden:"🚫 禁断の未来を見る",
+      photoGhost:"📸 写真を診断してもらう",
+      enemy:"💔 裏切る人を探す",
+      daily:"☀️ 今日の未来を見る",
+      love:"❤️ 恋愛未来を見る",
+      money:"💰 金運未来を見る",
+      ghost:"👻 怪異未来を見る",
+      viral:"📈 バズる未来を見る",
+      shadow:"👤 裏人格を診断する",
+      deathflag:"⚠️ 人生最大の危機を見る"
+    };
 
-else if(g==="photoGhost"){
-  bubble.innerHTML =
-  "その写真…<br>気になるね";
-}
+    generateBtn.textContent =
+      btnTextMap[g] || "🔮 これで診断してもらう";
+  }
 
-else{
-  bubble.innerHTML =
-  "その未来、<br>見ちゃう？";
-}
-
-
-  document.getElementById("generateBtn")
-  .textContent =
-  "AIで診断する";
-  
   renderRecommends();
 
   const photoArea =
- document.getElementById("photoArea");
+    document.getElementById("photoArea");
 
-if(g === "photoGhost"){
-  photoArea.style.display = "block";
-}else{
-  photoArea.style.display = "none";
-}
+  if(photoArea){
+    photoArea.style.display =
+      g === "photoGhost" ? "block" : "none";
+  }
 
-  const worry =
- document.getElementById("worry");
+  const worryArea =
+    document.getElementById("worryArea");
 
-const advanced =
- document.getElementById("advancedSettings");
+  const advanced =
+    document.getElementById("advancedSettings");
 
-if(g === "photoGhost"){
+  if(worryArea && advanced){
+    if(g === "photoGhost"){
+      worryArea.style.display = "none";
+      advanced.style.display = "none";
+    }else{
+      worryArea.style.display = "block";
+    }
+  }
 
-  worry.parentElement.style.display =
-    "none";
-
-  advanced.style.display =
-    "none";
-
-}else{
-
-  worry.parentElement.style.display =
-    "block";
-
-}
-
-  document.getElementById("inputCard").scrollIntoView({
-  behavior:"smooth",
-  block:"start"
-});
+  setTimeout(()=>{
+    document
+      .getElementById("inputCard")
+      ?.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+  },100);
 }
 
     function toggleGenres(){
