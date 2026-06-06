@@ -795,7 +795,11 @@ overflow-x:hidden;
 </div>
 
 <button class="secondary" onclick="randomFill()">ランダム入力</button>
-<button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
+<button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div style="margin-top:14px"><b>最近診断された未来</b>
+<div style="font-size:12px;color:#cfc0ed;margin-top:4px">
+  タップすると前の診断結果をもう一度見られます
+</div>
+<div id="history"></div></div></div>
 <div id="resultWrap" style="display:none"><div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
   id="sharePhoto"
   class="sharePhoto"
