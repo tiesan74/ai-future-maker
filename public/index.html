@@ -549,7 +549,7 @@ height:104px;
      class="miraiComment"
      style="display:none">
 </div>
-🔮 ミライ：ジャンルを選んで未来を覗いてみて。</div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button>
+</div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button>
 <button class="secondary" onclick="shareCard()">📸 診断カードを共有
 </button><div style="margin-top:14px"><b>次におすすめの診断</b><div class="recommendGrid" id="recommendGrid"></div></div></div></section><p class="footer">© AI未来予想メーカー V3 Gemini</p></main>
 <script>
@@ -821,7 +821,8 @@ if(rank === "EX"){
 
 const commentBox = document.getElementById("miraiComment");
 if(commentBox){
-  commentBox.innerText = "🔮 ミライの一言： " + miraiComment;
+  commentBox.style.display = "block";
+  commentBox.innerText = "🔮 ミライの判定： " + miraiComment;
 }
 
 const rarityMap = {
