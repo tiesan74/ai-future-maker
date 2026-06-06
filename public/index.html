@@ -785,14 +785,27 @@ function renderResult(data){
     ["ghost", scores.ghost ?? 0]
   ].sort((a,b)=>b[1]-a[1])[0][0];
 
-  const typeMap = {
-    money:["💰","億狙い型","お金の選択で未来が大きく変わるタイプ"],
-    love:["💘","恋愛支配型","恋愛運が人生を大きく動かすタイプ"],
-   viral:["📈","バズ暴走型","SNSや発信で一気に流れが変わるタイプ"],
-    ghost:["👁","違和感感知型","人より先に危険や違和感を察知するタイプ"]
-  };
+ const allTypes = [
+  ["💰","億狙い型","お金の選択で未来が大きく変わるタイプ"],
+  ["💘","恋愛支配型","恋愛運が人生を大きく動かすタイプ"],
+  ["📈","バズ暴走型","SNSや発信で一気に流れが変わるタイプ"],
+  ["👁","怪異吸引体質","人より違和感や不穏な流れを引き寄せやすいタイプ"],
+  ["🚫","禁断好奇心型","見ない方がいいものほど気になってしまうタイプ"],
+  ["💔","裏切り察知型","人間関係の変化に敏感なタイプ"],
+  ["⚠️","危機回避型","危ない未来をギリギリで避けられるタイプ"],
+  ["🔮","未来改変型","選択次第で未来が大きく変わるタイプ"],
+  ["🧠","隠れ天才型","まだ表に出ていない才能を持つタイプ"],
+  ["🌙","闇コレクター型","普通の人が避けるものに惹かれるタイプ"]
+];
 
-  const type = typeMap[topScore] || ["🔮","未来変化型","これからの選択で未来が変わるタイプ"];
+const seed =
+  (scores.money * 3) +
+  (scores.love * 5) +
+  (scores.viral * 7) +
+  (scores.ghost * 11);
+
+const type =
+  allTypes[seed % allTypes.length];
 
   document.getElementById("cardGenre").textContent = data.label || labels[genre];
   document.getElementById("rankText").textContent = rank;
