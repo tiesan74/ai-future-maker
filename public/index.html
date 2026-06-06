@@ -518,19 +518,34 @@ const labels={
 "未来は変えられるよ。"
 
 ];
-  function talkMirai(){
+function talkMirai(){
 
   const bubble =
     document.querySelector(".oracleBubble");
 
+  const rareLines = [
+    "……見つけた。",
+    "今日は未来が見えない。",
+    "あなたは少しだけ特別。",
+    "この結果、誰かに見られてるかも。"
+  ];
+
+  const isRare =
+    Math.random() < 0.03;
+
+  if(isRare){
+    bubble.innerHTML =
+      rareLines[
+        Math.floor(Math.random() * rareLines.length)
+      ];
+    return;
+  }
+
   bubble.innerHTML =
     miraiLines[
-      Math.floor(
-        Math.random() *
-        miraiLines.length
-      )
+      Math.floor(Math.random() * miraiLines.length)
     ];
-
+}
 }
 const recommends={
   daily:["forbidden","enemy","love"],
