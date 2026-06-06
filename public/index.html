@@ -1014,50 +1014,24 @@ document.getElementById("resultText").innerText =
   "\n\n" +
   nextGenreText +
   "\n#AI未来予想メーカー";
-
-function fileToBase64(file){
-
-  return new Promise((resolve,reject)=>{
-
-    const reader = new FileReader();
-
-    reader.onload = ()=>{
-
-      const result = reader.result;
-
-      const base64 =
-        String(result).split(",")[1];
-
-      resolve(base64);
-
-    };
-
-    reader.onerror = reject;
-
-    reader.readAsDataURL(file);
-
-  });
-
 }
-  
+
   function fileToBase64(file){
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve,reject)=>{
     const reader = new FileReader();
 
     reader.onload = ()=>{
       const result = reader.result;
       const base64 = String(result).split(",")[1];
-
       resolve(base64);
     };
 
     reader.onerror = reject;
-
     reader.readAsDataURL(file);
   });
 }
   
-}async function generate(){
+  async function generate(){
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
 
