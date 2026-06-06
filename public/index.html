@@ -996,7 +996,16 @@ const type =
 
   document.getElementById("cardGenre").textContent = data.label || labels[genre];
   document.getElementById("rankText").textContent = rank;
-  document.getElementById("cardTitle").textContent = `${data.name||"あなた"}さんの${data.label||labels[genre]}`;
+ if(genre === "photoGhost"){
+  const ghostValue =
+    document.getElementById("ghostMeterValue")?.textContent || "--%";
+
+  document.getElementById("cardTitle").textContent =
+    `この写真、何か写ってる？ 怪異反応 ${ghostValue}`;
+}else{
+  document.getElementById("cardTitle").textContent =
+    `${data.name||"あなた"}さんの${data.label||labels[genre]}`;
+}
 
   const rankBox = document.querySelector(".rankBox");
   rankBox.className = "rankBox rank-" + String(rank).toLowerCase();
