@@ -825,6 +825,20 @@ if(commentBox){
   commentBox.innerText = "🔮 ミライの判定： " + miraiComment;
 }
 
+  const bubble = document.querySelector(".oracleBubble");
+
+if(bubble){
+  if(genre === "forbidden"){
+    bubble.innerHTML = "次は裏切る人も<br>見てみる？";
+  }else if(genre === "enemy"){
+    bubble.innerHTML = "禁断の未来も<br>気になるね";
+  }else if(genre === "photoGhost"){
+    bubble.innerHTML = "この写真…<br>保存しておく？";
+  }else{
+    bubble.innerHTML = "結果、<br>保存する？";
+  }
+}
+
 const rarityMap = {
   EX:"出現率 1.2%",
   SS:"出現率 3.8%",
@@ -867,12 +881,22 @@ document.getElementById("rankType").innerHTML = `
   setScore("viral",scores.viral??0);
   setScore("ghost",scores.ghost??0);
 
+const nextGenreText =
+  genre === "forbidden"
+    ? "次は「あなたを裏切る人」も見てみる？"
+    : genre === "enemy"
+    ? "次は「禁断の未来」も見てみる？"
+    : genre === "photoGhost"
+    ? "次は「禁断の未来」もおすすめ。"
+    : "次は「禁断の未来」も見てみる？";
+
 document.getElementById("resultText").innerText =
   (data.text || "") +
   "\n\n━━━━━━━━━━" +
   "\n📸 スクショ保存推奨" +
   "\n後から見返せるように保存しておこう。" +
-  "\n友達にも診断させてみて。" +
+  "\n\n" +
+  nextGenreText +
   "\n#AI未来予想メーカー";
 }async function generate(){
   const btn = document.getElementById("generateBtn");
