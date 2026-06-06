@@ -1229,7 +1229,31 @@ if(typeof updateMiraiLevel === "function"){
   }
 }
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
-function copyShare(){const text=document.getElementById("resultText").innerText+"\\n\\nあなたも診断してみる？\\n#AI未来予想メーカー";navigator.clipboard.writeText(text).then(()=>alert("投稿用テキストをコピーしました"));}
+function copyShare(){
+  const result =
+    document.getElementById("resultText").innerText;
+
+  const ghostValue =
+    document.getElementById("ghostMeterValue")?.textContent || "";
+
+  let text;
+
+  if(genre === "photoGhost"){
+    text =
+      "この写真、何か写ってる？\\n" +
+      "怪異反応：" + ghostValue + "\\n\\n" +
+      result +
+      "\\n\\n#写真怪異診断 #AI未来予想メーカー";
+  }else{
+    text =
+      result +
+      "\\n\\nあなたも診断してみる？\\n#AI未来予想メーカー";
+  }
+
+  navigator.clipboard
+    .writeText(text)
+    .then(()=>alert("投稿用テキストをコピーしました"));
+}
   async function shareCard(){
   const card = document.getElementById("resultCard");
 
