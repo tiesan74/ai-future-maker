@@ -359,6 +359,23 @@ height:104px;
   text-align:center;
   box-shadow:0 0 24px rgba(255,92,122,.18);
 }
+
+  .sharePhoto{
+
+  width:100%;
+
+  max-height:260px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  margin-bottom:16px;
+
+  border:
+    1px solid rgba(255,255,255,.15);
+
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -638,7 +655,10 @@ height:104px;
 
   <label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
-<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
+<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
+  id="sharePhoto"
+  class="sharePhoto"
+  style="display:none"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
 <div id="resultText" class="resultText">
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
@@ -879,6 +899,30 @@ div.textContent =
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
   const rank = data.rank || "?";
+  const sharePhoto =
+  document.getElementById("sharePhoto");
+
+const preview =
+  document.getElementById("photoPreview");
+
+if(
+  genre === "photoGhost" &&
+  preview &&
+  preview.src
+){
+
+  sharePhoto.src =
+    preview.src;
+
+  sharePhoto.style.display =
+    "block";
+
+}else{
+
+  sharePhoto.style.display =
+    "none";
+
+}
   const scores = data.scores || {};
 
   const topScore = [
