@@ -1014,6 +1014,24 @@ document.getElementById("resultText").innerText =
   "\n\n" +
   nextGenreText +
   "\n#AI未来予想メーカー";
+
+  function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+
+    reader.onload = ()=>{
+      const result = reader.result;
+      const base64 = String(result).split(",")[1];
+
+      resolve(base64);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
+  
 }async function generate(){
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
@@ -1039,15 +1057,28 @@ const loadingTimer = setInterval(()=>{
 },700);
   overlay.classList.add("show");
 
-  const payload = {
-    genre,
-    name: document.getElementById("name").value,
-    age: document.getElementById("age").value,
-    worry: document.getElementById("worry").value,
-    tone: document.getElementById("tone").value,
-    hasPhoto: document.getElementById("photoInput")?.files?.length > 0,
-    intensity: document.getElementById("intensity").value
-  };
+const photoFile =
+  document.getElementById("photoInput")?.files?.[0];
+
+let photoBase64 = null;
+let photoMimeType = null;
+
+if(genre === "photoGhost" && photoFile){
+  photoBase64 = await fileToBase64(photoFile);
+  photoMimeType = photoFile.type || "image/jpeg";
+}
+  
+ const payload = {
+  genre,
+  name: document.getElementById("name").value,
+  age: document.getElementById("age").value,
+  worry: document.getElementById("worry").value,
+  tone: document.getElementById("tone").value,
+  hasPhoto: !!photoFile,
+  photoBase64,
+  photoMimeType,
+  intensity: document.getElementById("intensity").value
+};
 
   try {
     const res = await fetch("/api/generate", {
