@@ -1007,25 +1007,6 @@ if(typeof updateMiraiLevel === "function"){
   updateMiraiLevel();
 }
 
-    const photoInput = document.getElementById("photoInput");
-
-if(photoInput){
-  photoInput.addEventListener("change",()=>{
-    const file = photoInput.files[0];
-    const preview = document.getElementById("photoPreview");
-
-    if(!file || !preview) return;
-
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = "block";
-
-    const bubble = document.querySelector(".oracleBubble");
-    if(bubble){
-      bubble.innerHTML = "この写真…<br>見てみるね";
-    }
-  });
-}
-
     renderHistory();
     renderRecommends();
     document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});
@@ -1098,6 +1079,25 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
   box.textContent =
     "🔮 今日のミライ予言： " +
     fortunes[h % fortunes.length];
+}
+
+    const photoInput = document.getElementById("photoInput");
+
+if(photoInput){
+  photoInput.addEventListener("change",()=>{
+    const file = photoInput.files[0];
+    const preview = document.getElementById("photoPreview");
+
+    if(!file || !preview) return;
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+
+    const bubble = document.querySelector(".oracleBubble");
+    if(bubble){
+      bubble.innerHTML = "この写真…<br>見てみるね";
+    }
+  });
 }
   
   renderHistory();renderRecommends();updateMiraiLevel();renderMiraiDailyFortune();
