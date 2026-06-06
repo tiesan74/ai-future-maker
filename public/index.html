@@ -418,6 +418,13 @@ width:100%;
 overflow-x:hidden;
 
 }
+
+  .loadingSteps{
+  margin-top:10px;
+  color:#ffd8ff;
+  font-size:13px;
+  font-weight:900;
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -570,7 +577,9 @@ overflow-x:hidden;
   font-weight:900;
 }
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
-<div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
+<div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div class="loadingSteps" id="loadingSteps">
+  解析準備中...
+</div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
 <main class="wrap"><section class="hero"><div class="logo">🔮 Gemini版・無料検証向け V3</div><img class="heroMirai" src="/mirai.png" alt="ミライ"><h1>AI未来予想メーカー</h1><p class="sub">未来・金運・恋愛・裏人格・怪異・バズる未来まで。診断カードをスクショして友達に送れるAI診断サイト。</p><div class="notice">🚫 人気狙いなら「禁断の未来」から試してみて</div></section><div class="todayHero" onclick="setGenre('daily')">
 
   <div class="todayBadge">
@@ -1241,23 +1250,46 @@ document.getElementById("resultText").innerText =
 
   btn.disabled = true;
   btn.textContent = "生成中...";
-  const loadingTexts = [
-  "未来を解析中...",
-  "裏人格を確認中...",
-  "危険人物を検索中...",
-  "運命の分岐点を照合中...",
-  "診断結果を確定中..."
-];
+ const loadingTexts =
+  genre === "photoGhost"
+    ? [
+        "写真を読み込んでいます...",
+        "光と影を確認中...",
+        "余白の違和感を探しています...",
+        "怪異反応を測定中...",
+        "ミライが結果をまとめています..."
+      ]
+    : [
+        "未来を解析中...",
+        "運命の分岐点を照合中...",
+        "診断タイプを判定中...",
+        "ミライが結果をまとめています..."
+      ];
 
 let loadingIndex = 0;
 const loadingTextEl = document.querySelector(".loadingText");
 
+    const loadingStepsEl =
+  document.getElementById("loadingSteps");
+
 const loadingTimer = setInterval(()=>{
+  const text =
+    loadingTexts[loadingIndex % loadingTexts.length];
+
   if(loadingTextEl){
-    loadingTextEl.textContent = loadingTexts[loadingIndex % loadingTexts.length];
-    loadingIndex++;
+    loadingTextEl.textContent = text;
   }
-},700);
+
+  if(loadingStepsEl){
+    loadingStepsEl.textContent =
+      "STEP " +
+      ((loadingIndex % loadingTexts.length) + 1) +
+      " / " +
+      loadingTexts.length;
+  }
+
+  loadingIndex++;
+},900);
   overlay.classList.add("show");
 
 const photoFile =
