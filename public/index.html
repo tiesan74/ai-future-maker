@@ -638,7 +638,7 @@ height:104px;
 
   <label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
-<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div><div id="resultText" class="resultText">
+<div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div><div id="resultCard" class="resultCard"><div class="cardHeader"><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
 <div id="resultText" class="resultText">
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
@@ -1149,7 +1149,8 @@ function copyShare(){const text=document.getElementById("resultText").innerText+
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 
-  function renderMiraiDailyFortune(){
+ function renderMiraiDailyFortune(){
+
   const box = document.getElementById("miraiDailyFortune");
   if(!box) return;
 
@@ -1163,36 +1164,10 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
     "今日はいつもより直感を信じていい日。"
   ];
 
-  function renderDailyGhostLevel(){
-  const box = document.getElementById("dailyGhostLevel");
-  if(!box) return;
-
   const today = new Date().toISOString().slice(0,10);
 
   let h = 0;
-  for(let i = 0; i < today.length; i++){
-    h += today.charCodeAt(i) * (i + 1);
-  }
 
-  const level = 20 + (h % 81);
-
-  let comment = "今日は比較的穏やか。";
-
-  if(level >= 80){
-    comment = "今日は写真を見返す時だけ注意。";
-  }else if(level >= 60){
-    comment = "今日は小さな違和感に気づきやすい日。";
-  }else if(level >= 40){
-    comment = "今日は夜の通知に少し注意。";
-  }
-
-  box.innerHTML =
-    "👻 本日の怪異度：" + level + "%<br>" +
-    "<span style='font-size:13px;opacity:.9'>" + comment + "</span>";
-}
-    
-  const today = new Date().toISOString().slice(0,10);
-  let h = 0;
   for(let i=0;i<today.length;i++){
     h += today.charCodeAt(i);
   }
@@ -1200,6 +1175,48 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
   box.textContent =
     "🔮 今日のミライ予言： " +
     fortunes[h % fortunes.length];
+}
+
+function renderDailyGhostLevel(){
+
+  const box =
+    document.getElementById("dailyGhostLevel");
+
+  if(!box) return;
+
+  const today =
+    new Date().toISOString().slice(0,10);
+
+  let h = 0;
+
+  for(let i = 0; i < today.length; i++){
+    h += today.charCodeAt(i) * (i + 1);
+  }
+
+  const level =
+    20 + (h % 81);
+
+  let comment =
+    "今日は比較的穏やか。";
+
+  if(level >= 80){
+    comment =
+      "今日は写真を見返す時だけ注意。";
+  }else if(level >= 60){
+    comment =
+      "今日は小さな違和感に気づきやすい日。";
+  }else if(level >= 40){
+    comment =
+      "今日は夜の通知に少し注意。";
+  }
+
+  box.innerHTML =
+    "👻 本日の怪異度：" +
+    level +
+    "%<br>" +
+    "<span style='font-size:13px;opacity:.9'>" +
+    comment +
+    "</span>";
 }
 
     const photoInput = document.getElementById("photoInput");
