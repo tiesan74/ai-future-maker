@@ -1163,7 +1163,7 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
     "今日はいつもより直感を信じていい日。"
   ];
 
-    function renderDailyGhostLevel(){
+  function renderDailyGhostLevel(){
   const box = document.getElementById("dailyGhostLevel");
   if(!box) return;
 
@@ -1190,7 +1190,7 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
     "👻 本日の怪異度：" + level + "%<br>" +
     "<span style='font-size:13px;opacity:.9'>" + comment + "</span>";
 }
-
+    
   const today = new Date().toISOString().slice(0,10);
   let h = 0;
   for(let i=0;i<today.length;i++){
