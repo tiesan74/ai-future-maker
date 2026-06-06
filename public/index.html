@@ -718,8 +718,8 @@ overflow-x:hidden;
     <span class="badge" id="selectedBadge">選択中：未来予想</span>
 
     <div id="miraiLevelBox" class="miraiLevelBox">
-      ミライ親密度 Lv.1
-    </div>
+  🔮 ミライとの信頼度 Lv.1
+</div>
 
     <label>名前</label>
     <input id="name" placeholder="例：かいせい">
@@ -953,8 +953,9 @@ function updateMiraiLevel(){
   const level =
     Math.floor(currentMiraiExp / 3) + 1;
 
-  box.textContent =
-    "ミライ親密度 Lv." + level;
+ box.textContent =
+  "🔮 ミライとの信頼度 Lv." +
+  getMiraiLevel();
 }
   
 function setGenre(g){
