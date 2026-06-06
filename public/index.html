@@ -1132,10 +1132,53 @@ if(g === "photoGhost"){
 
 
 document.querySelectorAll(".genre").forEach(el=>el.addEventListener("click",()=>setGenre(el.dataset.genre)));
-function renderHistory(){if(!Array.isArray(history)){
-  history = [];
-}const box=document.getElementById("history");box.innerHTML="";history.history.slice(0,3).forEach(h=>{const div=document.createElement("div");div.className="historyItem";div.textContent =
-`${h.name} / ${h.label}`;div.onclick=()=>{renderResult(h);document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
+function renderHistory(){
+
+  const box =
+    document.getElementById("history");
+
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  let safeHistory = [];
+
+  try{
+    safeHistory =
+      Array.isArray(history)
+        ? history
+        : [];
+  }catch(e){
+    safeHistory = [];
+  }
+
+  safeHistory.slice(0,3).forEach(h=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "historyItem";
+
+    div.textContent =
+      `${h.name || "あなた"} / ${h.label || "未来診断"}`;
+
+    div.onclick = ()=>{
+
+      renderResult(h);
+
+      document
+        .getElementById("resultCard")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+
+    };
+
+    box.appendChild(div);
+
+  });
+}
 function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";const promo = {
  enemy:"💔 あなたを裏切る人",
  deathflag:"⚠️ 人生最大の危機",
