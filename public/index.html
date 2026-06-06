@@ -659,9 +659,57 @@ overflow-x:hidden;
 もっと見る ▼
 </button>
 </section>
-<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><div id="miraiLevelBox" class="miraiLevelBox">
-  ミライ親密度 Lv.1
-</div><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
+<section class="grid">
+  <div class="card" id="inputCard">
+
+    <span class="badge" id="selectedBadge">選択中：未来予想</span>
+
+    <div id="miraiLevelBox" class="miraiLevelBox">
+      ミライ親密度 Lv.1
+    </div>
+
+    <label>名前</label>
+    <input id="name" placeholder="例：かいせい">
+
+    <div id="worryArea">
+
+    <label>悩み・願望</label>
+    <textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい"></textarea>
+
+      </div>
+
+    <button type="button" class="secondary" onclick="toggleAdvanced()">
+      ⚙️ 詳細設定
+    </button>
+
+    <div id="advancedSettings" style="display:none">
+      <div class="row">
+        <div>
+          <label>年齢</label>
+          <input id="age" type="number" placeholder="例：21">
+        </div>
+
+        <div>
+          <label>トーン</label>
+          <select id="tone">
+            <option>普通</option>
+            <option>怖め</option>
+            <option>前向き</option>
+            <option>中二病</option>
+            <option>恋愛強め</option>
+            <option>金運強め</option>
+          </select>
+        </div>
+      </div>
+
+      <label>濃さ</label>
+      <select id="intensity">
+        <option>軽め</option>
+        <option selected>普通</option>
+        <option>濃いめ</option>
+        <option>かなり濃い</option>
+      </select>
+    </div><div id="photoArea" style="display:none">
   <label>診断する写真</label>
   <input id="photoInput" type="file" accept="image/*">
   <img id="photoPreview" class="photoPreview" style="display:none">
@@ -691,7 +739,7 @@ overflow-x:hidden;
 
 </div>
 
-  <label>濃さ</label><select id="intensity"><option>軽め</option><option selected>普通</option><option>濃いめ</option><option>かなり濃い</option></select><button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
+  <button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div class="pay"><b>収益化導線</b><br>無料3回 → 広告を見ると+1回 → 月額300円で無制限に拡張可能。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
 <div id="resultWrap" style="display:none"><div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
   id="sharePhoto"
@@ -910,6 +958,27 @@ if(g === "photoGhost"){
   photoArea.style.display = "block";
 }else{
   photoArea.style.display = "none";
+}
+
+  const worry =
+ document.getElementById("worry");
+
+const advanced =
+ document.getElementById("advancedSettings");
+
+if(g === "photoGhost"){
+
+  worry.parentElement.style.display =
+    "none";
+
+  advanced.style.display =
+    "none";
+
+}else{
+
+  worry.parentElement.style.display =
+    "block";
+
 }
 
   document.getElementById("inputCard").scrollIntoView({
