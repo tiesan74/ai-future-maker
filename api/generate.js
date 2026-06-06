@@ -52,6 +52,8 @@ export default async function handler(req, res) {
     const worry = clean(body.worry, 400) || "人生を変えたい";
     const genreKey = clean(body.genre, 30) || "future";
     const genre = genreMap[genreKey] || "未来予想";
+    const photoBase64 = body.photoBase64 || null;
+const photoMimeType = body.photoMimeType || "image/jpeg";
 
     const seed = `${name}|${age}|${worry}|${genreKey}|${new Date().toISOString().slice(0,10)}`;
     const scores = {
@@ -447,11 +449,22 @@ let raw;
 
 for(let i = 0; i < 3; i++){
 
+  const parts = [{ text: prompt }];
+
+if(genreKey === "photoGhost" && photoBase64){
+  parts.push({
+    inlineData: {
+      mimeType: photoMimeType,
+      data: photoBase64
+    }
+  });
+}
+
   response = await fetch(url, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
+     contents: [{ role: "user", parts }],
       generationConfig: {
         temperature: 0.8,
         maxOutputTokens: 4096
