@@ -731,6 +731,8 @@ overflow-x:hidden;
 
       </div>
 
+      <button id="generateBtn" onclick="generate()">AIで診断する</button>
+
     <button type="button" class="secondary" onclick="toggleAdvanced()">
       ⚙️ 詳細設定
     </button>
@@ -792,7 +794,7 @@ overflow-x:hidden;
 
 </div>
 
-  <button id="generateBtn" onclick="generate()">AIで診断する</button><button class="secondary" onclick="randomFill()">ランダム入力</button>
+<button class="secondary" onclick="randomFill()">ランダム入力</button>
 <button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div class="dailyBox">毎日戻る理由：今日の未来・禁断の未来・恋愛未来を日替わり投稿で紹介すると回遊しやすい。</div><div style="margin-top:14px"><b>生成履歴</b><div id="history"></div></div></div>
 <div id="resultWrap" style="display:none"><div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
   id="sharePhoto"
