@@ -347,6 +347,18 @@ height:104px;
   );
 
 }
+
+  .dailyGhostLevel{
+  margin:14px 0 20px;
+  padding:16px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,92,122,.18),rgba(122,215,255,.10));
+  border:1px solid rgba(255,255,255,.16);
+  color:#ffd8ff;
+  font-weight:1000;
+  text-align:center;
+  box-shadow:0 0 24px rgba(255,92,122,.18);
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -534,6 +546,10 @@ height:104px;
   
   <div id="miraiDailyFortune" class="miraiDailyFortune">
   🔮 今日のミライ予言：読み込み中...
+</div>
+
+  <div id="dailyGhostLevel" class="dailyGhostLevel">
+  👻 本日の怪異度：計測中...
 </div>
   
 <section class="genreGrid">
@@ -1147,6 +1163,34 @@ function randomFill(){const names=["かいせい","みさき","レン","あお�
     "今日はいつもより直感を信じていい日。"
   ];
 
+    function renderDailyGhostLevel(){
+  const box = document.getElementById("dailyGhostLevel");
+  if(!box) return;
+
+  const today = new Date().toISOString().slice(0,10);
+
+  let h = 0;
+  for(let i = 0; i < today.length; i++){
+    h += today.charCodeAt(i) * (i + 1);
+  }
+
+  const level = 20 + (h % 81);
+
+  let comment = "今日は比較的穏やか。";
+
+  if(level >= 80){
+    comment = "今日は写真を見返す時だけ注意。";
+  }else if(level >= 60){
+    comment = "今日は小さな違和感に気づきやすい日。";
+  }else if(level >= 40){
+    comment = "今日は夜の通知に少し注意。";
+  }
+
+  box.innerHTML =
+    "👻 本日の怪異度：" + level + "%<br>" +
+    "<span style='font-size:13px;opacity:.9'>" + comment + "</span>";
+}
+
   const today = new Date().toISOString().slice(0,10);
   let h = 0;
   for(let i=0;i<today.length;i++){
@@ -1219,7 +1263,11 @@ ghostMeterValue.textContent =
   });
 }
   
-  renderHistory();renderRecommends();updateMiraiLevel();renderMiraiDailyFortune();
+ renderHistory();
+renderRecommends();
+updateMiraiLevel();
+renderMiraiDailyFortune();
+renderDailyGhostLevel();
 </script><div
   id="oracleGirl"
   onclick="talkMirai()"
