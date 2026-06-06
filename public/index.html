@@ -478,6 +478,30 @@ overflow-x:hidden;
 .genre b{
   padding-right:58px;
 }
+
+  #selectedGenreHero{
+  margin-bottom:18px;
+  padding:14px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+    90deg,
+    rgba(255,220,120,.15),
+    rgba(255,100,200,.15)
+  );
+
+  border:
+  1px solid rgba(255,255,255,.15);
+
+  font-size:18px;
+  font-weight:900;
+
+  text-align:center;
+
+  color:#ffe88e;
+}
   
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
@@ -743,7 +767,9 @@ overflow-x:hidden;
 <section class="grid">
   <div class="card" id="inputCard">
 
-    <span class="badge" id="selectedBadge">選択中：未来予想</span>
+   <div id="selectedGenreHero">
+🔮 未来予想を診断中
+</div>
 
   <!-- 一旦非表示 -->
 <div
