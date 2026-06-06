@@ -887,7 +887,7 @@ z-index:999;
   <button class="secondary" id="moreGenreBtn" onclick="toggleGenres()">
 🔮 他の診断も見る ▼
 </button>
-<div class="todayHero" onclick="setGenre('daily')">
+<div class="todayHero" onclick="quickDaily()">
 
   <div class="todayBadge">
     ☀️ 毎日更新
@@ -1196,6 +1196,15 @@ function setGenre(g){
     box.style.display === "none" || box.style.display === ""
       ? "block"
       : "none";
+}
+
+  function quickDaily(){
+
+  setGenre("daily");
+
+  document.getElementById("name").value = "あなた";
+
+  generate();
 }
 
 
