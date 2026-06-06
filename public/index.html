@@ -247,6 +247,17 @@ padding-right:8px;
   font-weight:700;
 }
 
+  .miraiLevelBox{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:rgba(255,116,212,.12);
+  border:1px solid rgba(255,116,212,.28);
+  color:#ffd8ff;
+  font-size:13px;
+  font-weight:900;
+}
+
 .rankBox.rank-ex{background:linear-gradient(135deg,#ffd700,#fff1a8);color:#5b3b00;}
 .rankBox.rank-ss{background:linear-gradient(135deg,#ff4df0,#ffd6fb);color:#4b0045;}
 .rankBox.rank-s{background:linear-gradient(135deg,#00d4ff,#b8f7ff);color:#003d4a;}
@@ -491,7 +502,9 @@ padding-right:8px;
 もっと見る ▼
 </button>
 </section>
-<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
+<section class="grid"><div class="card" id="inputCard"><span class="badge" id="selectedBadge">選択中：未来予想</span><div id="miraiLevelBox" class="miraiLevelBox">
+  ミライ親密度 Lv.1
+</div><label>名前</label><input id="name" placeholder="例：かいせい"><div class="row"><div><label>年齢</label><input id="age" type="number" placeholder="例：29"></div><div><label>トーン</label><select id="tone"><option>普通</option><option>怖め</option><option>前向き</option><option>中二病</option><option>恋愛強め</option><option>金運強め</option></select></div></div><label>悩み・願望</label><textarea id="worry" placeholder="例：大金持ちになりたい、TikTokでバズりたい、恋愛で成功したい"></textarea><div id="photoArea" style="display:none">
   <label>診断する写真</label>
   <input id="photoInput" type="file" accept="image/*">
 </div>
@@ -569,7 +582,6 @@ function talkMirai(){
       Math.floor(Math.random() * miraiLines.length)
     ];
 }
-}
 const recommends={
   daily:["forbidden","enemy","love"],
   future:["forbidden","enemy","deathflag"],
@@ -598,6 +610,19 @@ setTimeout(()=>{
   document.getElementById("selectedBadge").textContent =
     "選択中：" + labels[g];
 },1500);
+
+  let miraiExp = Number(localStorage.getItem("miraiExp") || 0);
+
+function getMiraiLevel(){
+  return Math.floor(miraiExp / 3) + 1;
+}
+
+function updateMiraiLevel(){
+  const box = document.getElementById("miraiLevelBox");
+  if(!box) return;
+
+  box.textContent = "ミライ親密度 Lv." + getMiraiLevel();
+}
 
   const bubble =
 document.querySelector(".oracleBubble");
@@ -845,6 +870,10 @@ const loadingTimer = setInterval(()=>{
     history.unshift(saved);
     history = history.slice(0,10);
     localStorage.setItem("futurePortalV3History", JSON.stringify(history));
+    
+    miraiExp++;
+localStorage.setItem("miraiExp", miraiExp);
+updateMiraiLevel();
 
     renderHistory();
     renderRecommends();
@@ -894,7 +923,7 @@ function copyShare(){const text=document.getElementById("resultText").innerText+
   }
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
-renderHistory();renderRecommends();
+renderHistory();renderRecommends();updateMiraiLevel();
 </script><div
   id="oracleGirl"
   onclick="talkMirai()"
