@@ -1129,16 +1129,16 @@ function setGenre(g){
   if(generateBtn){
     const btnTextMap = {
       future:"🔮 この未来を診断してもらう",
-      forbidden:"🚫 禁断の未来を見る",
-      photoGhost:"📸 写真を診断してもらう",
-      enemy:"💔 裏切る人を探す",
+      forbidden:"🚫 この内容で禁断の未来を見る",
+      photoGhost:"📸 この写真を診断してもらう",
+      enemy:"💔 この内容で裏切る人を探す",
       daily:"☀️ 今日の未来を見る",
-      love:"❤️ 恋愛未来を見る",
-      money:"💰 金運未来を見る",
-      ghost:"👻 怪異未来を見る",
-      viral:"📈 バズる未来を見る",
-      shadow:"👤 裏人格を診断する",
-      deathflag:"⚠️ 人生最大の危機を見る"
+      love:"❤️ この内容で恋愛未来を見る",
+      money:"💰 この内容で金運未来を見る",
+      ghost:"👻 この内容で怪異未来を見る",
+      viral:"📈 この内容でバズる未来を見る",
+      shadow:"👤 この内容で裏人格を診断する",
+      deathflag:"⚠️ この内容で人生最大の危機を見る"
     };
 
     generateBtn.textContent =
@@ -1183,7 +1183,15 @@ function setGenre(g){
  btn.textContent = grid.classList.contains("showAll")
   ? "閉じる ▲"
   : "🔮 他の診断も見る ▼";
-
+      
+if(grid.classList.contains("showAll")){
+  setTimeout(()=>{
+    grid.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  },100);
+}
 }
 
   function toggleAdvanced(){
