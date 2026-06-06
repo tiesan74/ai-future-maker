@@ -907,10 +907,6 @@ z-index:999;
 </div>
 
   <div class="quickStart">
-
-<button onclick="setGenre('daily')">
-☀️ 今日の未来
-</button>
     
     <button onclick="setGenre('forbidden')">
 🚫 人気No.1
@@ -1192,14 +1188,8 @@ function setGenre(g){
     }
   }
 
-  setTimeout(()=>{
-    document
-      .getElementById("inputCard")
-      ?.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-  },100);
+
+  
 }
 
     function toggleGenres(){
