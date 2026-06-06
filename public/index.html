@@ -648,6 +648,15 @@ height:104px;
   <label>診断する写真</label>
   <input id="photoInput" type="file" accept="image/*">
   <img id="photoPreview" class="photoPreview" style="display:none">
+  <button
+  type="button"
+  class="secondary"
+  id="changePhotoBtn"
+  style="display:none"
+  onclick="resetPhoto()"
+>
+別の写真で診断する
+</button>
 </div><div id="ghostMeter"
      class="ghostMeter"
      style="display:none">
@@ -1296,6 +1305,29 @@ function copyShare(){
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 
+function resetPhoto(){
+  const photoInput = document.getElementById("photoInput");
+  const preview = document.getElementById("photoPreview");
+  const ghostMeter = document.getElementById("ghostMeter");
+  const changeBtn = document.getElementById("changePhotoBtn");
+
+  if(photoInput) photoInput.value = "";
+  if(preview){
+    preview.src = "";
+    preview.style.display = "none";
+  }
+  if(ghostMeter) ghostMeter.style.display = "none";
+  if(changeBtn) changeBtn.style.display = "none";
+
+  const btn = document.getElementById("generateBtn");
+  if(btn) btn.textContent = "AIで診断する";
+
+  const bubble = document.querySelector(".oracleBubble");
+  if(bubble){
+    bubble.innerHTML = "別の写真も<br>見てみる？";
+  }
+}
+  
  function renderMiraiDailyFortune(){
 
   const box = document.getElementById("miraiDailyFortune");
@@ -1377,6 +1409,13 @@ if(photoInput){
 
     preview.src = URL.createObjectURL(file);
     preview.style.display = "block";
+
+    const changeBtn =
+  document.getElementById("changePhotoBtn");
+
+if(changeBtn){
+  changeBtn.style.display = "block";
+}
 
     const ghostMeter =
   document.getElementById("ghostMeter");
