@@ -596,6 +596,20 @@ const recommends={
   deathflag:["enemy","forbidden","future"]
 };
 let genre="future";let history=JSON.parse(localStorage.getItem("futurePortalV3History")||"[]");
+
+    let miraiExp = Number(localStorage.getItem("miraiExp") || 0);
+
+function getMiraiLevel(){
+  return Math.floor(miraiExp / 3) + 1;
+}
+
+function updateMiraiLevel(){
+  const box = document.getElementById("miraiLevelBox");
+  if(!box) return;
+
+  box.textContent = "ミライ親密度 Lv." + getMiraiLevel();
+}
+  
 function setGenre(g){
   genre = g;
 
@@ -610,19 +624,6 @@ setTimeout(()=>{
   document.getElementById("selectedBadge").textContent =
     "選択中：" + labels[g];
 },1500);
-
-  let miraiExp = Number(localStorage.getItem("miraiExp") || 0);
-
-function getMiraiLevel(){
-  return Math.floor(miraiExp / 3) + 1;
-}
-
-function updateMiraiLevel(){
-  const box = document.getElementById("miraiLevelBox");
-  if(!box) return;
-
-  box.textContent = "ミライ親密度 Lv." + getMiraiLevel();
-}
 
   const bubble =
 document.querySelector(".oracleBubble");
