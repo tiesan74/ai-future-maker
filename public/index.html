@@ -24,29 +24,102 @@ padding-right:8px;
   height:150px;
   border-radius:50%;
   margin:0 auto 18px;
-
-  backdrop-filter:blur(10px);
-
-  border:1px solid rgba(255,255,255,.15);
+  position:relative;
+  overflow:hidden;
 
   background:
-    radial-gradient(
-      circle at 35% 30%,
-      #fff,
-      #dffcff 16%,
-      #c082ff 38%,
-      #4b1688 68%,
-      #16051f 100%
-    );
+    radial-gradient(circle at 32% 26%, rgba(255,255,255,.95) 0%, rgba(220,255,255,.75) 13%, transparent 24%),
+    radial-gradient(circle at 58% 60%, #c082ff 0%, #7a34d8 45%, #210838 100%);
+
+  border:1px solid rgba(255,255,255,.22);
 
   box-shadow:
-    0 0 45px #ff74d4,
-    0 0 90px #7ad7ff;
+    0 0 45px rgba(255,116,212,.75),
+    0 0 90px rgba(122,215,255,.45);
 
   animation:
     floatBall 4s ease-in-out infinite,
     pulseBall 2s ease-in-out infinite;
-}@keyframes pulse{from{filter:brightness(.95);transform:scale(.96)}to{filter:brightness(1.25);transform:scale(1.05)}}@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}.loadingText{font-size:18px;font-weight:1000;color:#ffeaa8}
+}
+
+.crystal::before{
+  content:"";
+  position:absolute;
+  inset:18%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.45),transparent 45%);
+  filter:blur(7px);
+  opacity:.5;
+  animation:visionMove 5s ease-in-out infinite;
+}
+
+.crystal::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.55),
+      transparent 28%,
+      transparent 65%,
+      rgba(255,255,255,.16)
+    );
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.crystalVision{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  color:rgba(255,255,255,.38);
+  text-shadow:0 0 18px rgba(255,255,255,.8);
+  animation:visionSymbol 3s infinite;
+  z-index:2;
+}
+
+@keyframes floatBall{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+
+@keyframes pulseBall{
+  0%,100%{
+    box-shadow:
+      0 0 45px rgba(255,116,212,.7),
+      0 0 90px rgba(122,215,255,.4);
+  }
+  50%{
+    box-shadow:
+      0 0 70px rgba(255,155,248,.95),
+      0 0 120px rgba(122,215,255,.6);
+  }
+}
+
+@keyframes visionMove{
+  0%,100%{
+    transform:translate(-8px,-8px) scale(.9);
+  }
+  50%{
+    transform:translate(12px,10px) scale(1.1);
+  }
+}
+
+@keyframes visionSymbol{
+  0%,100%{
+    opacity:.12;
+    transform:scale(.8) rotate(0deg);
+  }
+  50%{
+    opacity:.55;
+    transform:scale(1.15) rotate(12deg);
+  }
+}.loadingText{font-size:18px;font-weight:1000;color:#ffeaa8}
 .rankBox{
   box-shadow:0 0 25px rgba(255,116,212,.45);
   animation:rankFloat 2s ease-in-out infinite;
@@ -887,7 +960,7 @@ box-shadow:
 }
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
-<div class="overlay" id="loadingOverlay"><div class="crystalWrap"<div class="crystal">
+<div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
   <div class="crystalVision">✦</div>
 </div><div class="loadingText">未来を覗いています...</div><div class="loadingSteps" id="loadingSteps">
   運命を観測中...
