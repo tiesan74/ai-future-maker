@@ -1817,13 +1817,13 @@ if(typeof updateMiraiLevel === "function"){
     renderRecommends();
     document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});
 
- } catch(e) {
+} catch(e) {
 
   document.getElementById("resultWrap").style.display = "block";
 
   document.getElementById("resultText").innerText =
     "エラー：" + e.message +
-    "\n\nもう一度診断してください。";
+    "\n\nAIが混み合っている可能性があります。30秒後にもう一度診断してください。";
 
   document.getElementById("resultCard").scrollIntoView({
     behavior:"smooth"
