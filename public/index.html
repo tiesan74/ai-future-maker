@@ -1028,6 +1028,49 @@ animation:pulsePercent 1s infinite;
     transform .35s ease;
 
 }
+
+  .oracleEffect{
+
+  position:absolute;
+
+  right:70px;
+  top:-8px;
+
+  font-size:22px;
+
+  opacity:0;
+
+  animation:
+    effectFloat 3s infinite;
+
+  pointer-events:none;
+}
+
+@keyframes effectFloat{
+
+  0%{
+    opacity:0;
+    transform:
+      translateY(10px)
+      scale(.8);
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+    transform:
+      translateY(-15px)
+      scale(1.2);
+  }
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2365,6 +2408,10 @@ renderDailyGhostLevel();
   id="oracleGirl"
   onclick="talkMirai()"
 >
+
+  <div class="oracleEffect">
+✨
+</div>
 
   <div class="oracleBubble">
     その未来、<br>
