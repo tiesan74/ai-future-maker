@@ -1016,6 +1016,10 @@ animation:pulsePercent 1s infinite;
   }
 
 }
+
+  .oracleBubble{
+  transition:.4s ease;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1270,6 +1274,31 @@ const labels={
 "未来は変えられるよ。"
 
 ];
+
+const idleMiraiLines = [
+
+  "・・・",
+
+  "気になる？",
+
+  "今日は少し未来が濃いかも。",
+
+  "禁断の未来が人気だよ。",
+
+  "誰にも見せない方がいい結果かも。",
+
+  "その願望、本気？",
+
+  "未来はまだ変えられるよ。",
+
+  "何を見に来たの？"
+
+  "・・・見つけた。",
+"今日は見ない方がいいかも。",
+"その未来、本当に知りたい？"
+
+];
+  
 function talkMirai(){
 
   const bubble =
@@ -2338,6 +2367,24 @@ renderRecommends();
 updateMiraiLevel();
 renderMiraiDailyFortune();
 renderDailyGhostLevel();
+  setInterval(()=>{
+
+  const bubble =
+    document.querySelector(".oracleBubble");
+
+  if(!bubble) return;
+
+  if(Math.random() < 0.5) return;
+
+  bubble.innerHTML =
+    idleMiraiLines[
+      Math.floor(
+        Math.random() *
+        idleMiraiLines.length
+      )
+    ];
+
+},12000);
 </script><div
   id="oracleGirl"
   onclick="talkMirai()"
