@@ -489,8 +489,8 @@ ${commonInfo}
 };
 
 const prompt = promptMap[genreKey] || promptMap.future;
-  　
-    const model = "gemini-2.5-flash";
+
+const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   let response;
