@@ -1314,12 +1314,37 @@ function talkMirai(){
 
   if(!bubble) return;
 
-  const level =
-    Math.floor(
-      Number(
-        localStorage.getItem("miraiExp") || 0
-      ) / 3
-    ) + 1;
+  bubble.style.opacity = "0";
+
+  setTimeout(()=>{
+
+    bubble.innerHTML = "・・・";
+
+    bubble.style.opacity = "1";
+
+    setTimeout(()=>{
+
+      bubble.style.opacity = "0";
+
+      setTimeout(()=>{
+
+        bubble.innerHTML =
+          miraiLines[
+            Math.floor(
+              Math.random() *
+              miraiLines.length
+            )
+          ];
+
+        bubble.style.opacity = "1";
+
+      },200);
+
+    },800);
+
+  },200);
+
+}
 
   const normalLines = [
     "その未来、<br>見ない方がいいかも…",
