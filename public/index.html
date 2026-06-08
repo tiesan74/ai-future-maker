@@ -1851,6 +1851,18 @@ const loadingTimer = setInterval(()=>{
       max - 1
     );
 
+  const vision =
+  document.querySelector(".crystalVision");
+
+if(vision){
+  const symbols = [
+    "✦","🔮","⚠️","👁","💔","☀️","🌙","✨"
+  ];
+
+  vision.textContent =
+    symbols[index % symbols.length];
+}
+
 if(loadingTextEl){
 
   if(loadingPercent >= 95){
