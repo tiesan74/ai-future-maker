@@ -152,12 +152,6 @@ filter:drop-shadow(0 0 12px rgba(255,255,255,.65));
   font-size:14px;
 }
 
-  .rank-ex{
- animation:
-   exGlow 1.5s infinite alternate,
-   rankFloat 1.5s infinite ease-in-out;
-}
-
   .genre.active{
   border:3px solid #ffd700 !important;
   box-shadow:
@@ -861,34 +855,11 @@ box-shadow:
   text-shadow:0 0 18px rgba(255,228,122,.65);
 animation:pulsePercent 1s infinite;
   }
-
-@keyframes pulseBall{
-
-  0%{
-    box-shadow:
-      0 0 40px #c56cff;
-  }
-
-  50%{
-    box-shadow:
-      0 0 80px #ff9bf8;
-  }
-
-  100%{
-    box-shadow:
-      0 0 40px #c56cff;
-  }
-
 }
 
 @keyframes pulsePercent{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.08)}
-}
-
-  @keyframes floatBall{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-14px)}
 }
 
   .crystal{
@@ -975,18 +946,6 @@ animation:pulsePercent 1s infinite;
   z-index:3;
 }
 
-  @keyframes miraiBlink{
-
-  0%,47%,53%,100%{
-    transform:scaleY(1);
-  }
-
-  50%{
-    transform:scaleY(.08);
-  }
-
-}
-
   @keyframes miraiFloat{
 
   0%,100%{
@@ -1064,14 +1023,6 @@ animation:pulsePercent 1s infinite;
       scale(1.2);
   }
 
-}
-
-  .resultSection{
-  margin:16px 0;
-  padding:14px;
-  border-radius:18px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
 }
 
 .sectionTitle{
