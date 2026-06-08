@@ -1718,10 +1718,17 @@ if(loadingTextEl){
   }
 
 }
-  if(loadingStepsEl){
-   loadingStepsEl.textContent =
-  "運命を観測中...";
+ if(loadingStepsEl){
+
+  if(loadingPercent >= 95){
+    loadingStepsEl.textContent =
+      "結果を呼び出しています...";
+  }else{
+    loadingStepsEl.textContent =
+      "運命を観測中...";
   }
+
+}
 
   if(loadingPercentEl){
     loadingPercentEl.textContent =
