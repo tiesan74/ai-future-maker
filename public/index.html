@@ -1719,8 +1719,8 @@ if(loadingTextEl){
 
 }
   if(loadingStepsEl){
-    loadingStepsEl.textContent =
-      "STEP " + (index + 1) + " / " + max;
+   loadingStepsEl.textContent =
+  "運命を観測中...";
   }
 
   if(loadingPercentEl){
@@ -1817,10 +1817,19 @@ if(typeof updateMiraiLevel === "function"){
     renderRecommends();
     document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});
 
-  } catch(e) {
-    document.getElementById("resultText").innerText =
-      "エラー：" + e.message + "\n\nもう一度「AIで診断する」を押してみてください。";
-  } finally {
+ } catch(e) {
+
+  document.getElementById("resultWrap").style.display = "block";
+
+  document.getElementById("resultText").innerText =
+    "エラー：" + e.message +
+    "\n\nもう一度診断してください。";
+
+  document.getElementById("resultCard").scrollIntoView({
+    behavior:"smooth"
+  });
+
+} finally {
    clearInterval(loadingTimer);
 clearInterval(loadingTalkTimer);
 
