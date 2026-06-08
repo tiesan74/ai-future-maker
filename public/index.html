@@ -1086,6 +1086,21 @@ animation:pulsePercent 1s infinite;
   font-weight:1000;
   margin-bottom:8px;
 }
+
+  .resultSection{
+  margin:14px 0;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.sectionTitle{
+  color:#ffe47a;
+  font-size:17px;
+  font-weight:1000;
+  margin-bottom:8px;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1890,7 +1905,7 @@ const nextGenreText =
     ? "次は「禁断の未来」もおすすめ。"
     : "次は「禁断の未来」も見てみる？";
 
-document.getElementById("resultText").innerText =
+let text =
   (data.text || "") +
   "\n\n━━━━━━━━━━" +
   "\n📸 スクショ保存推奨" +
@@ -1898,7 +1913,21 @@ document.getElementById("resultText").innerText =
   "\n\n" +
   nextGenreText +
   "\n#AI未来予想メーカー";
-}
+
+let html = text;
+
+html = html.replace(
+  /【(.*?)】/g,
+  '</div><div class="resultSection"><div class="sectionTitle">$1</div>'
+);
+
+html =
+  '<div class="resultSection">' +
+  html +
+  '</div>';
+
+document.getElementById("resultText").innerHTML =
+  html;
 
   function fileToBase64(file){
   return new Promise((resolve,reject)=>{
