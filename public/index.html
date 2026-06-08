@@ -711,6 +711,17 @@ z-index:999;
 
 .resultText::first-line{
   color:#ffe47a;
+
+  .dangerBox{
+  margin:12px 0;
+  padding:14px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,92,122,.24),rgba(255,228,122,.12));
+  border:1px solid rgba(255,255,255,.18);
+  font-weight:1000;
+  text-align:center;
+  color:#ffeaa8;
+}
 }
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
@@ -897,7 +908,9 @@ z-index:999;
   style="display:none"
 >
   👻 怪異反応 <span id="shareGhostValue">0%</span>
-</div><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
+</div><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div><div id="dangerBox" class="dangerBox" style="display:none">
+  ⚠️ 危険度 --%　🛡 回避率 --%
+</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
 <div id="resultText" class="resultText">
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
@@ -1282,6 +1295,23 @@ div.textContent =
  promo[g] || labels[g];;div.onclick=()=>{setGenre(g);document.querySelector(".card").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
+
+  const dangerBox =
+  document.getElementById("dangerBox");
+
+if(dangerBox){
+
+  dangerBox.style.display = "block";
+
+  dangerBox.innerHTML =
+    "⚠️ 危険度 " +
+    (data.danger ?? "--") +
+    "%<br>" +
+    "🛡 回避率 " +
+    (data.avoid ?? "--") +
+    "%";
+
+}
 
 document.getElementById(
   "resultWrap"
