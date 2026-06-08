@@ -644,11 +644,6 @@ overflow-x:hidden;
   50%{transform:translateY(-4px)}
 }
 
-@keyframes rankFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-4px)}
-}
-
   @keyframes exGlow {
   0% {
     box-shadow: 0 0 20px rgba(255,215,0,.4);
@@ -1936,6 +1931,37 @@ html =
 
 document.getElementById("resultText").innerHTML =
   html;
+    const rankBox =
+  document.querySelector(".rankBox");
+
+const rankType =
+  document.getElementById("rankType");
+
+const resultText =
+  document.getElementById("resultText");
+
+rankBox.style.opacity = "0";
+rankType.style.opacity = "0";
+resultText.style.opacity = "0";
+
+  rankBox.style.transform = "translateY(20px)";
+rankType.style.transform = "translateY(20px)";
+resultText.style.transform = "translateY(20px)";
+
+setTimeout(()=>{
+  rankBox.style.opacity = "1";
+  rankBox.style.transform = "translateY(0)";
+},300);
+
+setTimeout(()=>{
+  rankType.style.opacity = "1";
+  rankType.style.transform = "translateY(0)";
+},900);
+
+setTimeout(()=>{
+  resultText.style.opacity = "1";
+  resultText.style.transform = "translateY(0)";
+},1500);
   
 }
   
@@ -2213,38 +2239,6 @@ if(typeof updateMiraiLevel === "function"){
 } catch(e) {
 
   document.getElementById("resultWrap").style.display = "block";
-
-    const rankBox =
-  document.querySelector(".rankBox");
-
-const rankType =
-  document.getElementById("rankType");
-
-const resultText =
-  document.getElementById("resultText");
-
-rankBox.style.opacity = "0";
-rankType.style.opacity = "0";
-resultText.style.opacity = "0";
-
-  rankBox.style.transform = "translateY(20px)";
-rankType.style.transform = "translateY(20px)";
-resultText.style.transform = "translateY(20px)";
-
-setTimeout(()=>{
-  rankBox.style.opacity = "1";
-  rankBox.style.transform = "translateY(0)";
-},300);
-
-setTimeout(()=>{
-  rankType.style.opacity = "1";
-  rankType.style.transform = "translateY(0)";
-},900);
-
-setTimeout(()=>{
-  resultText.style.opacity = "1";
-  resultText.style.transform = "translateY(0)";
-},1500);
 
   document.getElementById("resultText").innerText =
     "エラー：" + e.message +
