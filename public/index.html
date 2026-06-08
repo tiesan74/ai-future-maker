@@ -690,18 +690,10 @@ box-shadow:
 
 }
 
-  #generateBtn{
-
-position:fixed;
-
-left:12px;
-right:12px;
-bottom:12px;
-
-width:auto;
-
-z-index:999;
-
+#generateBtn{
+  position:static !important;
+  width:100% !important;
+  margin-top:18px !important;
 }
 
   .resultText{
@@ -711,6 +703,7 @@ z-index:999;
 
 .resultText::first-line{
   color:#ffe47a;
+}
 
   .dangerBox{
   margin:12px 0;
@@ -1646,14 +1639,16 @@ if(genre === "photoGhost" && photoFile){
       throw new Error(msg);
     }
 
-    const saved = {
-      name: payload.name || "あなた",
-      label: labels[genre],
-      text: data.text,
-      scores: data.scores,
-      rank: data.rank,
-      createdAt: new Date().toISOString()
-    };
+ const saved = {
+  name: payload.name || "あなた",
+  label: labels[genre],
+  text: data.text,
+  scores: data.scores,
+  rank: data.rank,
+  danger: data.danger,
+  avoid: data.avoid,
+  createdAt: new Date().toISOString()
+};
 
     renderResult(saved);
     history.unshift(saved);
