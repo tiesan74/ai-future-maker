@@ -81,6 +81,8 @@ padding-right:8px;
   text-shadow:0 0 18px rgba(255,255,255,.8);
   animation:visionSymbol 3s infinite;
   z-index:2;
+  transition:.4s ease;
+filter:drop-shadow(0 0 12px rgba(255,255,255,.65));
 }
 
 @keyframes floatBall{
@@ -1851,16 +1853,30 @@ const loadingTimer = setInterval(()=>{
       max - 1
     );
 
-  const vision =
+ const vision =
   document.querySelector(".crystalVision");
 
 if(vision){
+
   const symbols = [
-    "✦","🔮","⚠️","👁","💔","☀️","🌙","✨"
+    "✦",
+    "👁",
+    "⚠️",
+    "👤",
+    "💰",
+    "❤️",
+    "📈",
+    "🌙",
+    "🚫",
+    "🔮"
   ];
 
+  const symbolIndex =
+    Math.floor(loadingPercent / 10) % symbols.length;
+
   vision.textContent =
-    symbols[index % symbols.length];
+    symbols[symbolIndex];
+
 }
 
 if(loadingTextEl){
