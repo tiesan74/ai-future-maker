@@ -19,7 +19,15 @@
   max-height:650px;
 overflow-y:auto;
 padding-right:8px;
-}.ad{margin:14px 0;padding:12px;border:1px dashed rgba(255,255,255,.26);border-radius:16px;color:#cfc0ed;text-align:center;font-size:13px;background:rgba(255,255,255,.05)}.historyItem,.recommendItem{padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.06);margin-top:8px;font-size:13px;color:#eadfff;cursor:pointer}.recommendGrid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}@media(min-width:540px){.recommendGrid{grid-template-columns:repeat(3,1fr)}}.pay,.dailyBox{padding:13px;border-radius:17px;background:rgba(255,228,122,.10);border:1px solid rgba(255,228,122,.26);margin-top:12px;color:#ffeaa8;font-size:13px;line-height:1.6}.footer{text-align:center;color:#9f8bc3;font-size:12px;margin-top:20px}.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,1,8,.82);z-index:50;backdrop-filter:blur(8px)}.overlay.show{display:flex}.crystalWrap{text-align:center}.crystal{width:150px;height:150px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 35% 30%,#fff,#bff0ff 18%,#b176ff 42%,#210838 78%);box-shadow:0 0 35px #ff74d4,0 0 80px #7ad7ff;animation:pulse 1.2s infinite alternate,float 2s ease-in-out infinite}@keyframes pulse{from{filter:brightness(.95);transform:scale(.96)}to{filter:brightness(1.25);transform:scale(1.05)}}@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}.loadingText{font-size:18px;font-weight:1000;color:#ffeaa8}
+}.ad{margin:14px 0;padding:12px;border:1px dashed rgba(255,255,255,.26);border-radius:16px;color:#cfc0ed;text-align:center;font-size:13px;background:rgba(255,255,255,.05)}.historyItem,.recommendItem{padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.06);margin-top:8px;font-size:13px;color:#eadfff;cursor:pointer}.recommendGrid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}@media(min-width:540px){.recommendGrid{grid-template-columns:repeat(3,1fr)}}.pay,.dailyBox{padding:13px;border-radius:17px;background:rgba(255,228,122,.10);border:1px solid rgba(255,228,122,.26);margin-top:12px;color:#ffeaa8;font-size:13px;line-height:1.6}.footer{text-align:center;color:#9f8bc3;font-size:12px;margin-top:20px}.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,1,8,.82);z-index:50;backdrop-filter:blur(8px)}.overlay.show{display:flex}.crystalWrap{text-align:center}.crystal{width:150px;height:150px;border-radius:50%;margin:0 auto 18px;backdrop-filter: blur(10px);
+
+border:
+1px solid
+rgba(255,255,255,.15);
+
+animation:
+floatBall 4s ease-in-out infinite,
+pulseBall 2s ease-in-out infinite;background:radial-gradient(circle at 35% 30%,#fff,#bff0ff 18%,#b176ff 42%,#210838 78%);box-shadow:0 0 35px #ff74d4,0 0 80px #7ad7ff;animation:pulse 1.2s infinite alternate,float 2s ease-in-out infinite}@keyframes pulse{from{filter:brightness(.95);transform:scale(.96)}to{filter:brightness(1.25);transform:scale(1.05)}}@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}.loadingText{font-size:18px;font-weight:1000;color:#ffeaa8}
 .rankBox{
   box-shadow:0 0 25px rgba(255,116,212,.45);
   animation:rankFloat 2s ease-in-out infinite;
@@ -719,12 +727,30 @@ overflow-x:hidden;
 }
 
 .resultText{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.08),
-      rgba(0,0,0,.28)
-    ) !important;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.03),
+rgba(255,255,255,.01)
+);
+
+border:1px solid
+rgba(255,255,255,.08);
+
+padding:24px;
+
+border-radius:24px;
+
+line-height:2;
+
+font-size:18px;
+
+white-space:pre-wrap;
+
+box-shadow:
+0 0 30px rgba(255,0,255,.15);
+
 }
 
 .resultText::first-line{
@@ -745,10 +771,29 @@ overflow-x:hidden;
 }
 
 animation:pulsePercent 1s infinite;
+
+  @keyframes pulseBall{
+
+0%{
+box-shadow:
+0 0 40px #c56cff;
+}
+
+50%{
+box-shadow:
+0 0 80px #ff9bf8;
+}
+
+100%{
+box-shadow:
+0 0 40px #c56cff;
+}
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div class="loadingSteps" id="loadingSteps">
-  解析準備中...
+  運命を観測中...
 </div><div id="loadingPercent" class="loadingPercent">
   0%
 </div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
