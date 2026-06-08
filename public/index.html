@@ -1020,6 +1020,14 @@ animation:pulsePercent 1s infinite;
   .oracleBubble{
   transition:.4s ease;
 }
+
+  .oracleBubble{
+
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1375,11 +1383,21 @@ function talkMirai(){
     lines = rareLines;
   }
 
+ bubble.style.opacity = "0";
+bubble.style.transform = "translateY(8px)";
+
+setTimeout(()=>{
+
   bubble.innerHTML =
     lines[
       Math.floor(Math.random() * lines.length)
     ];
-}
+
+  bubble.style.opacity = "1";
+  bubble.style.transform = "translateY(0)";
+
+},200);
+
 const recommends={
   daily:["forbidden","enemy","love"],
   future:["forbidden","enemy","deathflag"],
