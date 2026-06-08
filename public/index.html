@@ -991,79 +991,83 @@ const labels={
 ];
 function talkMirai(){
 
-  const level =
-  Math.floor(
-    Number(
-      localStorage.getItem("miraiExp") || 0
-    ) / 3
-  ) + 1;
-
   const bubble =
     document.querySelector(".oracleBubble");
 
+  if(!bubble) return;
+
+  const level =
+    Math.floor(
+      Number(
+        localStorage.getItem("miraiExp") || 0
+      ) / 3
+    ) + 1;
+
+  const normalLines = [
+    "その未来、<br>見ない方がいいかも…",
+    "今日は少し<br>危険な結果が出そう。",
+    "気になるなら<br>見てみる？",
+    "その人、本当に<br>信用してる？",
+    "禁断の未来は<br>人気だよ。",
+    "私ならその結果<br>保存するかも。",
+    "今日は未来が<br>少し曇ってる。",
+    "珍しい未来が<br>見えてる。",
+    "その選択、<br>本当に大丈夫？",
+    "未来はまだ<br>変えられるよ。"
+  ];
+
+  const level5Lines = [
+    "また来てくれたね。",
+    "今日は少し<br>未来が見えやすいよ。",
+    "結果、<br>保存する？",
+    "気になるなら<br>もう一度見てみる？",
+    "今ならまだ<br>変えられるよ。"
+  ];
+
+  const level10Lines = [
+    "最近よく<br>会うね。",
+    "あなたの未来、<br>前より見えやすい。",
+    "今日は何を<br>見に来たの？",
+    "その未来、<br>誰にも見せない方がいいかも。",
+    "また危ない方を<br>選ぼうとしてる？"
+  ];
+
+  const level20Lines = [
+    "少しだけ未来が<br>見えやすくなったよ。",
+    "あなたの選択、<br>ちゃんと見てるよ。",
+    "今日は深いところまで<br>見えるかも。",
+    "その願望、<br>本気なんだね。",
+    "見たい未来と<br>見るべき未来は違うよ。"
+  ];
+
   const rareLines = [
     "……見つけた。",
-    "今日は未来が見えない。",
-    "あなたは少しだけ特別。",
-    "この結果、誰かに見られてるかも。"
+    "今日は未来が<br>見えない。",
+    "あなたは少しだけ<br>特別。",
+    "この結果、誰かに<br>見られてるかも。"
   ];
 
-  if(level >= 50){
+  let lines = [...normalLines];
 
-  bubble.innerHTML =
-    "もう常連さんだね。";
+  if(level >= 5){
+    lines = lines.concat(level5Lines);
+  }
 
-  return;
-}
+  if(level >= 10){
+    lines = lines.concat(level10Lines);
+  }
 
-if(level >= 20){
+  if(level >= 20){
+    lines = lines.concat(level20Lines);
+  }
 
-  bubble.innerHTML =
-    "少しだけ未来が見えやすくなったよ。";
-
-  return;
-}
-
-if(level >= 10){
-
-  bubble.innerHTML =
-    "最近よく会うね。";
-
-  return;
-}
-
-if(level >= 5){
-
-  const levelLines = [
-    "また来てくれたね。",
-    "今日は少し未来が見えやすいよ。",
-    "その結果、保存しておく？",
-    "気になるなら、もう一度見てみる？",
-    "未来はまだ変えられるよ。"
-  ];
-
-  bubble.innerHTML =
-    levelLines[
-      Math.floor(Math.random() * levelLines.length)
-    ];
-
-  return;
-}
-
-  const isRare =
-    Math.random() < 0.03;
-
-  if(isRare){
-    bubble.innerHTML =
-      rareLines[
-        Math.floor(Math.random() * rareLines.length)
-      ];
-    return;
+  if(Math.random() < 0.03){
+    lines = rareLines;
   }
 
   bubble.innerHTML =
-    miraiLines[
-      Math.floor(Math.random() * miraiLines.length)
+    lines[
+      Math.floor(Math.random() * lines.length)
     ];
 }
 const recommends={
