@@ -960,6 +960,21 @@ box-shadow:
     transform:scale(.8) rotate(0deg);
   }
 }
+
+  .crystal.crack::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    linear-gradient(115deg, transparent 0 42%, rgba(255,255,255,.45) 43%, transparent 45%),
+    linear-gradient(70deg, transparent 0 54%, rgba(255,255,255,.28) 55%, transparent 57%),
+    linear-gradient(150deg, transparent 0 62%, rgba(255,255,255,.24) 63%, transparent 65%);
+  opacity:.55;
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:3;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1784,6 +1799,13 @@ document.getElementById("resultText").innerText =
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
 
+    const crystal =
+  document.querySelector(".crystal");
+
+if(crystal){
+  crystal.classList.remove("crack");
+}
+
   btn.disabled = true;
   btn.textContent = "生成中...";
 const loadingTexts =
@@ -1880,6 +1902,14 @@ if(vision){
 }
 
 if(loadingTextEl){
+
+    if(
+  crystal &&
+  genre === "forbidden" &&
+  loadingPercent >= 90
+){
+  crystal.classList.add("crack");
+}
 
   if(loadingPercent >= 95){
     loadingTextEl.textContent =
