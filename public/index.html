@@ -739,10 +739,20 @@ box-shadow:
 .resultText{
   border-left:4px solid rgba(255,228,122,.75) !important;
 }
+
+  .loadingPercent{
+  margin-top:10px;
+  font-size:28px;
+  font-weight:1000;
+  color:#ffe47a;
+  text-shadow:0 0 18px rgba(255,228,122,.65);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div class="loadingSteps" id="loadingSteps">
   解析準備中...
+</div><div id="loadingPercent" class="loadingPercent">
+  0%
 </div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
 <main class="wrap"><section class="hero"><div class="logo">🔮 ミライの未来診断</div><img class="heroMirai" src="/mirai.png" alt="ミライ"><h1>AI未来予想メーカー</h1><p class="sub">
 名前と願望を入れて、未来を30秒診断。
@@ -1585,13 +1595,22 @@ const loadingTextEl = document.querySelector(".loadingText");
 
 const loadingTimer = setInterval(()=>{
 
-  const max = loadingTexts.length;
-  const index = Math.min(loadingIndex, max - 1);
+  const loadingPercentEl =
+  document.getElementById("loadingPercent");
 
-  const text = loadingTexts[index];
+let loadingPercent = 0;
+
+  const max = loadingTexts.length;
+
+  const index =
+    Math.min(
+      Math.floor(loadingPercent / (95 / max)),
+      max - 1
+    );
 
   if(loadingTextEl){
-    loadingTextEl.textContent = text;
+    loadingTextEl.textContent =
+      loadingTexts[index];
   }
 
   if(loadingStepsEl){
@@ -1599,9 +1618,18 @@ const loadingTimer = setInterval(()=>{
       "STEP " + (index + 1) + " / " + max;
   }
 
-  loadingIndex++;
+  if(loadingPercentEl){
+    loadingPercentEl.textContent =
+      Math.min(loadingPercent, 99) + "%";
+  }
 
-},900);
+  if(loadingPercent < 92){
+    loadingPercent += Math.floor(Math.random() * 6) + 3;
+  }else if(loadingPercent < 99){
+    loadingPercent += 1;
+  }
+
+},700);
   overlay.classList.add("show");
 
 const photoFile =
