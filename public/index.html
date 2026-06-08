@@ -1101,6 +1101,14 @@ animation:pulsePercent 1s infinite;
   font-weight:1000;
   margin-bottom:8px;
 }
+
+  .rankBox,
+.rankType,
+.resultText{
+  transition:
+    opacity .5s ease,
+    transform .5s ease;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2205,6 +2213,38 @@ if(typeof updateMiraiLevel === "function"){
 } catch(e) {
 
   document.getElementById("resultWrap").style.display = "block";
+
+    const rankBox =
+  document.querySelector(".rankBox");
+
+const rankType =
+  document.getElementById("rankType");
+
+const resultText =
+  document.getElementById("resultText");
+
+rankBox.style.opacity = "0";
+rankType.style.opacity = "0";
+resultText.style.opacity = "0";
+
+  rankBox.style.transform = "translateY(20px)";
+rankType.style.transform = "translateY(20px)";
+resultText.style.transform = "translateY(20px)";
+
+setTimeout(()=>{
+  rankBox.style.opacity = "1";
+  rankBox.style.transform = "translateY(0)";
+},300);
+
+setTimeout(()=>{
+  rankType.style.opacity = "1";
+  rankType.style.transform = "translateY(0)";
+},900);
+
+setTimeout(()=>{
+  resultText.style.opacity = "1";
+  resultText.style.transform = "translateY(0)";
+},1500);
 
   document.getElementById("resultText").innerText =
     "エラー：" + e.message +
