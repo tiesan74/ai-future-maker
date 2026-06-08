@@ -738,11 +738,13 @@ overflow-x:hidden;
 
   .loadingPercent{
   margin-top:10px;
-  font-size:28px;
+  font-size:42px;
   font-weight:1000;
   color:#ffe47a;
   text-shadow:0 0 18px rgba(255,228,122,.65);
 }
+
+animation:pulsePercent 1s infinite;
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal"></div><div class="loadingText">未来を覗いています...</div><div class="loadingSteps" id="loadingSteps">
@@ -1567,24 +1569,54 @@ document.getElementById("resultText").innerText =
 
   btn.disabled = true;
   btn.textContent = "生成中...";
- const loadingTexts =
+const loadingTexts =
   genre === "photoGhost"
     ? [
-        "写真を読み込んでいます...",
-        "光と影を確認中...",
-        "余白の違和感を探しています...",
-        "怪異反応を測定中...",
-        "ミライが結果をまとめています..."
+        "📸 写真を読み込んでいます...",
+        "🔍 光と影を確認中...",
+        "👁 余白の違和感を探しています...",
+        "⚠️ 怪異反応を測定中...",
+        "🔮 写真の未来を再構築中...",
+        "✨ ミライが結果をまとめています..."
       ]
     : [
-        "未来を解析中...",
-        "運命の分岐点を照合中...",
-        "診断タイプを判定中...",
-        "ミライが結果をまとめています..."
+        "🔍 未来を解析中...",
+        "🧠 運命の分岐点を照合中...",
+        "⚠️ 危険度を算出中...",
+        "💫 未来の分岐を探索中...",
+        "🔮 未来を再構築中...",
+        "✨ ミライが結果をまとめています..."
       ];
-
+    
 let loadingIndex = 0;
 const loadingTextEl = document.querySelector(".loadingText");
+
+    const bubble =
+  document.querySelector(".oracleBubble");
+
+const loadingMiraiLines = [
+  "今、探してる...",
+  "少し待ってね...",
+  "嫌な未来かも...",
+  "見つかりそう...",
+  "あと少し...",
+  "この先、見てもいい？"
+];
+
+let loadingTalkIndex = 0;
+
+const loadingTalkTimer = setInterval(()=>{
+
+  if(!bubble) return;
+
+  bubble.innerHTML =
+    loadingMiraiLines[
+      loadingTalkIndex % loadingMiraiLines.length
+    ];
+
+  loadingTalkIndex++;
+
+},1800);
 
     const loadingStepsEl =
   document.getElementById("loadingSteps");
@@ -1604,11 +1636,17 @@ const loadingTimer = setInterval(()=>{
       max - 1
     );
 
-  if(loadingTextEl){
+if(loadingTextEl){
+
+  if(loadingPercent >= 95){
+    loadingTextEl.textContent =
+      "✨ 未来が見えました...";
+  }else{
     loadingTextEl.textContent =
       loadingTexts[index];
   }
 
+}
   if(loadingStepsEl){
     loadingStepsEl.textContent =
       "STEP " + (index + 1) + " / " + max;
@@ -1712,9 +1750,11 @@ if(typeof updateMiraiLevel === "function"){
     document.getElementById("resultText").innerText =
       "エラー：" + e.message + "\n\nもう一度「AIで診断する」を押してみてください。";
   } finally {
-    clearInterval(loadingTimer);
-    overlay.classList.remove("show");
-   btn.disabled = false;
+   clearInterval(loadingTimer);
+clearInterval(loadingTalkTimer);
+
+overlay.classList.remove("show");
+btn.disabled = false;
 setGenre(genre);
   }
 }
