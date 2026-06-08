@@ -1349,6 +1349,31 @@ const idleMiraiLines = [
 "その未来、本当に知りたい？"
 
 ];
+
+  const oracleEffects = [
+  "✨",
+  "👁",
+  "⚠️",
+  "🔮",
+  "💭"
+];
+
+setInterval(()=>{
+
+  const effect =
+    document.querySelector(".oracleEffect");
+
+  if(!effect) return;
+
+  effect.textContent =
+    oracleEffects[
+      Math.floor(
+        Math.random() *
+        oracleEffects.length
+      )
+    ];
+
+},4000);
   
 function talkMirai(){
 
@@ -1389,15 +1414,6 @@ function talkMirai(){
 
 }
 
-  bubble.innerHTML =
-    lines[
-      Math.floor(Math.random() * lines.length)
-    ];
-
-  bubble.style.opacity = "1";
-  bubble.style.transform = "translateY(0)";
-
-},200);
 
 const recommends={
   daily:["forbidden","enemy","love"],
