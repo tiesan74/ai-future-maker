@@ -302,6 +302,9 @@ height:104px;
   border:2px solid rgba(255,255,255,.35);
   box-shadow:0 0 25px rgba(255,95,162,.65);
   cursor:pointer;
+  animation:
+  miraiFloat 3s ease-in-out infinite,
+  miraiBlink 5s infinite;
 }
 
   display:flex;
@@ -976,6 +979,42 @@ animation:pulsePercent 1s infinite;
   mix-blend-mode:screen;
   pointer-events:none;
   z-index:3;
+}
+
+  @keyframes miraiBlink{
+
+  0%,47%,53%,100%{
+    transform:scaleY(1);
+  }
+
+  50%{
+    transform:scaleY(.08);
+  }
+
+}
+
+  @keyframes miraiFloat{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+
+}
+
+@keyframes miraiBlink{
+
+  0%,47%,53%,100%{
+    filter:brightness(1);
+  }
+
+  48%,52%{
+    filter:brightness(.75);
+  }
+
 }
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
