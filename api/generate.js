@@ -576,7 +576,14 @@ console.log("FINISH_REASON:", data?.candidates?.[0]?.finishReason);
 );
 console.log("TEXT:", text);
 
-    return res.status(200).json({ text, genre, scores, rank });
+    return res.status(200).json({
+  text,
+  genre,
+  scores,
+  rank,
+  danger,
+  avoid
+});
   } catch (e) {
     return res.status(500).json({
       error: String(e?.message || e)
