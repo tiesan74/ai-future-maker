@@ -1890,6 +1890,31 @@ if(loadingTextEl){
   }
 
 }
+
+if(loadingPercent >= 95){
+
+  if(loadingStepsEl){
+    loadingStepsEl.textContent =
+      "結果を呼び出しています...";
+  }
+
+  const vision =
+    document.querySelector(".crystalVision");
+
+  if(vision){
+    vision.textContent = "✨";
+    vision.style.fontSize = "52px";
+  }
+
+}else{
+
+  if(loadingStepsEl){
+    loadingStepsEl.textContent =
+      "運命を観測中...";
+  }
+
+}
+  
  if(loadingStepsEl){
 
   if(loadingPercent >= 95){
