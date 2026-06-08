@@ -1034,8 +1034,18 @@ if(level >= 10){
 
 if(level >= 5){
 
+  const levelLines = [
+    "また来てくれたね。",
+    "今日は少し未来が見えやすいよ。",
+    "その結果、保存しておく？",
+    "気になるなら、もう一度見てみる？",
+    "未来はまだ変えられるよ。"
+  ];
+
   bubble.innerHTML =
-    "また来てくれたね。";
+    levelLines[
+      Math.floor(Math.random() * levelLines.length)
+    ];
 
   return;
 }
@@ -1676,8 +1686,8 @@ if(typeof updateMiraiLevel === "function"){
   } finally {
     clearInterval(loadingTimer);
     overlay.classList.remove("show");
-    btn.disabled = false;
-    btn.textContent = "AIで診断する";
+   btn.disabled = false;
+setGenre(genre);
   }
 }
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
