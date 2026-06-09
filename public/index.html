@@ -1084,6 +1084,33 @@ animation:pulsePercent 1s infinite;
   }
 
 }
+
+  .resultCard.sparkle::before{
+  content:"✨ ✦ ✨ ✦";
+  position:absolute;
+  top:14px;
+  right:18px;
+  font-size:22px;
+  opacity:.85;
+  animation:sparkleMove 2s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.resultCard{
+  position:relative;
+  overflow:hidden;
+}
+
+@keyframes sparkleMove{
+  0%,100%{
+    transform:translateY(0);
+    opacity:.45;
+  }
+  50%{
+    transform:translateY(-8px);
+    opacity:1;
+  }
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1711,6 +1738,17 @@ document.getElementById(
 
 const preview =
   document.getElementById("photoPreview");
+
+  const resultCard =
+  document.getElementById("resultCard");
+
+if(resultCard){
+  resultCard.classList.remove("sparkle");
+
+  if(rank === "EX" || rank === "SS"){
+    resultCard.classList.add("sparkle");
+  }
+}
 
 if(
   genre === "photoGhost" &&
