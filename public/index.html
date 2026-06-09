@@ -2282,9 +2282,20 @@ if(typeof updateMiraiLevel === "function"){
 
   document.getElementById("resultWrap").style.display = "block";
 
-  document.getElementById("resultText").innerText =
-    "エラー：" + e.message +
-    "\n\nAIが混み合っている可能性があります。30秒後にもう一度診断してください。";
+  document.getElementById("resultText").innerHTML =
+  `
+  <div class="resultSection">
+    <div class="sectionTitle">🔮 ミライからのお知らせ</div>
+    今、未来への接続が混み合っています。
+    <br><br>
+    30秒ほど待ってから、もう一度だけ診断してみてください。
+  </div>
+
+  <div class="resultSection">
+    <div class="sectionTitle">🕯 今できること</div>
+    名前や願望を少し変えると、別の未来が開きやすくなります。
+  </div>
+  `;
 
   document.getElementById("resultCard").scrollIntoView({
     behavior:"smooth"
