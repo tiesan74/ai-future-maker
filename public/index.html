@@ -1111,6 +1111,38 @@ animation:pulsePercent 1s infinite;
     opacity:1;
   }
 }
+
+  .retryBtn{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+
+  border:none;
+  border-radius:16px;
+
+  font-size:16px;
+  font-weight:1000;
+
+  color:#14040f;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffe47a,
+      #ff74d4
+    );
+
+  box-shadow:
+    0 0 20px rgba(255,116,212,.45);
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.retryBtn:hover{
+  transform:scale(1.03);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2282,20 +2314,33 @@ if(typeof updateMiraiLevel === "function"){
 
   document.getElementById("resultWrap").style.display = "block";
 
-  document.getElementById("resultText").innerHTML =
-  `
-  <div class="resultSection">
-    <div class="sectionTitle">🔮 ミライからのお知らせ</div>
-    今、未来への接続が混み合っています。
-    <br><br>
-    30秒ほど待ってから、もう一度だけ診断してみてください。
+document.getElementById("resultText").innerHTML = `
+<div class="resultSection">
+  <div class="sectionTitle">
+    🔮 ミライからのお知らせ
   </div>
 
-  <div class="resultSection">
-    <div class="sectionTitle">🕯 今できること</div>
-    名前や願望を少し変えると、別の未来が開きやすくなります。
+  今、未来への接続が混み合っています。
+  <br><br>
+  30秒ほど待ってから再診断してみてください。
+</div>
+
+<div class="resultSection">
+  <div class="sectionTitle">
+    🌙 ミライの助言
   </div>
-  `;
+
+  名前や願望を少し変えると、
+  別の未来が見えることがあります。
+</div>
+
+<button
+  class="retryBtn"
+  onclick="generate()"
+>
+  🔄 もう一度診断する
+</button>
+`;
 
   document.getElementById("resultCard").scrollIntoView({
     behavior:"smooth"
