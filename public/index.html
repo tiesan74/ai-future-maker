@@ -1876,36 +1876,37 @@ html =
 
 document.getElementById("resultText").innerHTML =
   html;
-    const rankBox =
+  
+const rankBoxAnim =
   document.querySelector(".rankBox");
 
-const rankType =
+const rankTypeAnim =
   document.getElementById("rankType");
 
-const resultText =
+const resultTextAnim =
   document.getElementById("resultText");
 
-rankBox.style.opacity = "0";
-rankType.style.opacity = "0";
-resultText.style.opacity = "0";
+rankBoxAnim.style.opacity = "0";
+rankTypeAnim.style.opacity = "0";
+resultTextAnim.style.opacity = "0";
 
-  rankBox.style.transform = "translateY(20px)";
-rankType.style.transform = "translateY(20px)";
-resultText.style.transform = "translateY(20px)";
+rankBoxAnim.style.transform = "translateY(20px)";
+rankTypeAnim.style.transform = "translateY(20px)";
+resultTextAnim.style.transform = "translateY(20px)";
 
 setTimeout(()=>{
-  rankBox.style.opacity = "1";
-  rankBox.style.transform = "translateY(0)";
+  rankBoxAnim.style.opacity = "1";
+  rankBoxAnim.style.transform = "translateY(0)";
 },300);
 
 setTimeout(()=>{
-  rankType.style.opacity = "1";
-  rankType.style.transform = "translateY(0)";
+  rankTypeAnim.style.opacity = "1";
+  rankTypeAnim.style.transform = "translateY(0)";
 },900);
 
 setTimeout(()=>{
-  resultText.style.opacity = "1";
-  resultText.style.transform = "translateY(0)";
+  resultTextAnim.style.opacity = "1";
+  resultTextAnim.style.transform = "translateY(0)";
 },1500);
   
 }
