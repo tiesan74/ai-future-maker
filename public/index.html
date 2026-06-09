@@ -2008,6 +2008,29 @@ const seed =
 const type =
   allTypes[seed % allTypes.length];
 
+  const typeName =
+  type[0];
+
+const typeBook =
+  JSON.parse(
+    localStorage.getItem(
+      "typeBook"
+    ) || "[]"
+  );
+
+if(
+ !typeBook.includes(typeName)
+){
+
+ typeBook.push(typeName);
+
+ localStorage.setItem(
+   "typeBook",
+   JSON.stringify(typeBook)
+ );
+
+}
+
   const typeToast =
   document.getElementById("typeFixedToast");
 
@@ -2477,6 +2500,26 @@ if(genre === "photoGhost" && photoFile){
 
       throw new Error(msg);
     }
+
+    const rankBook =
+  JSON.parse(
+    localStorage.getItem(
+      "rankBook"
+    ) || "[]"
+  );
+
+if(
+ !rankBook.includes(rank)
+){
+
+ rankBook.push(rank);
+
+ localStorage.setItem(
+   "rankBook",
+   JSON.stringify(rankBook)
+ );
+
+}
 
  const saved = {
   name: payload.name || "あなた",
