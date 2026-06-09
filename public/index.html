@@ -297,9 +297,8 @@ filter:drop-shadow(0 0 12px rgba(255,255,255,.65));
   box-shadow:0 0 25px rgba(255,95,162,.65);
   cursor:pointer;
 
-  animation:
-    miraiFloat 3s ease-in-out infinite,
-    miraiBlink 5s infinite;
+ animation:
+  miraiFloat 3s ease-in-out infinite;
 
   display:flex;
   align-items:center;
@@ -953,18 +952,6 @@ animation:pulsePercent 1s infinite;
 
 }
 
-@keyframes miraiBlink{
-
-  0%,47%,53%,100%{
-    filter:brightness(1);
-  }
-
-  48%,52%{
-    filter:brightness(.75);
-  }
-
-}
-
   .oracleBubble{
   transition:.4s ease;
 }
@@ -1219,6 +1206,41 @@ animation:pulsePercent 1s infinite;
   font-size:13px;
   opacity:.85;
 }
+
+  #levelUpToast{
+  position:fixed;
+  left:50%;
+  top:32%;
+  transform:translate(-50%,-50%) scale(.8);
+
+  z-index:2100;
+
+  padding:16px 22px;
+  border-radius:22px;
+
+  background:
+    linear-gradient(135deg,#ffe47a,#ff74d4);
+
+  color:#17051f;
+
+  font-size:18px;
+  font-weight:1000;
+  text-align:center;
+
+  box-shadow:
+    0 0 35px rgba(255,116,212,.65),
+    0 0 70px rgba(255,228,122,.35);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.35s ease;
+}
+
+#levelUpToast.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1437,6 +1459,10 @@ animation:pulsePercent 1s infinite;
 
   <div id="futureFixedToast">
   ✨ 未来が確定しました ✨
+</div>
+
+  <div id="levelUpToast">
+  🎉 ミライとの信頼度UP
 </div>
 
   <div id="typeFixedToast">
@@ -2398,12 +2424,35 @@ if(genre === "photoGhost" && photoFile){
     history = history.slice(0,10);
     localStorage.setItem("futurePortalV3History", JSON.stringify(history));
     
-   let currentMiraiExp =
+ let beforeExp =
   Number(localStorage.getItem("miraiExp") || 0);
 
-currentMiraiExp++;
+let beforeLevel =
+  Math.floor(beforeExp / 3) + 1;
 
-localStorage.setItem("miraiExp", currentMiraiExp);
+let afterExp =
+  beforeExp + 1;
+
+let afterLevel =
+  Math.floor(afterExp / 3) + 1;
+
+localStorage.setItem("miraiExp", afterExp);
+
+if(afterLevel > beforeLevel){
+  const levelToast =
+    document.getElementById("levelUpToast");
+
+  if(levelToast){
+    levelToast.innerHTML =
+      "🎉 ミライとの信頼度UP<br>Lv." + afterLevel;
+
+    levelToast.classList.add("show");
+
+    setTimeout(()=>{
+      levelToast.classList.remove("show");
+    },1300);
+  }
+}
 
 if(typeof updateMiraiLevel === "function"){
   updateMiraiLevel();
