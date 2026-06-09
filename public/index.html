@@ -1201,6 +1201,50 @@ animation:pulsePercent 1s infinite;
   opacity:1;
   transform:translate(-50%,-50%) scale(1);
 }
+
+  #typeFixedToast{
+  position:fixed;
+  left:50%;
+  top:38%;
+  transform:translate(-50%,-50%) scale(.8);
+
+  z-index:2001;
+
+  padding:18px 24px;
+  border-radius:24px;
+
+  background:
+    radial-gradient(circle at 20% 0%,rgba(255,228,122,.5),transparent 35%),
+    linear-gradient(135deg,rgba(70,20,90,.96),rgba(15,8,35,.96));
+
+  border:1px solid rgba(255,255,255,.25);
+
+  color:#fff;
+  font-size:22px;
+  font-weight:1000;
+  text-align:center;
+
+  box-shadow:
+    0 0 35px rgba(255,116,212,.55),
+    0 0 80px rgba(122,215,255,.28);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.35s ease;
+}
+
+#typeFixedToast.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+  #typeFixedToast span{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  opacity:.85;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1419,6 +1463,10 @@ animation:pulsePercent 1s infinite;
 
   <div id="futureFixedToast">
   ✨ 未来が確定しました ✨
+</div>
+
+  <div id="typeFixedToast">
+  診断タイプ
 </div>
   
 <p class="footer">© AI未来予想メーカー V3 Gemini</p></main>
@@ -1915,6 +1963,14 @@ const seed =
 const type =
   allTypes[seed % allTypes.length];
 
+  const typeToast =
+  document.getElementById("typeFixedToast");
+
+if(typeToast){
+  typeToast.innerHTML =
+    `${type[0]} ${type[1]}<br><span>${type[2]}</span>`;
+}
+
   document.getElementById("cardGenre").textContent = data.label || labels[genre];
   document.getElementById("rankText").textContent = rank;
  if(genre === "photoGhost"){
@@ -2114,10 +2170,25 @@ setTimeout(()=>{
 if(toast){
   toast.classList.add("show");
 
-  setTimeout(()=>{
-    toast.classList.remove("show");
-  },1200);
+setTimeout(()=>{
+  toast.classList.remove("show");
+},800);
 }
+
+    setTimeout(()=>{
+
+  const typeToast =
+    document.getElementById("typeFixedToast");
+
+  if(typeToast){
+    typeToast.classList.add("show");
+
+    setTimeout(()=>{
+      typeToast.classList.remove("show");
+    },1100);
+  }
+
+},650);
 
   setTimeout(()=>{
     card.classList.remove("resultReveal");
