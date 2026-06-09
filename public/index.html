@@ -2096,14 +2096,6 @@ html =
 
 document.getElementById("resultText").innerHTML =
   html;
-
-if(toast){
-  toast.classList.add("show");
-
-  setTimeout(()=>{
-    toast.classList.remove("show");
-  },600);
-}
   
 const rankBoxAnim =
   document.querySelector(".rankBox");
@@ -2136,6 +2128,8 @@ setTimeout(()=>{
   resultTextAnim.style.opacity = "1";
   resultTextAnim.style.transform = "translateY(0)";
 },1500);
+
+}
 
     const toast =
   document.getElementById("futureFixedToast");
