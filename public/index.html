@@ -1049,6 +1049,41 @@ animation:pulsePercent 1s infinite;
     opacity .5s ease,
     transform .5s ease;
 }
+
+  .rank-ss{
+  background:
+  linear-gradient(
+    135deg,
+    #b97fff,
+    #ff9df7
+  ) !important;
+
+  animation:
+  ssGlow 1.5s infinite alternate;
+}
+
+.rank-s{
+  background:
+  linear-gradient(
+    135deg,
+    #67c8ff,
+    #9de5ff
+  ) !important;
+}
+
+@keyframes ssGlow{
+
+  0%{
+    box-shadow:
+    0 0 18px rgba(185,127,255,.5);
+  }
+
+  100%{
+    box-shadow:
+    0 0 50px rgba(255,157,247,.95);
+  }
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1763,6 +1798,32 @@ const type =
 
   const rankBox = document.querySelector(".rankBox");
   rankBox.className = "rankBox rank-" + String(rank).toLowerCase();
+
+  const rankBox =
+  document.querySelector(".rankBox");
+
+rankBox.classList.remove(
+  "rank-ex",
+  "rank-ss",
+  "rank-s",
+  "rank-z"
+);
+
+if(rank === "EX"){
+  rankBox.classList.add("rank-ex");
+}
+
+if(rank === "SS"){
+  rankBox.classList.add("rank-ss");
+}
+
+if(rank === "S"){
+  rankBox.classList.add("rank-s");
+}
+
+if(rank === "Z"){
+  rankBox.classList.add("rank-z");
+}
 
 let miraiComment = "未来はまだ変えられるよ。";
 
