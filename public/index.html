@@ -1241,6 +1241,39 @@ animation:pulsePercent 1s infinite;
   opacity:1;
   transform:translate(-50%,-50%) scale(1);
 }
+
+  .futureHint{
+  margin-top:14px;
+
+  padding:12px;
+
+  border-radius:16px;
+
+  background:
+    rgba(255,228,122,.12);
+
+  border:
+    1px solid rgba(255,228,122,.25);
+
+  color:#ffe47a;
+
+  font-weight:900;
+
+  animation:
+    hintPulse 1.8s infinite;
+}
+
+@keyframes hintPulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.03);
+  }
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2070,6 +2103,25 @@ const rarityMap = {
   D:"出現率 18%",
   Z:"出現率 0.7%"
 };
+  
+  const hints = [
+
+"⚠️ 3日以内に意外な連絡",
+
+"⚠️ 見逃すと損するチャンス",
+
+"⚠️ 一度だけ現れる選択肢",
+
+"⚠️ 誰かがあなたを探している",
+
+"⚠️ 今日の行動で未来が変わる"
+
+];
+
+const futureHint =
+  hints[
+    seed % hints.length
+  ];
 
 document.getElementById("rankType").innerHTML = `
 <div style="font-size:34px;font-weight:1000">
@@ -2096,6 +2148,10 @@ document.getElementById("rankType").innerHTML = `
   ⚠️ 危険度 ${Math.max(scores.ghost ?? 0, scores.love ?? 0)}%
 </div>
 `;
+
+  <div class="futureHint">
+  ${futureHint}
+</div>
 
   setScore("money",scores.money??0);
   setScore("love",scores.love??0);
