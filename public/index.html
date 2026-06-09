@@ -1169,6 +1169,38 @@ animation:pulsePercent 1s infinite;
     resultReveal .7s ease;
 
 }
+
+      #futureFixedToast{
+  position:fixed;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%) scale(.8);
+
+  z-index:2000;
+
+  padding:18px 24px;
+  border-radius:999px;
+
+  background:linear-gradient(90deg,#ffe47a,#ff74d4);
+  color:#17051f;
+
+  font-size:18px;
+  font-weight:1000;
+
+  box-shadow:
+    0 0 35px rgba(255,116,212,.7),
+    0 0 70px rgba(255,228,122,.35);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.35s ease;
+}
+
+#futureFixedToast.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1383,6 +1415,10 @@ animation:pulsePercent 1s infinite;
 
   <div id="dailyGhostLevel" class="dailyGhostLevel">
   👻 本日の怪異度：計測中...
+</div>
+
+  <div id="futureFixedToast">
+  ✨ 未来が確定しました ✨
 </div>
   
 <p class="footer">© AI未来予想メーカー V3 Gemini</p></main>
@@ -2071,6 +2107,17 @@ setTimeout(()=>{
   if(!card) return;
 
   card.classList.add("resultReveal");
+
+    const toast =
+  document.getElementById("futureFixedToast");
+
+if(toast){
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },1200);
+}
 
   setTimeout(()=>{
     card.classList.remove("resultReveal");
