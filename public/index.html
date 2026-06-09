@@ -1143,6 +1143,32 @@ animation:pulsePercent 1s infinite;
 .retryBtn:hover{
   transform:scale(1.03);
 }
+
+    @keyframes resultReveal{
+
+  0%{
+    transform:scale(.92);
+    opacity:.4;
+  }
+
+  50%{
+    transform:scale(1.04);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
+
+.resultReveal{
+
+  animation:
+    resultReveal .7s ease;
+
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2035,6 +2061,21 @@ setTimeout(()=>{
 setTimeout(()=>{
   resultTextAnim.style.opacity = "1";
   resultTextAnim.style.transform = "translateY(0)";
+},1500);
+
+  setTimeout(()=>{
+
+  const card =
+    document.getElementById("resultCard");
+
+  if(!card) return;
+
+  card.classList.add("resultReveal");
+
+  setTimeout(()=>{
+    card.classList.remove("resultReveal");
+  },700);
+
 },1500);
   
 }
