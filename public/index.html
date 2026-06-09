@@ -1144,32 +1144,6 @@ animation:pulsePercent 1s infinite;
   transform:scale(1.03);
 }
 
-    @keyframes resultReveal{
-
-  0%{
-    transform:scale(.92);
-    opacity:.4;
-  }
-
-  50%{
-    transform:scale(1.04);
-    opacity:1;
-  }
-
-  100%{
-    transform:scale(1);
-    opacity:1;
-  }
-
-}
-
-.resultReveal{
-
-  animation:
-    resultReveal .7s ease;
-
-}
-
       #futureFixedToast{
   position:fixed;
   left:50%;
@@ -2122,6 +2096,17 @@ html =
 
 document.getElementById("resultText").innerHTML =
   html;
+
+  const toast =
+  document.getElementById("futureFixedToast");
+
+if(toast){
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },600);
+}
   
 const rankBoxAnim =
   document.querySelector(".rankBox");
@@ -2155,15 +2140,6 @@ setTimeout(()=>{
   resultTextAnim.style.transform = "translateY(0)";
 },1500);
 
-  setTimeout(()=>{
-
-  const card =
-    document.getElementById("resultCard");
-
-  if(!card) return;
-
-  card.classList.add("resultReveal");
-
     const toast =
   document.getElementById("futureFixedToast");
 
@@ -2173,14 +2149,6 @@ if(toast){
 setTimeout(()=>{
   toast.classList.remove("show");
 },600);
-}
-
-  setTimeout(()=>{
-    card.classList.remove("resultReveal");
-  },700);
-
-},1500);
-  
 }
   
   function fileToBase64(file){
