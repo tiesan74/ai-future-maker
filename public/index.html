@@ -1637,28 +1637,24 @@ function getMiraiLevel(){
 }
 
 function updateMiraiLevel(){
-  const box = document.getElementById("miraiLevelBox");
+
+  const box =
+    document.getElementById("miraiLevelBox");
+
   if(!box) return;
 
-  const currentMiraiExp =
-    Number(localStorage.getItem("miraiExp") || 0);
+  const level = getMiraiLevel();
 
-  const level =
-    Math.floor(currentMiraiExp / 3) + 1;
-
- box.textContent =
-  "🔮 ミライとの信頼度 Lv." +
-  getMiraiLevel();
-}
+  box.textContent =
+    "🔮 ミライとの信頼度 Lv." + level;
 
   const mini =
-  document.getElementById("miniLevel");
+    document.getElementById("miniLevel");
 
-if(mini){
-
-  mini.textContent =
-    "Lv." +
-    getMiraiLevel();
+  if(mini){
+    mini.textContent =
+      "Lv." + level;
+  }
 
 }
   
@@ -1725,6 +1721,22 @@ function setGenre(g){
   }
 
   renderRecommends();
+
+  setTimeout(()=>{
+
+  const inputCard =
+    document.getElementById("inputCard");
+
+  if(inputCard){
+
+    inputCard.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }
+
+},100);
 
   const photoArea =
     document.getElementById("photoArea");
@@ -2122,6 +2134,19 @@ html =
 
 document.getElementById("resultText").innerHTML =
   html;
+
+  const toast =
+  document.getElementById("futureFixedToast");
+
+if(toast){
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },800);
+
+}
   
 const rankBoxAnim =
   document.querySelector(".rankBox");
@@ -2155,17 +2180,6 @@ setTimeout(()=>{
   resultTextAnim.style.transform = "translateY(0)";
 },1500);
 
-}
-
-    const toast =
-  document.getElementById("futureFixedToast");
-
-if(toast){
-  toast.classList.add("show");
-
-setTimeout(()=>{
-  toast.classList.remove("show");
-},600);
 }
   
   function fileToBase64(file){
