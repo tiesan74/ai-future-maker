@@ -1351,6 +1351,59 @@ border-radius:20px;
 background:#1b1029;
 
 }
+
+  .bookInner h3{
+  margin:22px 0 10px;
+  color:#ffe47a;
+}
+
+.bookGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.bookItem{
+  min-height:86px;
+  padding:12px;
+  border-radius:16px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.bookItem strong{
+  font-size:17px;
+}
+
+.bookItem span{
+  margin-top:6px;
+  font-size:11px;
+  opacity:.8;
+}
+
+.bookItem.owned{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.22),
+      rgba(255,116,212,.20)
+    );
+
+  box-shadow:
+    0 0 18px rgba(255,116,212,.20);
+}
+
+.bookItem.locked{
+  background:rgba(255,255,255,.05);
+  color:#8f859c;
+  filter:grayscale(1);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1927,6 +1980,104 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+  function readBook(key){
+  try{
+    const data =
+      JSON.parse(
+        localStorage.getItem(key) || "[]"
+      );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  }catch(e){
+    return [];
+  }
+}
+
+function renderRankBook(){
+
+  const box =
+    document.getElementById("rankBookBox");
+
+  if(!box) return;
+
+  const collected =
+    readBook("rankBook");
+
+  const ranks =
+    ["Z","D","C","B","A","S","SS","EX"];
+
+  box.innerHTML = `
+    <h3>🏆 ランク図鑑</h3>
+
+    <div class="bookGrid">
+      ${ranks.map(rank => {
+
+        const owned =
+          collected.includes(rank);
+
+        return `
+          <div class="bookItem ${owned ? "owned" : "locked"}">
+            <strong>${owned ? rank : "？"}</strong>
+            <span>${owned ? "獲得済み" : "未発見"}</span>
+          </div>
+        `;
+
+      }).join("")}
+    </div>
+  `;
+}
+
+function renderTypeBook(){
+
+  const box =
+    document.getElementById("typeBookBox");
+
+  if(!box) return;
+
+  const collected =
+    readBook("typeBook");
+
+  const types = [
+    ["💰","億狙い型"],
+    ["💘","恋愛支配型"],
+    ["📈","バズ暴走型"],
+    ["👁","怪異吸引体質"],
+    ["🚫","禁断好奇心型"],
+    ["💔","裏切り察知型"],
+    ["⚠️","危機回避型"],
+    ["🔮","未来改変型"],
+    ["🧠","隠れ天才型"],
+    ["🌙","闇コレクター型"]
+  ];
+
+  box.innerHTML = `
+    <h3>🔮 未来タイプ図鑑</h3>
+
+    <div class="bookGrid">
+      ${types.map(type => {
+
+        const emoji = type[0];
+        const name = type[1];
+
+        const owned =
+          collected.includes(name) ||
+          collected.includes(emoji);
+
+        return `
+          <div class="bookItem ${owned ? "owned" : "locked"}">
+            <strong>${owned ? emoji + " " + name : "🔒 未発見"}</strong>
+            <span>${owned ? "獲得済み" : "診断して解放"}</span>
+          </div>
+        `;
+
+      }).join("")}
+    </div>
+  `;
+}
+
 function openBook(){
 
  renderRankBook();
@@ -2124,7 +2275,7 @@ const type =
   allTypes[seed % allTypes.length];
 
   const typeName =
-  type[0];
+  type[1];
 
 const typeBook =
   JSON.parse(
