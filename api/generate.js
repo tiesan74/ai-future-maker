@@ -491,43 +491,117 @@ const prompt = promptMap[genreKey] || promptMap.future;
 const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-  let response;
-let raw;
+let response;
+let raw = "";
 
-for(let i = 0; i < 3; i++){
+const maxRetries = 4;
 
-  const parts = [{ text: prompt }];
+for(let i = 0; i < maxRetries; i++){
 
-if(genreKey === "photoGhost" && photoBase64){
-  parts.push({
-    inlineData: {
-      mimeType: photoMimeType,
-      data: photoBase64
-    }
-  });
-}
+  const parts = [
+    { text: prompt }
+  ];
 
-  response = await fetch(url, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-     contents: [{ role: "user", parts }],
-      generationConfig: {
-        temperature: 0.8,
-        maxOutputTokens: 4096
+  if(
+    genreKey === "photoGhost" &&
+    photoBase64
+  ){
+    parts.push({
+      inlineData: {
+        mimeType: photoMimeType,
+        data: photoBase64
       }
-    })
-  });
+    });
+  }
 
-  raw = await response.text();
+  try{
+
+    response = await fetch(url, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts
+          }
+        ],
+
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 4096
+        }
+      })
+    });
+
+    raw = await response.text();
+
+  }catch(fetchError){
+
+    if(i === maxRetries - 1){
+      throw fetchError;
+    }
+
+    const waitTime =
+      1200 * Math.pow(2, i) +
+      Math.floor(Math.random() * 600);
+
+    console.log(
+      "Geminiとの通信に失敗。再試行:",
+      i + 1,
+      waitTime
+    );
+
+    await new Promise(resolve =>
+      setTimeout(resolve, waitTime)
+    );
+
+    continue;
+  }
 
   if(response.ok){
     break;
   }
 
-  if(raw.includes("high demand")){
-    console.log("Gemini混雑中。再試行:", i + 1);
-    await new Promise(r => setTimeout(r, 1500));
+  const rawLower =
+    String(raw || "").toLowerCase();
+
+  const isTemporaryError =
+    response.status === 429 ||
+    response.status === 500 ||
+    response.status === 502 ||
+    response.status === 503 ||
+    response.status === 504 ||
+    rawLower.includes("high demand") ||
+    rawLower.includes("overloaded") ||
+    rawLower.includes("temporarily unavailable");
+
+  if(
+    isTemporaryError &&
+    i < maxRetries - 1
+  ){
+
+    const waitTime =
+      1200 * Math.pow(2, i) +
+      Math.floor(Math.random() * 600);
+
+    console.log(
+      "Gemini一時エラー。再試行:",
+      i + 1,
+      "status:",
+      response.status,
+      "待機:",
+      waitTime
+    );
+
+    await new Promise(resolve =>
+      setTimeout(resolve, waitTime)
+    );
+
     continue;
   }
 
@@ -545,18 +619,35 @@ if(genreKey === "photoGhost" && photoBase64){
 
     console.log("GEMINI_RAW:", JSON.stringify(data, null, 2));
 
-    if (!response.ok) {
+if (!response.ok) {
 
-  const msg = data?.error?.message || "";
+  const msg =
+    data?.error?.message || "";
 
-  if (msg.includes("high demand")) {
+  const msgLower =
+    msg.toLowerCase();
+
+  const isTemporaryError =
+    response.status === 429 ||
+    response.status === 500 ||
+    response.status === 502 ||
+    response.status === 503 ||
+    response.status === 504 ||
+    msgLower.includes("high demand") ||
+    msgLower.includes("overloaded") ||
+    msgLower.includes("temporarily unavailable");
+
+  if(isTemporaryError){
     return res.status(503).json({
-      error: "AIが混み合っています。30秒ほど待ってもう一度お試しください。"
+      error:
+        "現在AIへのアクセスが集中しています。少し待ってからもう一度診断してください。"
     });
   }
 
   return res.status(response.status).json({
-    error: msg || "Gemini APIでエラーが発生しました。"
+    error:
+      msg ||
+      "Gemini APIでエラーが発生しました。"
   });
 }
     const text =
