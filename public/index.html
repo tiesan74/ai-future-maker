@@ -1915,12 +1915,17 @@ if(grid.classList.contains("showAll")){
   generate();
 }
 
-const bookButton =
-  document.getElementById("bookButton");
+document.addEventListener("DOMContentLoaded", () => {
+  const bookButton =
+    document.getElementById("bookButton");
 
-if(bookButton){
-  bookButton.onclick = openBook;
-}
+  if(bookButton){
+    bookButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openBook();
+    });
+  }
+});
 
 function openBook(){
 
@@ -2978,8 +2983,8 @@ renderDailyGhostLevel();
 >
 
   <div class="oracleEffect">
-✨
-</div>
+    ✨
+  </div>
 
   <div class="oracleBubble">
     その未来、<br>
@@ -2987,34 +2992,38 @@ renderDailyGhostLevel();
   </div>
 
   <div id="miniLevel">
-  Lv.1
-</div>
+    Lv.1
+  </div>
 
   <div id="bookButton">
-📚
-</div>
+    📚
+  </div>
 
-  <img class="oracleFace" src="/mirai.png" alt="ミライ">
-
-  <div id="bookModal">
-
-<div class="bookInner">
-
-<h2>📚 未来図鑑</h2>
-
-<div id="rankBookBox"></div>
-
-<div id="typeBookBox"></div>
-
-<button
-onclick="closeBook()">
-
-閉じる
-
-</button>
+  <img
+    class="oracleFace"
+    src="/mirai.png"
+    alt="ミライ"
+  >
 
 </div>
 
+<div id="bookModal">
+
+  <div class="bookInner">
+
+    <h2>📚 未来図鑑</h2>
+
+    <div id="rankBookBox"></div>
+
+    <div id="typeBookBox"></div>
+
+    <button onclick="closeBook()">
+      閉じる
+    </button>
+
+  </div>
+
 </div>
 
-</div></body></html>
+</body>
+</html>
