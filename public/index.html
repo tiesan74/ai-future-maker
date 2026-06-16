@@ -2842,8 +2842,13 @@ if(genre === "photoGhost" && photoFile){
     localStorage.getItem("rankBook") || "[]"
   );
 
-if(!rankBook.includes(saved.rank)){
-  rankBook.push(saved.rank);
+const resultRank = data?.rank;
+
+if(
+  resultRank &&
+  !rankBook.includes(resultRank)
+){
+  rankBook.push(resultRank);
 
   localStorage.setItem(
     "rankBook",
