@@ -2825,8 +2825,19 @@ if(genre === "photoGhost" && photoFile){
 
       throw new Error(msg);
     }
-    
-const rankBook =
+
+ const saved = {
+  name: payload.name || "あなた",
+  label: labels[genre],
+  text: data.text,
+  scores: data.scores,
+  rank: data.rank,
+  danger: data.danger,
+  avoid: data.avoid,
+  createdAt: new Date().toISOString()
+};
+
+    const rankBook =
   JSON.parse(
     localStorage.getItem("rankBook") || "[]"
   );
@@ -2839,17 +2850,6 @@ if(!rankBook.includes(saved.rank)){
     JSON.stringify(rankBook)
   );
 }
-
- const saved = {
-  name: payload.name || "あなた",
-  label: labels[genre],
-  text: data.text,
-  scores: data.scores,
-  rank: data.rank,
-  danger: data.danger,
-  avoid: data.avoid,
-  createdAt: new Date().toISOString()
-};
 
     renderResult(saved);
     history.unshift(saved);
