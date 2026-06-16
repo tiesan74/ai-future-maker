@@ -2875,6 +2875,9 @@ let afterLevel =
 
 localStorage.setItem("miraiExp", afterExp);
 
+    miraiExp = afterExp;
+updateMiraiLevel();
+
 if(afterLevel > beforeLevel){
   const levelToast =
     document.getElementById("levelUpToast");
