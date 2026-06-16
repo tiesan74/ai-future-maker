@@ -2896,6 +2896,8 @@ if(typeof updateMiraiLevel === "function"){
 
 } catch(e) {
 
+    console.error("診断後に発生したエラー:", e);
+
   document.getElementById("resultWrap").style.display = "block";
 
 document.getElementById("resultText").innerHTML = `
