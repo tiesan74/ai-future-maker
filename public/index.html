@@ -1404,6 +1404,34 @@ background:#1b1029;
   color:#8f859c;
   filter:grayscale(1);
 }
+
+  .resultText.collapsed{
+  max-height:360px !important;
+  overflow:hidden;
+  position:relative;
+}
+
+.resultText.collapsed::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:100px;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(14,7,22,.97)
+    );
+}
+
+.resultToggleBtn{
+  margin-top:10px;
+  position:relative;
+  z-index:3;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1600,6 +1628,16 @@ background:#1b1029;
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
 </div>
+
+  <button
+  id="toggleResultBtn"
+  class="secondary resultToggleBtn"
+  type="button"
+  onclick="toggleResultText()"
+  style="display:none"
+>
+  続きを見る ▼
+</button>
 
 <div id="miraiComment"
      class="miraiComment"
@@ -2480,6 +2518,27 @@ html =
 document.getElementById("resultText").innerHTML =
   html;
 
+  const resultTextBox =
+  document.getElementById("resultText");
+
+const toggleResultButton =
+  document.getElementById("toggleResultBtn");
+
+if(resultTextBox && toggleResultButton){
+
+  const originalLength =
+    String(data.text || "").length;
+
+  if(originalLength > 220){
+    resultTextBox.classList.add("collapsed");
+    toggleResultButton.style.display = "block";
+    toggleResultButton.textContent = "続きを見る ▼";
+  }else{
+    resultTextBox.classList.remove("collapsed");
+    toggleResultButton.style.display = "none";
+  }
+}
+
   const toast =
   document.getElementById("futureFixedToast");
 
@@ -2885,6 +2944,34 @@ overlay.classList.remove("show");
 btn.disabled = false;
   }
 }
+
+function toggleResultText(){
+
+  const resultTextBox =
+    document.getElementById("resultText");
+
+  const toggleButton =
+    document.getElementById("toggleResultBtn");
+
+  if(!resultTextBox || !toggleButton) return;
+
+  const isCollapsed =
+    resultTextBox.classList.contains("collapsed");
+
+  if(isCollapsed){
+    resultTextBox.classList.remove("collapsed");
+    toggleButton.textContent = "閉じる ▲";
+  }else{
+    resultTextBox.classList.add("collapsed");
+    toggleButton.textContent = "続きを見る ▼";
+
+    resultTextBox.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
+}
+  
 function copyResult(){const text=document.getElementById("resultText").innerText;const scoreText=["未来ランク："+document.getElementById("rankText").textContent,"金運："+document.getElementById("moneyScore").textContent,"恋愛運："+document.getElementById("loveScore").textContent,"バズ運："+document.getElementById("viralScore").textContent,"怪異遭遇率："+document.getElementById("ghostScore").textContent].join("\\n");navigator.clipboard.writeText(scoreText+"\\n\\n"+text).then(()=>alert("コピーしました"));}
 function copyShare(){
   const result =
