@@ -1432,6 +1432,43 @@ background:#1b1029;
   position:relative;
   z-index:3;
 }
+
+  .bookInner h3{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.bookCount{
+  font-size:13px;
+  color:#ffd8ff;
+}
+
+.bookProgress{
+  height:9px;
+  margin:8px 0 14px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.1);
+}
+
+.bookProgress span{
+  display:block;
+  height:100%;
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffe47a,
+      #ff74d4
+    );
+
+  box-shadow:
+    0 0 14px rgba(255,116,212,.55);
+
+  transition:width .6s ease;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2047,8 +2084,27 @@ function renderRankBook(){
   const ranks =
     ["Z","D","C","B","A","S","SS","EX"];
 
+  const rankCount =
+  ranks.filter(rank =>
+    collected.includes(rank)
+  ).length;
+
+const rankPercent =
+  Math.round(
+    rankCount / ranks.length * 100
+  );
+
   box.innerHTML = `
-    <h3>🏆 ランク図鑑</h3>
+   <h3>
+  🏆 ランク図鑑
+  <span class="bookCount">
+    ${rankCount}/${ranks.length}
+  </span>
+</h3>
+
+<div class="bookProgress">
+  <span style="width:${rankPercent}%"></span>
+</div>
 
     <div class="bookGrid">
       ${ranks.map(rank => {
@@ -2091,8 +2147,28 @@ function renderTypeBook(){
     ["🌙","闇コレクター型"]
   ];
 
+  const typeCount =
+  types.filter(type =>
+    collected.includes(type[1]) ||
+    collected.includes(type[0])
+  ).length;
+
+const typePercent =
+  Math.round(
+    typeCount / types.length * 100
+  );
+
   box.innerHTML = `
-    <h3>🔮 未来タイプ図鑑</h3>
+    <h3>
+  🔮 未来タイプ図鑑
+  <span class="bookCount">
+    ${typeCount}/${types.length}
+  </span>
+</h3>
+
+<div class="bookProgress">
+  <span style="width:${typePercent}%"></span>
+</div>
 
     <div class="bookGrid">
       ${types.map(type => {
