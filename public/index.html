@@ -2825,25 +2825,19 @@ if(genre === "photoGhost" && photoFile){
 
       throw new Error(msg);
     }
-
-    const rankBook =
+    
+const rankBook =
   JSON.parse(
-    localStorage.getItem(
-      "rankBook"
-    ) || "[]"
+    localStorage.getItem("rankBook") || "[]"
   );
 
-if(
- !rankBook.includes(rank)
-){
+if(!rankBook.includes(saved.rank)){
+  rankBook.push(saved.rank);
 
- rankBook.push(rank);
-
- localStorage.setItem(
-   "rankBook",
-   JSON.stringify(rankBook)
- );
-
+  localStorage.setItem(
+    "rankBook",
+    JSON.stringify(rankBook)
+  );
 }
 
  const saved = {
