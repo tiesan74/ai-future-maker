@@ -1469,6 +1469,53 @@ background:#1b1029;
 
   transition:width .6s ease;
 }
+
+  #discoveryToast{
+  position:fixed;
+  left:50%;
+  bottom:110px;
+
+  width:calc(100% - 36px);
+  max-width:420px;
+
+  transform:
+    translate(-50%,20px);
+
+  z-index:2200;
+
+  padding:14px 18px;
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.96),
+      rgba(255,116,212,.96)
+    );
+
+  color:#21051f;
+  font-size:15px;
+  font-weight:1000;
+  text-align:center;
+  line-height:1.6;
+
+  box-shadow:
+    0 0 30px rgba(255,116,212,.55);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
+}
+
+#discoveryToast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1701,6 +1748,10 @@ background:#1b1029;
 
   <div id="levelUpToast">
   🎉 ミライとの信頼度UP
+</div>
+
+  <div id="discoveryToast">
+  ✨ 新しい未来を発見
 </div>
 
   <div id="typeFixedToast">
@@ -2398,17 +2449,62 @@ const typeBook =
     ) || "[]"
   );
 
-if(
- !typeBook.includes(typeName)
-){
+const isNewType =
+  !typeBook.includes(typeName);
 
- typeBook.push(typeName);
+if(isNewType){
 
- localStorage.setItem(
-   "typeBook",
-   JSON.stringify(typeBook)
- );
+  typeBook.push(typeName);
 
+  localStorage.setItem(
+    "typeBook",
+    JSON.stringify(typeBook)
+  );
+
+}
+
+  const discoveries = [];
+
+if(data.isNewRank){
+  discoveries.push(
+    `🏆 新ランク「${rank}」を発見`
+  );
+}
+
+if(isNewType){
+  discoveries.push(
+    `🔮 新タイプ「${typeName}」を発見`
+  );
+}
+
+if(discoveries.length > 0){
+
+  const discoveryToast =
+    document.getElementById(
+      "discoveryToast"
+    );
+
+  if(discoveryToast){
+
+    discoveryToast.innerHTML =
+      "✨ NEW DISCOVERY ✨<br>" +
+      discoveries.join("<br>");
+
+    setTimeout(()=>{
+
+      discoveryToast.classList.add(
+        "show"
+      );
+
+      setTimeout(()=>{
+        discoveryToast.classList.remove(
+          "show"
+        );
+      },1800);
+
+    },1900);
+
+  }
 }
 
   const typeToast =
@@ -2918,12 +3014,17 @@ if(genre === "photoGhost" && photoFile){
     localStorage.getItem("rankBook") || "[]"
   );
 
-const resultRank = data?.rank;
+const resultRank =
+  data?.rank;
 
-if(
-  resultRank &&
-  !rankBook.includes(resultRank)
-){
+const isNewRank =
+  Boolean(
+    resultRank &&
+    !rankBook.includes(resultRank)
+  );
+
+if(isNewRank){
+
   rankBook.push(resultRank);
 
   localStorage.setItem(
@@ -2932,7 +3033,10 @@ if(
   );
 }
 
-    renderResult(saved);
+saved.isNewRank =
+  isNewRank;
+
+renderResult(saved);
     history.unshift(saved);
     history = history.slice(0,10);
     localStorage.setItem("futurePortalV3History", JSON.stringify(history));
