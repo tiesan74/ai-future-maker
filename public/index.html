@@ -2460,6 +2460,17 @@ div.textContent =
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
 
+    document.body.classList.remove("miraiBusy");
+  document.body.classList.add("miraiResult");
+  document.body.classList.remove("miraiCompact");
+
+  clearTimeout(window.miraiResultTimer);
+
+  window.miraiResultTimer = setTimeout(()=>{
+    document.body.classList.remove("miraiResult");
+    updateMiraiSize();
+  },4000);
+
   const dangerBox =
   document.getElementById("dangerBox");
 
@@ -2908,6 +2919,12 @@ setTimeout(()=>{
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
 
+    document.body.classList.add("miraiBusy");
+document.body.classList.remove("miraiResult");
+document.body.classList.remove("miraiCompact");
+
+updateMiraiSize();
+
     const crystal =
   document.querySelector(".crystal");
 
@@ -3252,6 +3269,17 @@ document.getElementById("resultText").innerHTML = `
   });
 
 } finally {
+
+ clearInterval(loadingTimer);
+  clearInterval(loadingTalkTimer);
+
+  overlay.classList.remove("show");
+  btn.disabled = false;
+
+  document.body.classList.remove("miraiBusy");
+  updateMiraiSize();
+
+    
   clearInterval(loadingTimer);
   clearInterval(loadingTalkTimer);
 
@@ -3553,8 +3581,13 @@ let miraiExpandTimer;
 
 function updateMiraiSize(){
 
+  const forceExpanded =
+    document.body.classList.contains("miraiBusy") ||
+    document.body.classList.contains("miraiResult");
+
   const shouldCompact =
-    window.scrollY > 220;
+    window.scrollY > 220 &&
+    !forceExpanded;
 
   document.body.classList.toggle(
     "miraiCompact",
