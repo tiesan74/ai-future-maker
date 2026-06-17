@@ -1581,6 +1581,61 @@ body.miraiCompact #miniLevel{
 .wrap{
   padding-bottom:140px !important;
 }
+
+  #bookButton.bookTopBtn{
+  position:static;
+  left:auto;
+  top:auto;
+
+  width:auto;
+  height:auto;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  margin:16px auto 0;
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  color:#fff;
+  font-size:14px;
+  font-weight:1000;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.22),
+      rgba(255,116,212,.25)
+    );
+
+  border:
+    1px solid rgba(255,228,122,.42);
+
+  box-shadow:
+    0 0 22px rgba(255,116,212,.26);
+}
+
+  .moreGenreTopBtn{
+  width:100%;
+  margin:4px 0 20px;
+
+  padding:14px;
+
+  border-radius:18px;
+
+  color:#f5eaff;
+
+  background:
+    rgba(255,255,255,.08);
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  font-size:15px;
+  font-weight:1000;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -1592,7 +1647,13 @@ body.miraiCompact #miniLevel{
 </div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
 <main class="wrap"><section class="hero"><div class="logo">🔮 ミライの未来診断</div><img class="heroMirai" src="/mirai.png" alt="ミライ"><h1>AI未来予想メーカー</h1><p class="sub">
 名前と願望を入れて、未来を30秒診断。
-</p><div class="notice">人気No.1は「禁断の未来」</div></section><div class="todayHero" onclick="quickDaily()">
+</p><div class="notice">人気No.1は「禁断の未来」</div><button
+  id="bookButton"
+  class="bookTopBtn"
+  type="button"
+>
+  📚 未来図鑑を見る
+</button></section><div class="todayHero" onclick="quickDaily()">
 
   <div class="todayBadge">
     ☀️ 毎日更新
@@ -1667,6 +1728,14 @@ body.miraiCompact #miniLevel{
 </div>
 
   </section>
+
+  <button
+  class="secondary"
+  id="moreGenreBtn"
+  onclick="toggleGenres()"
+>
+  🔮 他の診断も見る ▼
+</button>
 
 <section class="grid">
   <div class="card" id="inputCard">
@@ -1795,9 +1864,6 @@ body.miraiCompact #miniLevel{
 </div><div class="ad">広告枠サンプル：アクセス増加後に広告/課金導線を配置</div><button class="secondary" onclick="copyShare()">投稿用テキストをコピー</button>
 <button class="secondary" onclick="shareCard()">📸 診断カードを共有
 </button><div style="margin-top:14px"><b>次におすすめの診断</b><div class="recommendGrid" id="recommendGrid"></div></div></div></section>
-  <button class="secondary" id="moreGenreBtn" onclick="toggleGenres()">
-🔮 他の診断も見る ▼
-</button>
   
   <div id="miraiDailyFortune" class="miraiDailyFortune">
   🔮 今日のミライ予言：読み込み中...
@@ -3554,10 +3620,6 @@ document.addEventListener(
 
   <div id="miniLevel">
     Lv.1
-  </div>
-
-  <div id="bookButton">
-    📚
   </div>
 
   <img
