@@ -1563,41 +1563,6 @@ body.miraiCompact #miniLevel{
   padding-bottom:140px !important;
 }
 
-  #bookButton.bookTopBtn{
-  position:static;
-  left:auto;
-  top:auto;
-
-  width:auto;
-  height:auto;
-
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-
-  margin:16px auto 0;
-  padding:10px 18px;
-
-  border-radius:999px;
-
-  color:#fff;
-  font-size:14px;
-  font-weight:1000;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,228,122,.22),
-      rgba(255,116,212,.25)
-    );
-
-  border:
-    1px solid rgba(255,228,122,.42);
-
-  box-shadow:
-    0 0 22px rgba(255,116,212,.26);
-}
-
   .moreGenreTopBtn{
   width:100%;
   margin:4px 0 20px;
@@ -1619,41 +1584,121 @@ body.miraiCompact #miniLevel{
 }
 
   #bookButton.bookTopBtn{
-  position:static !important;
+  position:relative !important;
   left:auto !important;
   top:auto !important;
 
-  width:auto !important;
+  width:100% !important;
   height:auto !important;
-  min-width:max-content;
 
-  display:inline-flex !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:flex-start;
+  gap:14px;
+
+  margin:18px 0 22px;
+  padding:16px 18px;
+
+  white-space:normal;
+  writing-mode:horizontal-tb;
+
+  border-radius:20px;
+
+  color:#fff;
+  text-align:left;
+
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(255,228,122,.24),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(75,38,105,.96),
+      rgba(39,19,67,.96)
+    );
+
+  border:2px solid rgba(255,228,122,.52);
+
+  box-shadow:
+    0 0 22px rgba(255,116,212,.28),
+    inset 0 0 20px rgba(255,255,255,.04);
+
+  cursor:pointer;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+#bookButton.bookTopBtn:active{
+  transform:scale(.98);
+}
+
+.bookTopIcon{
+  width:48px;
+  height:48px;
+  flex:none;
+
+  display:flex;
   align-items:center;
   justify-content:center;
 
-  margin:16px auto 0;
-  padding:10px 18px;
-
-  white-space:nowrap;
-  writing-mode:horizontal-tb;
-
-  border-radius:999px;
-
-  color:#fff;
-  font-size:14px !important;
-  font-weight:1000;
+  border-radius:15px;
+  font-size:27px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(255,228,122,.22),
-      rgba(255,116,212,.25)
+      rgba(255,228,122,.28),
+      rgba(255,116,212,.30)
     );
 
-  border:1px solid rgba(255,228,122,.42);
-
   box-shadow:
-    0 0 22px rgba(255,116,212,.26);
+    0 0 18px rgba(255,116,212,.28);
+}
+
+.bookTopText{
+  min-width:0;
+  flex:1;
+
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.bookTopText strong{
+  color:#ffeaa8;
+  font-size:17px;
+  font-weight:1000;
+}
+
+.bookTopText small{
+  color:#d8c8eb;
+  font-size:12px;
+  font-weight:700;
+}
+
+.bookTopArrow{
+  flex:none;
+  margin-left:auto;
+
+  color:#ffe47a;
+  font-size:34px;
+  line-height:1;
+
+  animation:bookArrowMove 1.5s ease-in-out infinite;
+}
+
+@keyframes bookArrowMove{
+  0%,100%{
+    transform:translateX(0);
+  }
+
+  50%{
+    transform:translateX(5px);
+  }
 }
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
@@ -1666,13 +1711,7 @@ body.miraiCompact #miniLevel{
 </div><div style="color:#b9a8da;font-size:12px;margin-top:8px">水晶玉が分岐点を探しています</div></div></div>
 <main class="wrap"><section class="hero"><div class="logo">🔮 ミライの未来診断</div><img class="heroMirai" src="/mirai.png" alt="ミライ"><h1>AI未来予想メーカー</h1><p class="sub">
 名前と願望を入れて、未来を30秒診断。
-</p><div class="notice">人気No.1は「禁断の未来」</div><button
-  id="bookButton"
-  class="bookTopBtn"
-  type="button"
->
-  📚 未来図鑑を見る
-</button></section><div class="todayHero" onclick="quickDaily()">
+</p><div class="notice">人気No.1は「禁断の未来」</div></section><div class="todayHero" onclick="quickDaily()">
 
   <div class="todayBadge">
     ☀️ 毎日更新
@@ -1689,7 +1728,24 @@ body.miraiCompact #miniLevel{
     今日の未来を見る
   </button>
 
-</div><section class="genreGrid">
+</div>
+
+<button
+  id="bookButton"
+  class="bookTopBtn"
+  type="button"
+>
+  <span class="bookTopIcon">📚</span>
+
+  <span class="bookTopText">
+    <strong>未来図鑑を開く</strong>
+    <small>集めたランク・タイプを確認</small>
+  </span>
+
+  <span class="bookTopArrow">›</span>
+</button>
+
+<section class="genreGrid">
 
 <div class="genre forbidden heroGenre" data-genre="forbidden">
   <b>🚫 禁断の未来</b>
