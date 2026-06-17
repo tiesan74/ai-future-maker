@@ -3121,12 +3121,30 @@ document.getElementById("resultText").innerHTML = `
   });
 
 } finally {
-   clearInterval(loadingTimer);
-clearInterval(loadingTalkTimer);
+  clearInterval(loadingTimer);
+  clearInterval(loadingTalkTimer);
 
-overlay.classList.remove("show");
-btn.disabled = false;
-  }
+  overlay.classList.remove("show");
+  btn.disabled = false;
+
+  const btnTextMap = {
+    future:"🔮 この未来を診断してもらう",
+    forbidden:"🚫 この内容で禁断の未来を見る",
+    photoGhost:"📸 この写真を診断してもらう",
+    enemy:"💔 この内容で裏切る人を探す",
+    daily:"☀️ 今日の未来を見る",
+    love:"❤️ この内容で恋愛未来を見る",
+    money:"💰 この内容で金運未来を見る",
+    ghost:"👻 この内容で怪異未来を見る",
+    viral:"📈 この内容でバズる未来を見る",
+    shadow:"👤 この内容で裏人格を診断する",
+    deathflag:"⚠️ この内容で人生最大の危機を見る"
+  };
+
+  btn.textContent =
+    btnTextMap[genre] ||
+    "🔮 これで診断してもらう";
+}
 }
 
 function toggleResultText(){
