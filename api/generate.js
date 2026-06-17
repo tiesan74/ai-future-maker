@@ -93,27 +93,39 @@ daily: "今日24時間以内に起こる未来を書く。全体200〜350字。�
     ? "今日の未来"
     : "3年後の未来";
 
-const now = new Date();
-const currentHour = now.getHours();
+const now =
+  new Date(
+    Date.now() +
+    9 * 60 * 60 * 1000
+  );
+
+const currentHour =
+  now.getUTCHours();
 
 let timeHint;
 
-if (currentHour < 12) {
-  timeHint = "今日の昼〜夜";
-} else if (currentHour < 18) {
-  timeHint = "今日の夕方〜深夜";
-} else {
+if(currentHour < 6){
+  timeHint = "今日の早朝以降";
+}else if(currentHour < 12){
+  timeHint = "今日の昼以降";
+}else if(currentHour < 18){
+  timeHint = "今日の夕方以降";
+}else{
   timeHint = "今夜〜明日の朝";
 }
 
 const todayText =
-  `${now.getMonth() + 1}月${now.getDate()}日`;
+  `${now.getUTCMonth() + 1}月${now.getUTCDate()}日`;
 
-const tomorrow = new Date(now);
-tomorrow.setDate(now.getDate() + 1);
+const tomorrow =
+  new Date(now);
+
+tomorrow.setUTCDate(
+  now.getUTCDate() + 1
+);
 
 const tomorrowText =
-  `${tomorrow.getMonth() + 1}月${tomorrow.getDate()}日`;
+  `${tomorrow.getUTCMonth() + 1}月${tomorrow.getUTCDate()}日`;
 
     const commonInfo = `
 名前:${name}
@@ -144,6 +156,8 @@ ${commonInfo}
 - 120〜220字
 - 今日または明日の日付と時間を必ず入れる
 - 現在時刻より後の出来事だけを書く
+- 現在の時間帯より前の時刻や、「昼前」「午前中」など過去になった時間帯を書いてはいけない
+- 時刻に迷う場合は「このあと」「今夜」「明日の朝」と書く
 - 小さな偶然や選択を書く
 - SNSやバズを無理に入れない
 - 大金持ちや人生逆転は禁止
