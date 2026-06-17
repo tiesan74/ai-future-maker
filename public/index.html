@@ -1516,6 +1516,71 @@ background:#1b1029;
   transform:
     translate(-50%,0);
 }
+
+#oracleGirl{
+  pointer-events:none;
+}
+
+.oracleFace,
+#bookButton{
+  pointer-events:auto;
+}
+
+.oracleBubble,
+#miniLevel,
+.oracleFace,
+#bookButton{
+  transition:
+    width .3s ease,
+    height .3s ease,
+    opacity .3s ease,
+    transform .3s ease,
+    font-size .3s ease;
+}
+
+body.miraiCompact .oracleBubble{
+  opacity:0;
+  visibility:hidden;
+  transform:translateX(12px) scale(.9);
+}
+
+body.miraiCompact .oracleFace{
+  width:68px !important;
+  height:68px !important;
+
+  border:2px solid rgba(255,228,122,.65);
+
+  box-shadow:
+    0 0 18px rgba(255,116,212,.75),
+    0 0 32px rgba(122,215,255,.35);
+}
+
+body.miraiCompact #bookButton{
+  width:34px;
+  height:34px;
+  left:-3px;
+  top:-8px;
+  font-size:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.88),
+      rgba(255,116,212,.88)
+    );
+
+  box-shadow:
+    0 0 16px rgba(255,116,212,.55);
+}
+
+body.miraiCompact #miniLevel{
+  font-size:10px;
+  opacity:.95;
+}
+
+.wrap{
+  padding-bottom:140px !important;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -3417,6 +3482,62 @@ renderDailyGhostLevel();
     ];
 
 },12000);
+
+let miraiExpandTimer;
+
+function updateMiraiSize(){
+
+  const shouldCompact =
+    window.scrollY > 220;
+
+  document.body.classList.toggle(
+    "miraiCompact",
+    shouldCompact
+  );
+}
+
+window.addEventListener(
+  "scroll",
+  updateMiraiSize,
+  { passive:true }
+);
+
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    updateMiraiSize();
+
+    const oracleGirl =
+      document.getElementById("oracleGirl");
+
+    if(!oracleGirl) return;
+
+    oracleGirl.addEventListener(
+      "click",
+      event =>{
+
+        if(
+          event.target.closest("#bookButton")
+        ){
+          return;
+        }
+
+        /* タップした時は一時的に大きく戻す */
+        document.body.classList.remove(
+          "miraiCompact"
+        );
+
+        clearTimeout(miraiExpandTimer);
+
+        miraiExpandTimer = setTimeout(()=>{
+          updateMiraiSize();
+        },2500);
+      }
+    );
+  }
+);
+  
 </script><div
   id="oracleGirl"
   onclick="talkMirai()"
