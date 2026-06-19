@@ -1779,6 +1779,29 @@ body.miraiCompact #miniLevel{
 .resultActionMain:active,
 .resultActionSub:active{
   transform:scale(.98);
+
+  .resultActions{
+  margin-bottom:120px;
+}
+
+#oracleGirl{
+  right:10px;
+  bottom:14px;
+  z-index:50;
+}
+
+body.miraiCompact .oracleFace{
+  width:62px !important;
+  height:62px !important;
+}
+
+body.miraiCompact #miniLevel{
+  font-size:10px;
+}
+
+body.miraiCompact .oracleEffect{
+  transform:scale(.8);
+}
 }
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
@@ -2983,12 +3006,6 @@ const nextGenreText =
 
 let text =
   (data.text || "") +
-  "\n\n━━━━━━━━━━" +
-  "\n📸 スクショ保存推奨" +
-  "\n後から見返せるように保存しておこう。" +
-  "\n\n" +
-  nextGenreText +
-  "\n#AI未来予想メーカー";
 
 let html = text;
 
