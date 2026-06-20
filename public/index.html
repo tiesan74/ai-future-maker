@@ -2058,6 +2058,12 @@ body.miraiCompact .oracleEffect{
     <small>診断カードを残す</small>
   </button>
 
+  <button class="resultActionSub" onclick="retrySameDiagnosis()">
+  <span>🔁</span>
+  <strong>もう一回同じ診断</strong>
+  <small>別パターンの未来を見る</small>
+</button>
+
   <button class="resultActionSub" onclick="goOtherDiagnosis()">
     <span>🔮</span>
     <strong>別の診断も見る</strong>
@@ -3942,6 +3948,26 @@ document.addEventListener(
     bubble.innerHTML =
       "次の未来も<br>見てみる？";
   }
+}
+
+  function retrySameDiagnosis(){
+
+  const bubble =
+    document.querySelector(".oracleBubble");
+
+  if(bubble){
+    bubble.innerHTML =
+      "もう一度<br>覗いてみるね";
+  }
+
+  const btn =
+    document.getElementById("generateBtn");
+
+  if(btn && btn.disabled){
+    return;
+  }
+
+  generate();
 }
   
 </script>
