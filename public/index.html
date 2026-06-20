@@ -3033,15 +3033,42 @@ const futureHint =
   ];
 
 document.getElementById("rankType").innerHTML = `
-<div style="font-size:34px;font-weight:1000">
-  ${type[0]} ${type[1]}
-</div>
+  <div style="font-size:34px;font-weight:1000">
+    ${type[0]} ${type[1]}
+  </div>
 
-<div style="font-size:15px;opacity:.85;margin-top:8px">
-  ${type[2]}
-</div>
+  <div style="font-size:15px;opacity:.85;margin-top:8px">
+    ${type[2]}
+  </div>
 
-const resultBadges =
+  <div style="margin-top:10px;font-size:16px;font-weight:900;color:#ffeaa8">
+    最高値：
+    ${
+      topScore === "money"
+        ? "金運"
+        : topScore === "love"
+          ? "恋愛運"
+          : topScore === "viral"
+            ? "バズ運"
+            : "怪異遭遇率"
+    }
+    ${scores[topScore]}%
+  </div>
+
+  <div style="margin-top:10px;font-size:18px;font-weight:900">
+    未来ランク ${rank}
+  </div>
+
+  <div style="margin-top:6px;font-size:14px;opacity:.85">
+    ${rarityMap[rank] || "出現率 不明"}
+  </div>
+
+  <div class="futureHint">
+    ${futureHint}
+  </div>
+`;
+
+  const resultBadges =
   document.getElementById("resultBadges");
 
 if(resultBadges){
@@ -3113,18 +3140,6 @@ if(resultBadges){
     </div>
   `;
 }
-
-<div style="margin-top:10px;font-size:16px;font-weight:900;color:#ffeaa8">
-  最高値：${topScore === "money" ? "金運" : topScore === "love" ? "恋愛運" : topScore === "viral" ? "バズ運" : "怪異遭遇率"} ${scores[topScore]}%
-</div>
-
-<div style="margin-top:10px;font-size:18px;font-weight:900">
-  未来ランク ${rank}
-</div>
-
-<div style="margin-top:6px;font-size:14px;opacity:.85">
-  ${rarityMap[rank] || "出現率 不明"}
-</div>
 
 <div style="margin-top:8px;font-size:28px;font-weight:1000;color:#ff9aa8">
   ⚠️ 危険度 ${Math.max(scores.ghost ?? 0, scores.love ?? 0)}%
