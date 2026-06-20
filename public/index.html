@@ -2801,6 +2801,7 @@ function renderHistory(){
 
   });
 }
+  
 function renderRecommends(){
 
   const box =
@@ -2932,9 +2933,7 @@ function renderRecommends(){
 
   });
 }
-
-div.textContent =
- promo[g] || labels[g];;div.onclick=()=>{setGenre(g);document.querySelector(".card").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
+  
 function setScore(id,val){document.getElementById(id+"Score").textContent=val+"%";document.getElementById(id+"Bar").style.width=val+"%";}
 function renderResult(data){
 
