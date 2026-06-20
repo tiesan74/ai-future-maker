@@ -3696,6 +3696,9 @@ function copyShare(){
   const danger =
     document.getElementById("dangerBox")?.innerText || "";
 
+  const badgeText =
+  document.getElementById("resultBadges")?.innerText || "";
+
   const ghostValue =
     document.getElementById("ghostMeterValue")?.textContent || "";
 
@@ -3714,6 +3717,8 @@ ${type}
 
 ${danger}
 
+${badgeText}
+
 あなたも写真を診断してみて👇
 ${appUrl}
 
@@ -3728,6 +3733,8 @@ ${title}
 ${type}
 
 ${danger}
+
+${badgeText}
 
 あなたもやってみて👇
 ${appUrl}
