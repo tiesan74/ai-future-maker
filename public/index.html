@@ -1865,6 +1865,90 @@ body.miraiCompact .oracleEffect{
   font-weight:800;
   opacity:.9;
 }
+
+  .recommendGrid{
+  gap:12px !important;
+}
+
+.recommendCard{
+  position:relative;
+
+  min-height:130px;
+  padding:16px !important;
+
+  border-radius:20px !important;
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(255,228,122,.18),
+      transparent 38%
+    ),
+    rgba(255,255,255,.07) !important;
+
+  border:
+    1px solid rgba(255,255,255,.16) !important;
+
+  box-shadow:
+    0 0 20px rgba(255,116,212,.10);
+
+  overflow:hidden;
+}
+
+.recommendMain{
+  border-color:
+    rgba(255,116,212,.45) !important;
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(255,116,212,.28),
+      transparent 40%
+    ),
+    rgba(255,255,255,.09) !important;
+}
+
+.recommendTag{
+  position:absolute;
+  top:10px;
+  right:10px;
+
+  padding:4px 8px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,116,212,.85);
+
+  color:#fff;
+  font-size:10px;
+  font-weight:1000;
+}
+
+.recommendIcon{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.recommendTitle{
+  color:#fff;
+  font-size:17px;
+  font-weight:1000;
+  line-height:1.35;
+}
+
+.recommendDesc{
+  margin-top:6px;
+
+  color:#d8c8eb;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.5;
+}
+
+.recommendCard:active{
+  transform:scale(.98);
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2717,11 +2801,137 @@ function renderHistory(){
 
   });
 }
-function renderRecommends(){const box=document.getElementById("recommendGrid");box.innerHTML="";(recommends[genre]||["forbidden","love","money"]).forEach(g=>{const div=document.createElement("div");div.className="recommendItem";const promo = {
- enemy:"💔 あなたを裏切る人",
- deathflag:"⚠️ 人生最大の危機",
- forbidden:"🚫 禁断の未来"
-};
+function renderRecommends(){
+
+  const box =
+    document.getElementById("recommendGrid");
+
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  const recommendMeta = {
+    forbidden:{
+      icon:"🚫",
+      title:"禁断の未来",
+      desc:"知らない方がよかった未来",
+      tag:"人気No.1"
+    },
+    enemy:{
+      icon:"💔",
+      title:"あなたを裏切る人",
+      desc:"身近な危険人物を診断",
+      tag:"コメント率高め"
+    },
+    deathflag:{
+      icon:"⚠️",
+      title:"人生最大の危機",
+      desc:"避けるべき未来を診断",
+      tag:"保存推奨"
+    },
+    love:{
+      icon:"❤️",
+      title:"恋愛未来",
+      desc:"出会い・未練・距離感",
+      tag:"恋愛"
+    },
+    money:{
+      icon:"💰",
+      title:"金運未来",
+      desc:"収入・出費・チャンス",
+      tag:"金運"
+    },
+    viral:{
+      icon:"📈",
+      title:"バズる未来",
+      desc:"投稿・SNS・拡散運",
+      tag:"発信者向け"
+    },
+    ghost:{
+      icon:"👻",
+      title:"怪異未来",
+      desc:"今夜の違和感を診断",
+      tag:"怖め"
+    },
+    shadow:{
+      icon:"👤",
+      title:"裏人格診断",
+      desc:"隠れた本性を診断",
+      tag:"刺さる"
+    },
+    future:{
+      icon:"🔮",
+      title:"未来予想",
+      desc:"3年後の未来を見る",
+      tag:"定番"
+    },
+    photoGhost:{
+      icon:"📸",
+      title:"写真怪異診断",
+      desc:"写真の違和感を見る",
+      tag:"写真"
+    }
+  };
+
+  const list =
+    recommends[genre] ||
+    ["forbidden","enemy","love"];
+
+  list.forEach((g,index)=>{
+
+    const meta =
+      recommendMeta[g] || {
+        icon:"🔮",
+        title:labels[g] || "未来診断",
+        desc:"別の未来を見る",
+        tag:"おすすめ"
+      };
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "recommendItem recommendCard" +
+      (index === 0 ? " recommendMain" : "");
+
+    div.innerHTML = `
+      <div class="recommendTag">
+        ${meta.tag}
+      </div>
+
+      <div class="recommendIcon">
+        ${meta.icon}
+      </div>
+
+      <div class="recommendTitle">
+        ${meta.title}
+      </div>
+
+      <div class="recommendDesc">
+        ${meta.desc}
+      </div>
+    `;
+
+    div.onclick = ()=>{
+
+      setGenre(g);
+
+      const inputCard =
+        document.getElementById("inputCard");
+
+      if(inputCard){
+        inputCard.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+      }
+
+    };
+
+    box.appendChild(div);
+
+  });
+}
 
 div.textContent =
  promo[g] || labels[g];;div.onclick=()=>{setGenre(g);document.querySelector(".card").scrollIntoView({behavior:"smooth"});};box.appendChild(div);});}
