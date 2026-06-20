@@ -1809,6 +1809,62 @@ body.miraiCompact .oracleEffect{
   margin-top:22px;
   margin-bottom:30px;
 }
+
+  .resultBadges{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:12px 0 16px;
+}
+
+.resultBadge{
+  padding:13px 10px;
+  border-radius:17px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.16),
+      rgba(255,116,212,.14)
+    );
+
+  border:1px solid rgba(255,255,255,.16);
+
+  box-shadow:
+    0 0 18px rgba(255,116,212,.14);
+}
+
+.resultBadge span{
+  display:block;
+  margin-bottom:5px;
+
+  color:#d8c8eb;
+  font-size:11px;
+  font-weight:900;
+}
+
+.resultBadge strong{
+  display:block;
+
+  color:#ffe47a;
+  font-size:22px;
+  font-weight:1000;
+
+  text-shadow:
+    0 0 12px rgba(255,228,122,.45);
+}
+
+.resultBadge small{
+  display:block;
+  margin-top:4px;
+
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  opacity:.9;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2025,7 +2081,7 @@ body.miraiCompact .oracleEffect{
   👻 怪異反応 <span id="shareGhostValue">0%</span>
 </div><div><div class="badge" id="cardGenre">未来予想</div><div class="resultTitle" id="cardTitle">診断結果がここに表示されます</div><div id="dangerBox" class="dangerBox" style="display:none">
   ⚠️ 危険度 --%　🛡 回避率 --%
-</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
+</div></div><div class="rankBox"><span>未来ランク</span><strong id="rankText">?</strong></div></div><div id="rankType" class="rankType">診断タイプがここに表示されます</div><div id="resultBadges" class="resultBadges"></div><div class="scoreGrid"><div class="score"><div class="scoreTop"><span>💰 金運</span><span id="moneyScore">--%</span></div><div class="bar"><span id="moneyBar"></span></div></div><div class="score"><div class="scoreTop"><span>❤️ 恋愛運</span><span id="loveScore">--%</span></div><div class="bar"><span id="loveBar"></span></div></div><div class="score"><div class="scoreTop"><span>📈 バズ運</span><span id="viralScore">--%</span></div><div class="bar"><span id="viralBar"></span></div></div><div class="score"><div class="scoreTop"><span>👻 怪異遭遇率</span><span id="ghostScore">--%</span></div><div class="bar"><span id="ghostBar"></span></div></div></div>
 <div id="resultText" class="resultText">
 診断ジャンルを選んで入力すると、
 ここにAI生成結果が表示されます。
@@ -2984,6 +3040,79 @@ document.getElementById("rankType").innerHTML = `
 <div style="font-size:15px;opacity:.85;margin-top:8px">
   ${type[2]}
 </div>
+
+const resultBadges =
+  document.getElementById("resultBadges");
+
+if(resultBadges){
+
+  const dangerValue =
+    Number(data.danger || 0);
+
+  const avgScore =
+    Math.round(
+      (
+        scores.money +
+        scores.love +
+        scores.viral +
+        scores.ghost
+      ) / 4
+    );
+
+  const saveScore =
+    Math.min(
+      99,
+      Math.max(
+        40,
+        Math.round(
+          dangerValue * .45 +
+          avgScore * .35 +
+          scores.ghost * .20
+        )
+      )
+    );
+
+  const hitScore =
+    Math.min(
+      99,
+      Math.max(
+        40,
+        Math.round(
+          avgScore * .5 +
+          scores.viral * .25 +
+          dangerValue * .25
+        )
+      )
+    );
+
+  const saveText =
+    saveScore >= 80
+      ? "保存推奨"
+      : saveScore >= 65
+        ? "あとで見返す価値あり"
+        : "軽く覚えておく";
+
+  const hitText =
+    hitScore >= 80
+      ? "かなり濃い未来"
+      : hitScore >= 65
+        ? "現実味あり"
+        : "変化待ち";
+
+  resultBadges.innerHTML = `
+    <div class="resultBadge">
+      <span>📌 保存推奨度</span>
+      <strong>${saveScore}%</strong>
+      <small>${saveText}</small>
+    </div>
+
+    <div class="resultBadge">
+      <span>🔮 当たりそう度</span>
+      <strong>${hitScore}%</strong>
+      <small>${hitText}</small>
+    </div>
+  `;
+}
 
 <div style="margin-top:10px;font-size:16px;font-weight:900;color:#ffeaa8">
   最高値：${topScore === "money" ? "金運" : topScore === "love" ? "恋愛運" : topScore === "viral" ? "バズ運" : "怪異遭遇率"} ${scores[topScore]}%
