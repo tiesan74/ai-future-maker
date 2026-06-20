@@ -3141,15 +3141,6 @@ if(resultBadges){
   `;
 }
 
-<div style="margin-top:8px;font-size:28px;font-weight:1000;color:#ff9aa8">
-  ⚠️ 危険度 ${Math.max(scores.ghost ?? 0, scores.love ?? 0)}%
-</div>
-
-<div class="futureHint">
-  ${futureHint}
-</div>
-`;
-
   setScore("money",scores.money??0);
   setScore("love",scores.love??0);
   setScore("viral",scores.viral??0);
