@@ -1949,6 +1949,72 @@ body.miraiCompact .oracleEffect{
 .recommendCard:active{
   transform:scale(.98);
 }
+
+  .dailyUpgradeBox{
+  margin-top:18px;
+  padding:20px;
+
+  border-radius:24px;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255,228,122,.24),
+      transparent 42%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255,116,212,.16),
+      rgba(122,215,255,.10)
+    );
+
+  border:
+    2px solid rgba(255,228,122,.42);
+
+  box-shadow:
+    0 0 28px rgba(255,116,212,.20);
+
+  text-align:center;
+}
+
+.dailyUpgradeBadge{
+  display:inline-block;
+
+  padding:6px 12px;
+  border-radius:999px;
+
+  background:
+    rgba(255,228,122,.16);
+
+  border:
+    1px solid rgba(255,228,122,.35);
+
+  color:#ffe47a;
+
+  font-size:12px;
+  font-weight:1000;
+}
+
+.dailyUpgradeBox h3{
+  margin:12px 0 8px;
+
+  color:#fff;
+  font-size:21px;
+  line-height:1.45;
+}
+
+.dailyUpgradeBox p{
+  margin:0;
+
+  color:#d8c8eb;
+  font-size:14px;
+  line-height:1.75;
+  font-weight:800;
+}
+
+.dailyUpgradeBox button{
+  margin-top:16px;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2208,6 +2274,32 @@ body.miraiCompact .oracleEffect{
     <span>🔮</span>
     <strong>別の診断も見る</strong>
     <small>恋愛・金運・怪異など</small>
+  </button>
+</div>
+
+<div
+  id="dailyUpgradeBox"
+  class="dailyUpgradeBox"
+  style="display:none"
+>
+  <div class="dailyUpgradeBadge">
+    🔮 ここからが本番
+  </div>
+
+  <h3>
+    名前と願望を入れると、もっと深い未来が見られます
+  </h3>
+
+  <p>
+    今日の未来はお試し版。  
+    本格診断では、あなた専用の未来・危険人物・チャンスまで出ます。
+  </p>
+
+  <button
+    type="button"
+    onclick="goFullDiagnosis()"
+  >
+    名前と願望で本格診断する
   </button>
 </div>
 
@@ -3350,6 +3442,14 @@ if(resultBadges){
   `;
 }
 
+  const dailyUpgradeBox =
+  document.getElementById("dailyUpgradeBox");
+
+if(dailyUpgradeBox){
+  dailyUpgradeBox.style.display =
+    genre === "daily" ? "block" : "none";
+}
+
   setScore("money",scores.money??0);
   setScore("love",scores.love??0);
   setScore("viral",scores.viral??0);
@@ -4319,6 +4419,36 @@ document.addEventListener(
   }
 
   generate();
+}
+
+  function goFullDiagnosis(){
+
+  setGenre("forbidden");
+
+  const worryArea =
+    document.getElementById("worryArea");
+
+  if(worryArea){
+    worryArea.style.display = "block";
+  }
+
+  const inputCard =
+    document.getElementById("inputCard");
+
+  if(inputCard){
+    inputCard.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
+
+  const bubble =
+    document.querySelector(".oracleBubble");
+
+  if(bubble){
+    bubble.innerHTML =
+      "ここからが<br>本当の診断だよ";
+  }
 }
   
 </script>
