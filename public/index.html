@@ -2221,6 +2221,44 @@ body.miraiCompact .oracleEffect{
 .dailyUpgradeBox button{
   margin-top:16px;
 }
+
+  /* 上の説明だけの本格診断カードは非表示 */
+.mainDiagnosisHero{
+  display:none !important;
+}
+
+/* 実際の入力欄をトップの主役にする */
+#inputCard.topMainInput{
+  width:100% !important;
+  max-width:100% !important;
+
+  margin:20px 0 16px;
+  padding:20px;
+
+  border:2px solid rgba(255,228,122,.48);
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255,228,122,.18),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(255,116,212,.18),
+      transparent 40%
+    ),
+    rgba(255,255,255,.09);
+
+  box-shadow:
+    0 0 30px rgba(255,116,212,.20);
+}
+
+#inputCard.topMainInput #selectedGenreHero{
+  font-size:20px;
+  padding:14px;
+  margin-bottom:12px;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -4764,6 +4802,52 @@ document.addEventListener(
       "あなた専用の<br>3年後を見るよ";
   }
 }
+
+  document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    const inputCard =
+      document.getElementById("inputCard");
+
+    const todayHero =
+      document.querySelector(".todayHero");
+
+    if(inputCard && todayHero){
+
+      /* 入力欄を「今日の未来」の直前へ移動 */
+      todayHero.parentNode.insertBefore(
+        inputCard,
+        todayHero
+      );
+
+      inputCard.classList.add(
+        "topMainInput"
+      );
+    }
+
+    const selectedHero =
+      document.getElementById(
+        "selectedGenreHero"
+      );
+
+    if(selectedHero){
+      selectedHero.textContent =
+        "🔮 名前と願望で3年後を本格診断";
+    }
+
+    const generateBtn =
+      document.getElementById(
+        "generateBtn"
+      );
+
+    if(generateBtn){
+      generateBtn.textContent =
+        "🔮 3年後の未来を診断する";
+    }
+
+  }
+);
   
 </script>
   <div
