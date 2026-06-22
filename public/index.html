@@ -2259,6 +2259,63 @@ body.miraiCompact .oracleEffect{
   padding:14px;
   margin-bottom:12px;
 }
+
+  .inputExtrasToggle{
+  margin-top:12px !important;
+  padding:11px 14px !important;
+
+  color:#d8c8eb !important;
+  font-size:13px !important;
+
+  background:
+    rgba(255,255,255,.06) !important;
+
+  border:
+    1px solid rgba(255,255,255,.12) !important;
+}
+
+.inputExtras{
+  margin-top:10px;
+  padding:14px;
+
+  border-radius:18px;
+
+  background:
+    rgba(0,0,0,.18);
+
+  border:
+    1px solid rgba(255,255,255,.10);
+}
+
+.inputExtraButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.inputExtraButtons button{
+  margin:0;
+  padding:11px 9px;
+  font-size:12px;
+}
+
+.historyBlock{
+  margin-top:16px;
+}
+
+.historyHelp{
+  margin-top:4px;
+
+  color:#cfc0ed;
+  font-size:11px;
+  line-height:1.5;
+}
+
+@media(max-width:480px){
+  .inputExtraButtons{
+    grid-template-columns:1fr;
+  }
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2477,12 +2534,48 @@ body.miraiCompact .oracleEffect{
 
 </div>
 
-<button class="secondary" onclick="randomFill()">ランダム入力</button>
-<button class="secondary" onclick="setGenre('forbidden')">禁断の未来で試す</button><div style="margin-top:14px"><b>最近診断された未来</b>
-<div style="font-size:12px;color:#cfc0ed;margin-top:4px">
-  タップすると前の診断結果をもう一度見られます
-</div>
-<div id="history"></div></div></div>
+<button
+  type="button"
+  class="secondary inputExtrasToggle"
+  id="inputExtrasToggle"
+  onclick="toggleInputExtras()"
+>
+  履歴・入力例を見る ▼
+</button>
+
+<div
+  id="inputExtras"
+  class="inputExtras"
+  style="display:none"
+>
+  <div class="inputExtraButtons">
+    <button
+      type="button"
+      class="secondary"
+      onclick="randomFill()"
+    >
+      ✍️ 入力例を入れる
+    </button>
+
+    <button
+      type="button"
+      class="secondary"
+      onclick="setGenre('forbidden')"
+    >
+      🚫 人気No.1「禁断の未来」を試す
+    </button>
+  </div>
+
+  <div class="historyBlock">
+    <b>最近診断された未来</b>
+
+    <div class="historyHelp">
+      タップすると前の診断結果をもう一度見られます
+    </div>
+
+    <div id="history"></div>
+  </div>
+</div></div>
 <div id="resultWrap" style="display:none"><div class="card"><div class="resultTop"><span class="badge">スクショ用診断カード</span><button class="smallBtn secondary" onclick="copyResult()">コピー</button></div></div><div id="resultCard" class="resultCard"><div class="cardHeader"><img
   id="sharePhoto"
   class="sharePhoto"
@@ -4848,6 +4941,28 @@ document.addEventListener(
 
   }
 );
+
+  function toggleInputExtras(){
+
+  const box =
+    document.getElementById("inputExtras");
+
+  const btn =
+    document.getElementById("inputExtrasToggle");
+
+  if(!box || !btn) return;
+
+  const isOpen =
+    box.style.display === "block";
+
+  box.style.display =
+    isOpen ? "none" : "block";
+
+  btn.textContent =
+    isOpen
+      ? "履歴・入力例を見る ▼"
+      : "履歴・入力例を閉じる ▲";
+}
   
 </script>
   <div
