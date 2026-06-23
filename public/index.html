@@ -5643,60 +5643,7 @@ async function shareCard(){
   }
 }
 
-  if(typeof html2canvas === "undefined"){
-    alert("画像保存機能の読み込みに失敗しました。ページを再読み込みしてください。");
-    return;
-  }
 
-  html2canvas(card, {
-    backgroundColor: null,
-    scale: 2
-  })
-  .then(canvas => {
-    return new Promise(resolve =>
-      canvas.toBlob(resolve, "image/png")
-    );
-  })
-  .then(blob => {
-
-    const file = new File(
-      [blob],
-      "future-result.png",
-      { type: "image/png" }
-    );
-
-    if(
-      navigator.share &&
-      navigator.canShare &&
-      navigator.canShare({ files:[file] })
-    ){
-      return navigator.share({
-        title: "AI未来予想メーカー",
-        text:
-          "AI未来診断の結果が出たよ。\n" +
-          "あなたもやってみて👇\n" +
-          window.location.origin,
-        files:[file]
-      });
-    }
-
-    const a =
-      document.createElement("a");
-
-    a.href =
-      URL.createObjectURL(blob);
-
-    a.download =
-      "future-result.png";
-
-    a.click();
-
-  })
-  .catch(error => {
-    console.error(error);
-    alert("画像の保存・共有に失敗しました");
-  });
-}
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 
 function updatePhotoGenerateState(){
