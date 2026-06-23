@@ -2529,6 +2529,262 @@ body.miraiCompact .oracleEffect{
     line-height:1.4 !important;
   }
 }
+
+.socialShareCapture{
+  position:fixed;
+  left:-10000px;
+  top:0;
+
+  width:540px;
+  height:675px;
+  padding:28px;
+
+  overflow:hidden;
+  box-sizing:border-box;
+
+  color:#fff;
+  font-family:system-ui,"Noto Sans JP",sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255,228,122,.28),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 10%,
+      rgba(255,116,212,.32),
+      transparent 35%
+    ),
+    linear-gradient(
+      155deg,
+      #28104b,
+      #10051e 58%,
+      #050109
+    );
+
+  border:2px solid rgba(255,228,122,.45);
+}
+
+.socialShareTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  margin-bottom:18px;
+}
+
+.socialShareBrand{
+  color:#ffe47a;
+  font-size:18px;
+  font-weight:1000;
+}
+
+.socialShareGenre{
+  padding:6px 11px;
+  border-radius:999px;
+
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+}
+
+.socialShareHero{
+  display:grid;
+  grid-template-columns:180px minmax(0,1fr);
+  gap:18px;
+  align-items:center;
+}
+
+.socialShareImage{
+  width:180px;
+  height:180px;
+
+  object-fit:cover;
+
+  border-radius:24px;
+
+  background:rgba(0,0,0,.28);
+  border:2px solid rgba(255,255,255,.24);
+
+  box-shadow:
+    0 0 25px rgba(255,116,212,.35);
+}
+
+.socialShareImage.mirai{
+  border-radius:50%;
+  object-position:center top;
+}
+
+.socialShareMain{
+  min-width:0;
+}
+
+.socialShareRankLabel{
+  color:#d8c8eb;
+  font-size:12px;
+  font-weight:900;
+}
+
+.socialShareRank{
+  margin-top:2px;
+
+  color:#ffe47a;
+  font-size:58px;
+  line-height:1;
+  font-weight:1000;
+
+  text-shadow:
+    0 0 20px rgba(255,228,122,.45);
+}
+
+.socialShareTitle{
+  display:-webkit-box;
+  margin-top:10px;
+
+  overflow:hidden;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+
+  color:#fff;
+  font-size:19px;
+  line-height:1.45;
+  font-weight:1000;
+}
+
+.socialShareType{
+  margin-top:18px;
+  padding:15px 18px;
+
+  border-radius:19px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,228,122,.18),
+      rgba(255,116,212,.22)
+    );
+
+  border:1px solid rgba(255,255,255,.18);
+}
+
+.socialShareType strong{
+  display:block;
+
+  color:#fff;
+  font-size:24px;
+  font-weight:1000;
+}
+
+.socialShareType span{
+  display:block;
+  margin-top:4px;
+
+  color:#e1d3ef;
+  font-size:12px;
+  font-weight:800;
+}
+
+.socialShareHint{
+  margin-top:13px;
+  padding:13px 15px;
+
+  border-radius:16px;
+
+  text-align:center;
+
+  color:#ffe47a;
+  font-size:20px;
+  line-height:1.4;
+  font-weight:1000;
+
+  background:rgba(255,228,122,.10);
+  border:1px solid rgba(255,228,122,.34);
+}
+
+.socialShareStats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+
+  margin-top:13px;
+}
+
+.socialShareStat{
+  padding:10px 5px;
+
+  border-radius:14px;
+
+  text-align:center;
+
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+}
+
+.socialShareStat span{
+  display:block;
+
+  color:#d8c8eb;
+  font-size:10px;
+  font-weight:900;
+}
+
+.socialShareStat strong{
+  display:block;
+  margin-top:3px;
+
+  color:#fff;
+  font-size:19px;
+  font-weight:1000;
+}
+
+.socialShareExcerpt{
+  display:-webkit-box;
+
+  margin-top:13px;
+  padding:13px 15px;
+
+  overflow:hidden;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+
+  border-radius:16px;
+
+  color:#fff;
+  font-size:14px;
+  line-height:1.65;
+  font-weight:750;
+
+  background:rgba(0,0,0,.26);
+  border-left:4px solid #ffe47a;
+}
+
+.socialShareFooter{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+
+  margin-top:14px;
+}
+
+.socialShareFooter strong{
+  color:#ffe47a;
+  font-size:15px;
+  font-weight:1000;
+}
+
+.socialShareFooter span{
+  color:#d8c8eb;
+  font-size:11px;
+  font-weight:800;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -2830,10 +3086,10 @@ body.miraiCompact .oracleEffect{
   </button>
 
   <button class="resultActionSub" onclick="shareCard()">
-    <span>📸</span>
-    <strong>画像で保存・共有</strong>
-    <small>診断カードを残す</small>
-  </button>
+  <span>📸</span>
+  <strong>SNS投稿用画像を作る</strong>
+  <small>X・Instagram・LINE向け</small>
+</button>
 
   <button class="resultActionSub" onclick="retrySameDiagnosis()">
   <span>🔁</span>
@@ -4781,15 +5037,411 @@ ${appUrl}
 
     });
 }
-function shareCard(){
+function escapeShareHtml(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function makeShareExcerpt(value){
+
+  const text =
+    String(value || "")
+      .replace(/\s+/g," ")
+      .trim();
+
+  if(text.length <= 110){
+    return text;
+  }
+
+  const shortened =
+    text.slice(0,110);
+
+  const lastPoint =
+    Math.max(
+      shortened.lastIndexOf("。"),
+      shortened.lastIndexOf("！"),
+      shortened.lastIndexOf("？")
+    );
+
+  if(lastPoint >= 45){
+    return shortened.slice(0,lastPoint + 1);
+  }
+
+  return shortened + "…";
+}
+
+function buildSocialShareCard(){
+
+  const genreText =
+    document.getElementById("cardGenre")
+      ?.textContent
+      ?.trim() ||
+    labels[genre] ||
+    "未来診断";
+
+  const title =
+    document.getElementById("cardTitle")
+      ?.textContent
+      ?.trim() ||
+    "AI未来診断の結果";
+
+  const rank =
+    document.getElementById("rankText")
+      ?.textContent
+      ?.trim() ||
+    "?";
+
+  const typeLines =
+    document.getElementById("rankType")
+      ?.innerText
+      ?.split("\n")
+      ?.map(x => x.trim())
+      ?.filter(Boolean) ||
+    [];
+
+  const typeName =
+    typeLines[0] ||
+    "未来タイプ";
+
+  const typeDescription =
+    typeLines[1] ||
+    "選択次第で未来が変わるタイプ";
+
+  const hint =
+    document.querySelector(
+      "#rankType .futureHint"
+    )
+      ?.textContent
+      ?.trim() ||
+    "未来はまだ変えられる";
+
+  const resultText =
+    document.getElementById("resultText")
+      ?.innerText ||
+    "";
+
+  const excerpt =
+    makeShareExcerpt(resultText);
+
+  const money =
+    document.getElementById("moneyScore")
+      ?.textContent ||
+    "--%";
+
+  const love =
+    document.getElementById("loveScore")
+      ?.textContent ||
+    "--%";
+
+  const viral =
+    document.getElementById("viralScore")
+      ?.textContent ||
+    "--%";
+
+  const ghost =
+    document.getElementById("ghostScore")
+      ?.textContent ||
+    "--%";
+
+  const photo =
+    document.getElementById("sharePhoto");
+
+  const isPhoto =
+    genre === "photoGhost" &&
+    photo?.src;
+
+  const imageSrc =
+    isPhoto
+      ? photo.src
+      : "/mirai.png";
 
   const card =
-    document.getElementById("resultCard");
+    document.createElement("div");
 
-  if(!card){
-    alert("診断カードが見つかりません");
-    return;
+  card.className =
+    "socialShareCapture";
+
+  card.innerHTML = `
+    <div class="socialShareTop">
+      <div class="socialShareBrand">
+        🔮 ミライの未来診断
+      </div>
+
+      <div class="socialShareGenre">
+        ${escapeShareHtml(genreText)}
+      </div>
+    </div>
+
+    <div class="socialShareHero">
+      <img
+        class="socialShareImage ${isPhoto ? "" : "mirai"}"
+        src="${escapeShareHtml(imageSrc)}"
+        alt=""
+      >
+
+      <div class="socialShareMain">
+        <div class="socialShareRankLabel">
+          未来ランク
+        </div>
+
+        <div class="socialShareRank">
+          ${escapeShareHtml(rank)}
+        </div>
+
+        <div class="socialShareTitle">
+          ${escapeShareHtml(title)}
+        </div>
+      </div>
+    </div>
+
+    <div class="socialShareType">
+      <strong>
+        ${escapeShareHtml(typeName)}
+      </strong>
+
+      <span>
+        ${escapeShareHtml(typeDescription)}
+      </span>
+    </div>
+
+    <div class="socialShareHint">
+      ${escapeShareHtml(hint)}
+    </div>
+
+    <div class="socialShareStats">
+      <div class="socialShareStat">
+        <span>💰 金運</span>
+        <strong>${escapeShareHtml(money)}</strong>
+      </div>
+
+      <div class="socialShareStat">
+        <span>❤️ 恋愛</span>
+        <strong>${escapeShareHtml(love)}</strong>
+      </div>
+
+      <div class="socialShareStat">
+        <span>📈 バズ</span>
+        <strong>${escapeShareHtml(viral)}</strong>
+      </div>
+
+      <div class="socialShareStat">
+        <span>👻 怪異</span>
+        <strong>${escapeShareHtml(ghost)}</strong>
+      </div>
+    </div>
+
+    <div class="socialShareExcerpt">
+      ${escapeShareHtml(excerpt)}
+    </div>
+
+    <div class="socialShareFooter">
+      <strong>
+        あなたも診断してみる？
+      </strong>
+
+      <span>
+        ai-future-maker.vercel.app
+      </span>
+    </div>
+  `;
+
+  document.body.appendChild(card);
+
+  return card;
+}
+
+function buildSocialCaption(){
+
+  const rank =
+    document.getElementById("rankText")
+      ?.textContent
+      ?.trim() ||
+    "?";
+
+  const typeName =
+    document.getElementById("rankType")
+      ?.innerText
+      ?.split("\n")
+      ?.map(x => x.trim())
+      ?.filter(Boolean)?.[0] ||
+    "未来タイプ";
+
+  const hint =
+    document.querySelector(
+      "#rankType .futureHint"
+    )
+      ?.textContent
+      ?.trim() ||
+    "未来はまだ変えられる";
+
+  const startText =
+    genre === "photoGhost"
+      ? "この写真をAI怪異診断したら…"
+      : "AI未来診断をしてみたら…";
+
+  return (
+    startText +
+    "\n\n" +
+    "「" + hint + "」" +
+    "\n\n" +
+    "未来ランク：" + rank +
+    "\n" +
+    typeName +
+    "\n\n" +
+    "あなたもやってみて👇" +
+    "\n" +
+    window.location.origin +
+    "\n\n" +
+    "#AI未来予想メーカー"
+  );
+}
+
+async function shareCard(){
+
+  let shareCardElement;
+
+  try{
+
+    shareCardElement =
+      buildSocialShareCard();
+
+    if(document.fonts?.ready){
+      await document.fonts.ready;
+    }
+
+    const image =
+      shareCardElement.querySelector("img");
+
+    if(image && !image.complete){
+
+      await new Promise(resolve => {
+
+        image.onload = resolve;
+        image.onerror = resolve;
+
+      });
+
+    }
+
+    const canvas =
+      await html2canvas(
+        shareCardElement,
+        {
+          backgroundColor:null,
+          scale:2,
+          useCORS:true,
+          width:540,
+          height:675
+        }
+      );
+
+    const blob =
+      await new Promise(
+        (resolve,reject) => {
+
+          canvas.toBlob(
+            value => {
+              if(value){
+                resolve(value);
+              }else{
+                reject(
+                  new Error(
+                    "画像を生成できませんでした"
+                  )
+                );
+              }
+            },
+            "image/png"
+          );
+
+        }
+      );
+
+    const file =
+      new File(
+        [blob],
+        "mirai-sns-result.png",
+        {
+          type:"image/png"
+        }
+      );
+
+    const caption =
+      buildSocialCaption();
+
+    if(
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({
+        files:[file]
+      })
+    ){
+
+      await navigator.share({
+        title:"AI未来予想メーカー",
+        text:caption,
+        files:[file]
+      });
+
+    }else{
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+      link.download =
+        "mirai-sns-result.png";
+
+      link.click();
+
+      setTimeout(()=>{
+        URL.revokeObjectURL(url);
+      },1000);
+
+      try{
+        await navigator.clipboard.writeText(
+          caption
+        );
+
+        alert(
+          "画像を保存し、投稿文もコピーしました"
+        );
+
+      }catch(e){
+
+        alert(
+          "SNS投稿用画像を保存しました"
+        );
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "SNS投稿用画像の作成に失敗しました"
+    );
+
+  }finally{
+
+    if(shareCardElement){
+      shareCardElement.remove();
+    }
+
   }
+}
 
   if(typeof html2canvas === "undefined"){
     alert("画像保存機能の読み込みに失敗しました。ページを再読み込みしてください。");
