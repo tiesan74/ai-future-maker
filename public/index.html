@@ -2497,7 +2497,9 @@ body.miraiCompact .oracleEffect{
 
       </div>
 
-      <button id="generateBtn" onclick="generate()">AIで診断する</button>
+<button id="generateBtn" onclick="generate()">
+  🔮 この内容で3年後の未来を診断する
+</button>
 
     <button type="button" class="secondary" onclick="toggleAdvanced()">
       ⚙️ 詳細設定
@@ -2978,7 +2980,7 @@ function setGenre(g){
 
   if(generateBtn){
     const btnTextMap = {
-      future:"🔮 この未来を診断してもらう",
+      future:"🔮 この内容で3年後の未来を診断する",
       forbidden:"🚫 この内容で禁断の未来を見る",
       photoGhost:"📸 この写真を診断してもらう",
       enemy:"💔 この内容で裏切る人を探す",
@@ -3292,11 +3294,26 @@ function renderHistory(){
 
       renderResult(h);
 
-      document
-        .getElementById("resultCard")
-        .scrollIntoView({
-          behavior:"smooth"
-        });
+     setTimeout(()=>{
+
+  const retryBtn =
+    document.querySelector(".retryBtn");
+
+  if(retryBtn){
+    retryBtn.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  }else{
+    document
+      .getElementById("resultCard")
+      ?.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+  }
+
+},250);
 
     };
 
@@ -4962,7 +4979,7 @@ document.addEventListener(
 
     if(generateBtn){
       generateBtn.textContent =
-        "🔮 3年後の未来を診断する";
+       "🔮 この内容で3年後の未来を診断する";
     }
 
   }
