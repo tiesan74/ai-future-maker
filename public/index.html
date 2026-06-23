@@ -2785,6 +2785,200 @@ body.miraiCompact .oracleEffect{
   font-size:11px;
   font-weight:800;
 }
+
+.storyShareCapture{
+  position:fixed;
+  left:-10000px;
+  top:0;
+
+  width:540px;
+  height:960px;
+  padding:34px 30px;
+
+  overflow:hidden;
+  box-sizing:border-box;
+
+  color:#fff;
+  font-family:system-ui,"Noto Sans JP",sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(255,228,122,.28),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 100% 22%,
+      rgba(255,116,212,.34),
+      transparent 38%
+    ),
+    linear-gradient(
+      170deg,
+      #3c1764,
+      #160725 52%,
+      #050109
+    );
+}
+
+.storyShareBrand{
+  text-align:center;
+
+  color:#ffe47a;
+  font-size:18px;
+  font-weight:1000;
+}
+
+.storyShareQuestion{
+  margin-top:20px;
+
+  text-align:center;
+
+  color:#fff;
+  font-size:31px;
+  line-height:1.35;
+  font-weight:1000;
+
+  text-shadow:
+    0 0 24px rgba(255,116,212,.45);
+}
+
+.storyShareVisual{
+  width:280px;
+  height:280px;
+
+  display:block;
+
+  margin:24px auto 0;
+
+  object-fit:cover;
+  object-position:center top;
+
+  border-radius:28px;
+
+  background:rgba(0,0,0,.30);
+
+  border:3px solid rgba(255,228,122,.60);
+
+  box-shadow:
+    0 0 36px rgba(255,116,212,.48);
+}
+
+.storyShareVisual.mirai{
+  border-radius:50%;
+}
+
+.storyShareResult{
+  margin-top:22px;
+  padding:20px;
+
+  border-radius:26px;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255,228,122,.23),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255,116,212,.22),
+      rgba(122,215,255,.12)
+    );
+
+  border:
+    2px solid rgba(255,255,255,.18);
+
+  box-shadow:
+    0 0 28px rgba(255,116,212,.20);
+}
+
+.storyShareRankLabel{
+  color:#d8c8eb;
+  font-size:13px;
+  font-weight:900;
+}
+
+.storyShareRank{
+  margin-top:2px;
+
+  color:#ffe47a;
+  font-size:56px;
+  line-height:1;
+  font-weight:1000;
+}
+
+.storyShareType{
+  margin-top:12px;
+
+  color:#fff;
+  font-size:28px;
+  line-height:1.35;
+  font-weight:1000;
+}
+
+.storyShareHint{
+  margin-top:15px;
+  padding:14px;
+
+  border-radius:18px;
+
+  color:#ffe47a;
+  font-size:21px;
+  line-height:1.45;
+  font-weight:1000;
+
+  background:rgba(255,228,122,.10);
+  border:1px solid rgba(255,228,122,.34);
+}
+
+.storyShareExcerpt{
+  display:-webkit-box;
+
+  margin-top:18px;
+  padding:17px 19px;
+
+  overflow:hidden;
+  -webkit-line-clamp:4;
+  -webkit-box-orient:vertical;
+
+  border-radius:20px;
+
+  color:#fff;
+  font-size:17px;
+  line-height:1.75;
+  font-weight:750;
+  text-align:left;
+
+  background:rgba(0,0,0,.28);
+
+  border-left:
+    5px solid #ffe47a;
+}
+
+.storyShareCta{
+  margin-top:19px;
+
+  text-align:center;
+}
+
+.storyShareCta strong{
+  display:block;
+
+  color:#fff;
+  font-size:22px;
+  font-weight:1000;
+}
+
+.storyShareCta span{
+  display:block;
+  margin-top:7px;
+
+  color:#ffe47a;
+  font-size:14px;
+  font-weight:900;
+}
   
 </style><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script></head><body>
 <div class="overlay" id="loadingOverlay"><div class="crystalWrap"><div class="crystal">
@@ -3089,6 +3283,12 @@ body.miraiCompact .oracleEffect{
   <span>📸</span>
   <strong>SNS投稿用画像を作る</strong>
   <small>X・Instagram・LINE向け</small>
+</button>
+
+  <button class="resultActionSub" onclick="shareStoryCard()">
+  <span>📱</span>
+  <strong>縦型の投稿画像を作る</strong>
+  <small>TikTok・ストーリー用 9:16</small>
 </button>
 
   <button class="resultActionSub" onclick="retrySameDiagnosis()">
@@ -6012,6 +6212,280 @@ document.addEventListener(
   }
 
 });
+
+  function buildStoryShareCard(){
+
+  const genreText =
+    document.getElementById("cardGenre")
+      ?.textContent
+      ?.trim() ||
+    labels[genre] ||
+    "未来診断";
+
+  const title =
+    document.getElementById("cardTitle")
+      ?.textContent
+      ?.trim() ||
+    "あなたの未来を診断";
+
+  const rank =
+    document.getElementById("rankText")
+      ?.textContent
+      ?.trim() ||
+    "?";
+
+  const typeLines =
+    document.getElementById("rankType")
+      ?.innerText
+      ?.split("\n")
+      ?.map(text => text.trim())
+      ?.filter(Boolean) ||
+    [];
+
+  const typeName =
+    typeLines[0] ||
+    "未来タイプ";
+
+  const hint =
+    document.querySelector(
+      "#rankType .futureHint"
+    )
+      ?.textContent
+      ?.trim() ||
+    "未来はまだ変えられる";
+
+  const resultText =
+    document.getElementById("resultText")
+      ?.innerText ||
+    "";
+
+  const excerpt =
+    makeShareExcerpt(resultText)
+      .slice(0,150);
+
+  const photo =
+    document.getElementById("sharePhoto");
+
+  const isPhoto =
+    genre === "photoGhost" &&
+    Boolean(photo?.src);
+
+  const imageSrc =
+    isPhoto
+      ? photo.src
+      : "/mirai.png";
+
+  const question =
+    genre === "photoGhost"
+      ? "この写真、何か写ってる？"
+      : genre === "enemy"
+        ? "あなたを裏切る人は誰？"
+        : genre === "forbidden"
+          ? "知らない方がよかった未来"
+          : "あなたの3年後はどうなる？";
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "storyShareCapture";
+
+  card.innerHTML = `
+    <div class="storyShareBrand">
+      🔮 ミライの未来診断
+    </div>
+
+    <div class="storyShareQuestion">
+      ${escapeShareHtml(question)}
+    </div>
+
+    <img
+      class="storyShareVisual ${isPhoto ? "" : "mirai"}"
+      src="${escapeShareHtml(imageSrc)}"
+      alt=""
+    >
+
+    <div class="storyShareResult">
+      <div class="storyShareRankLabel">
+        ${escapeShareHtml(genreText)}・未来ランク
+      </div>
+
+      <div class="storyShareRank">
+        ${escapeShareHtml(rank)}
+      </div>
+
+      <div class="storyShareType">
+        ${escapeShareHtml(typeName)}
+      </div>
+
+      <div class="storyShareHint">
+        ${escapeShareHtml(hint)}
+      </div>
+    </div>
+
+    <div class="storyShareExcerpt">
+      ${escapeShareHtml(excerpt)}
+    </div>
+
+    <div class="storyShareCta">
+      <strong>
+        あなたも診断してみる？
+      </strong>
+
+      <span>
+        ai-future-maker.vercel.app
+      </span>
+    </div>
+  `;
+
+  document.body.appendChild(card);
+
+  return card;
+}
+
+async function shareStoryCard(){
+
+  let cardElement;
+
+  try{
+
+    cardElement =
+      buildStoryShareCard();
+
+    if(document.fonts?.ready){
+      await document.fonts.ready;
+    }
+
+    const image =
+      cardElement.querySelector("img");
+
+    if(image && !image.complete){
+
+      await new Promise(resolve => {
+
+        image.onload = resolve;
+        image.onerror = resolve;
+
+      });
+
+    }
+
+    const canvas =
+      await html2canvas(
+        cardElement,
+        {
+          backgroundColor:null,
+          scale:2,
+          useCORS:true,
+          width:540,
+          height:960
+        }
+      );
+
+    const blob =
+      await new Promise(
+        (resolve,reject) => {
+
+          canvas.toBlob(
+            value => {
+
+              if(value){
+                resolve(value);
+              }else{
+                reject(
+                  new Error(
+                    "縦型画像を生成できませんでした"
+                  )
+                );
+              }
+
+            },
+            "image/png"
+          );
+
+        }
+      );
+
+    const file =
+      new File(
+        [blob],
+        "mirai-story-9x16.png",
+        {
+          type:"image/png"
+        }
+      );
+
+    const caption =
+      buildSocialCaption();
+
+    if(
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({
+        files:[file]
+      })
+    ){
+
+      await navigator.share({
+        title:"AI未来予想メーカー",
+        text:caption,
+        files:[file]
+      });
+
+    }else{
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+      link.download =
+        "mirai-story-9x16.png";
+
+      link.click();
+
+      setTimeout(()=>{
+        URL.revokeObjectURL(url);
+      },1000);
+
+      try{
+
+        await navigator.clipboard.writeText(
+          caption
+        );
+
+        alert(
+          "縦型画像を保存し、投稿文もコピーしました"
+        );
+
+      }catch(error){
+
+        alert(
+          "TikTok・ストーリー用画像を保存しました"
+        );
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "縦型投稿画像の作成に失敗しました"
+    );
+
+  }finally{
+
+    if(cardElement){
+      cardElement.remove();
+    }
+
+  }
+}
   
 </script>
   <div
