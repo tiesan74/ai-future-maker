@@ -3131,7 +3131,7 @@ function setGenre(g){
     }
   }
 
-
+updatePhotoGenerateState();
   
 }
 
@@ -4087,6 +4087,16 @@ setTimeout(()=>{
 }
   
   async function generate(){
+
+if(
+  genre === "photoGhost" &&
+  !document.getElementById("photoInput")?.files?.length
+){
+  alert("先に診断する写真を選んでください");
+  updatePhotoGenerateState();
+  return;
+}
+    
   const btn = document.getElementById("generateBtn");
   const overlay = document.getElementById("loadingOverlay");
 
@@ -4654,6 +4664,32 @@ function shareCard(){
 }
 function randomFill(){const names=["かいせい","みさき","レン","あおい","ユウタ","りお"];const worries=["大金持ちになりたい","TikTokでバズりたい","恋愛で成功したい","人生を変えたい","不労所得を作りたい","自分に向いてる道を知りたい"];document.getElementById("name").value=names[Math.floor(Math.random()*names.length)];document.getElementById("age").value=18+Math.floor(Math.random()*25);document.getElementById("worry").value=worries[Math.floor(Math.random()*worries.length)];}
 
+function updatePhotoGenerateState(){
+
+  const btn =
+    document.getElementById("generateBtn");
+
+  const photoInput =
+    document.getElementById("photoInput");
+
+  if(!btn) return;
+
+  if(genre !== "photoGhost"){
+    btn.disabled = false;
+    return;
+  }
+
+  const hasPhoto =
+    Boolean(photoInput?.files?.length);
+
+  btn.disabled = !hasPhoto;
+
+  btn.textContent =
+    hasPhoto
+      ? "👁 この写真を診断してもらう"
+      : "📸 写真を選ぶと診断できます";
+}
+  
 function resetPhoto(){
   const photoInput = document.getElementById("photoInput");
   const preview = document.getElementById("photoPreview");
@@ -4668,8 +4704,7 @@ function resetPhoto(){
   if(ghostMeter) ghostMeter.style.display = "none";
   if(changeBtn) changeBtn.style.display = "none";
 
-  const btn = document.getElementById("generateBtn");
-  if(btn) btn.textContent = "AIで診断する";
+ updatePhotoGenerateState();
 
   const bubble = document.querySelector(".oracleBubble");
   if(bubble){
@@ -4751,10 +4786,12 @@ function renderDailyGhostLevel(){
 
 if(photoInput){
   photoInput.addEventListener("change",()=>{
-    const file = photoInput.files[0];
-    const preview = document.getElementById("photoPreview");
+const file = photoInput.files[0];
+const preview = document.getElementById("photoPreview");
 
-    if(!file || !preview) return;
+updatePhotoGenerateState();
+
+if(!file || !preview) return;
 
     preview.src = URL.createObjectURL(file);
     preview.style.display = "block";
@@ -4884,7 +4921,6 @@ document.addEventListener(
           return;
         }
 
-        /* タップした時は一時的に大きく戻す */
         document.body.classList.remove(
           "miraiCompact"
         );
