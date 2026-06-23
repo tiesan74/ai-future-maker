@@ -3762,10 +3762,99 @@ const seed =
   (scores.viral * 7) +
   (scores.ghost * 11);
 
-const type =
-  allTypes[seed % allTypes.length];
+/* ジャンルごとに相性の良いタイプを出やすくする
+   同じ番号を複数入れるほど出現率が上がる */
+const genreTypePools = {
 
-  const typeName =
+  money:[
+    0, 0, 0, // 億狙い型
+    8,       // 隠れ天才型
+    7,       // 未来改変型
+    6        // 危機回避型
+  ],
+
+  love:[
+    1, 1, 1, // 恋愛支配型
+    5,       // 裏切り察知型
+    7,       // 未来改変型
+    6        // 危機回避型
+  ],
+
+  viral:[
+    2, 2, 2, // バズ暴走型
+    8,       // 隠れ天才型
+    7,       // 未来改変型
+    0        // 億狙い型
+  ],
+
+  ghost:[
+    3, 3, 3, // 怪異吸引体質
+    9,       // 闇コレクター型
+    6,       // 危機回避型
+    7        // 未来改変型
+  ],
+
+  photoGhost:[
+    3, 3,    // 怪異吸引体質
+    6, 6,    // 危機回避型
+    9,       // 闇コレクター型
+    7        // 未来改変型
+  ],
+
+  forbidden:[
+    4, 4, 4, // 禁断好奇心型
+    9,       // 闇コレクター型
+    5,       // 裏切り察知型
+    6        // 危機回避型
+  ],
+
+  enemy:[
+    5, 5, 5, // 裏切り察知型
+    6,       // 危機回避型
+    9,       // 闇コレクター型
+    7        // 未来改変型
+  ],
+
+  deathflag:[
+    6, 6, 6, // 危機回避型
+    7,       // 未来改変型
+    5,       // 裏切り察知型
+    9        // 闇コレクター型
+  ],
+
+  shadow:[
+    9, 9, 9, // 闇コレクター型
+    8,       // 隠れ天才型
+    5,       // 裏切り察知型
+    4        // 禁断好奇心型
+  ]
+
+};
+
+/* future・dailyなどは全タイプから選ぶ */
+const defaultPool =
+  allTypes.map((_, index) => index);
+
+const typePool =
+  genreTypePools[genre] || defaultPool;
+
+/* ジャンル名も計算に加え、同じスコアでも結果を変える */
+const genreSeed =
+  [...genre].reduce(
+    (total, char) =>
+      total + char.charCodeAt(0),
+    0
+  );
+
+const typeIndex =
+  typePool[
+    (seed + genreSeed) % typePool.length
+  ];
+
+const type =
+  allTypes[typeIndex];
+
+const typeName =
   type[1];
 
 const typeBook =
