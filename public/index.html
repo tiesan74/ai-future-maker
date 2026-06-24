@@ -4816,6 +4816,104 @@ setTimeout(()=>{
 
   });
 }
+
+async function requestGenerateWithRetry(payload){
+
+const retryStatuses =
+[429,500,502,503,504];
+
+const maxAttempts = 3;
+
+let lastError =
+new Error("通信に失敗しました");
+
+for(
+let attempt = 1;
+attempt <= maxAttempts;
+attempt++
+){
+
+```
+const controller =
+  new AbortController();
+
+const timeoutId =
+  setTimeout(()=>{
+    controller.abort();
+  },55000);
+
+try{
+
+  const res =
+    await fetch("/api/generate", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(payload),
+      signal:controller.signal
+    });
+
+  const shouldRetry =
+    retryStatuses.includes(res.status);
+
+  if(
+    !shouldRetry ||
+    attempt === maxAttempts
+  ){
+    return res;
+  }
+
+}catch(error){
+
+  if(error.name === "AbortError"){
+    throw new Error(
+      "写真診断に時間がかかりすぎました。もう一度お試しください。"
+    );
+  }
+
+  lastError = error;
+
+  if(attempt === maxAttempts){
+    throw error;
+  }
+
+}finally{
+
+  clearTimeout(timeoutId);
+
+}
+
+const loadingText =
+  document.querySelector(".loadingText");
+
+const loadingSteps =
+  document.getElementById("loadingSteps");
+
+if(loadingText){
+  loadingText.textContent =
+    `AIへ再接続中… ${attempt}/${maxAttempts - 1}`;
+}
+
+if(loadingSteps){
+  loadingSteps.textContent =
+    "通信をやり直しています";
+}
+
+await new Promise(resolve =>
+  setTimeout(
+    resolve,
+    1500 * attempt
+  )
+);
+```
+
+}
+
+throw lastError;
+}
+
+  
   
   async function generate(){
 
