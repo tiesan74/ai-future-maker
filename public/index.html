@@ -4710,18 +4710,110 @@ setTimeout(()=>{
 
 }
   
-  function fileToBase64(file){
+ function fileToBase64(file){
+
   return new Promise((resolve,reject)=>{
-    const reader = new FileReader();
+
+    const reader =
+      new FileReader();
 
     reader.onload = ()=>{
-      const result = reader.result;
-      const base64 = String(result).split(",")[1];
-      resolve(base64);
+
+      const image =
+        new Image();
+
+      image.onload = ()=>{
+
+        const maxSize = 1280;
+
+        let width =
+          image.naturalWidth;
+
+        let height =
+          image.naturalHeight;
+
+        if(width > height && width > maxSize){
+
+          height =
+            Math.round(
+              height * maxSize / width
+            );
+
+          width = maxSize;
+
+        }else if(height > maxSize){
+
+          width =
+            Math.round(
+              width * maxSize / height
+            );
+
+          height = maxSize;
+
+        }
+
+        const canvas =
+          document.createElement("canvas");
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const context =
+          canvas.getContext("2d");
+
+        if(!context){
+          reject(
+            new Error(
+              "写真の圧縮に失敗しました"
+            )
+          );
+          return;
+        }
+
+        context.drawImage(
+          image,
+          0,
+          0,
+          width,
+          height
+        );
+
+        const compressed =
+          canvas.toDataURL(
+            "image/jpeg",
+            0.78
+          );
+
+        const base64 =
+          compressed.split(",")[1];
+
+        resolve(base64);
+
+      };
+
+      image.onerror = ()=>{
+        reject(
+          new Error(
+            "写真を読み込めませんでした"
+          )
+        );
+      };
+
+      image.src =
+        String(reader.result);
+
     };
 
-    reader.onerror = reject;
+    reader.onerror = ()=>{
+      reject(
+        new Error(
+          "写真の読み込みに失敗しました"
+        )
+      );
+    };
+
     reader.readAsDataURL(file);
+
   });
 }
   
@@ -4924,8 +5016,11 @@ let photoBase64 = null;
 let photoMimeType = null;
 
 if(genre === "photoGhost" && photoFile){
-  photoBase64 = await fileToBase64(photoFile);
-  photoMimeType = photoFile.type || "image/jpeg";
+  photoBase64 =
+    await fileToBase64(photoFile);
+
+  photoMimeType =
+    "image/jpeg";
 }
   
  const payload = {
@@ -4941,16 +5036,38 @@ if(genre === "photoGhost" && photoFile){
 };
 
   try {
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(payload)
-    });
+    const controller =
+  new AbortController();
+
+const timeoutId =
+  setTimeout(()=>{
+    controller.abort();
+  },60000);
+
+let res;
+
+try{
+
+  res = await fetch("/api/generate", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(payload),
+    signal:controller.signal
+  });
+
+}finally{
+
+  clearTimeout(timeoutId);
+
+}
 
     let data;
     try {
       data = await res.json();
     } catch {
+      
       throw new Error("一時的な通信エラーです。もう一度診断してください。");
     }
 
@@ -5051,6 +5168,12 @@ if(typeof updateMiraiLevel === "function"){
     document.getElementById("resultCard").scrollIntoView({behavior:"smooth"});
 
 } catch(e) {
+
+    if(e.name === "AbortError"){
+  e = new Error(
+    "写真診断に時間がかかりすぎました。写真を小さくして、もう一度お試しください。"
+  );
+}
 
     console.error("診断後に発生したエラー:", e);
 
